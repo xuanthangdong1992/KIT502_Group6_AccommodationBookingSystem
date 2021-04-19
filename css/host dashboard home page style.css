@@ -1,0 +1,167 @@
+body{
+    background-color:rgb(223, 221, 221);  /* background color of the body */
+}
+
+h1{
+    text-align: center; /* place h1 to center */
+    color: rgb(0, 0, 0); /* h1's color */
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+h3{
+    text-align: left; /* place h3 to left */
+    color: rgb(122, 42, 42); /* h3's color */
+    display: flex;
+    justify-content: center; 
+}
+
+
+#container{
+    text-align: left;
+    text-decoration: brown;
+    display: flex;
+    justify-content: center;
+}
+ /* Grid layout: three columns */
+
+.panel{
+    display:grid;
+    grid-template-columns:30% 50% 20%; /*left middle right*/
+    grid-template-rows: auto auto auto;
+
+    grid-row-gap: 20px;
+
+    grid-template-areas:
+    "create"
+    "acc1 infor1 button"
+    "acc2 infor2 button"
+    "acc3 infor3 button"
+    ;
+
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px 25px;
+    width: 80%;
+    flex-direction: column;
+    text-align: center; /* Place text to the center */
+    text-transform: uppercase; /* transform text into upperclass */
+  }
+
+/* the 'create a new one' button */
+.create {
+  grid-column: span 3;
+  position: relative; 
+  border: none;
+  justify-content: left;
+  text-align: left; 
+  height: 100px;
+}
+
+#row1{
+  grid-column: span 3;
+  display:grid;
+  grid-template-columns:30% 50% 20%; /*left middle right*/
+  grid-template-rows: auto auto auto;
+}
+#row2{
+  grid-column: span 3;
+  display:grid;
+  grid-template-columns:30% 50% 20%; /*left middle right*/
+  grid-template-rows: auto auto auto;
+}
+#row3{
+  grid-column: span 3;
+  display:grid;
+  grid-template-columns:30% 50% 20%; /*left middle right*/
+  grid-template-rows: auto auto auto;
+}
+  /* Accommodation 1 style: left column */
+  .acc1{
+    justify-self:flex;
+    background-color: white;
+    border: 1px solid lightgray;
+    font-size: 12px;
+    text-align: left;
+    padding: 1em;
+    color: rgb(88, 88, 88);
+  }
+
+  /* Accommodation 1 image style*/
+  .acc1>img{
+    object-fit: contain;
+    height: auto;
+    width: auto;
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  /* Accommodation 2 style: left column */
+  .acc2{
+    background-color: white;
+    border: 1px solid lightgray;
+    font-size: 12px;
+    text-align: left;
+    padding: 1em;
+    color: rgb(88, 88, 88);
+  }
+  /* Accommodation 2 image style*/
+  .acc2>img{
+      object-fit: contain;
+      height: auto;
+      width: auto;
+      max-width: 100%;
+      max-height: 100%;
+  }
+
+  /* Accommodation 3 style: left column */
+  .acc3{
+    background-color: white;
+    border: 1px solid lightgray;
+    font-size: 12px;
+    text-align: left;
+    padding: 1em;
+    color: rgb(88, 88, 88);
+
+  }
+  /* Accommodation 3 image style*/
+  .acc3>img{
+    object-fit: contain;
+    height: auto;
+    width: auto;
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  /* Accommodation information style: middle column */
+  .infor{
+    background-color: white;
+    border: 1px solid lightgray;
+    font-size: 12px;
+    text-align: left;
+    padding: 1em;
+    color: rgb(88, 88, 88);
+  }
+
+  /* Accommodation information style: right column */
+  .button{
+    background-color: white;
+    border: 1px solid lightgray;
+    font-size: 12px;
+    text-align: left;
+    padding: 1em;
+    color: rgb(88, 88, 88);
+  }
+
+  /* rating style */
+  .rate{
+    grid-column: span 3;
+    background-color: white;
+    border: 1px solid lightgray;
+    font-size: 12px;
+    text-align: left;
+    padding: 1em;
+    color: rgb(88, 88, 88);
+  }
