@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$databasename = "group_accommodation_assignment";
+$databasename = "group6_accommodation_assignment";
 // Create connection
 $conn = new mysqli($servername, $username, $password, $databasename);
 
