@@ -106,7 +106,7 @@
 
     <!-- accommodation - 1 -->
     <div class="gap"></div>
-    <a class="nav-link" href="accommodation-details.html">
+    <a class="nav-link" href="accommodation-details.php">
       <div class="list-accommodation">
         <!-- Left-aligned media object -->
         <div class="media">
@@ -128,7 +128,7 @@
 
     <!-- accommodation - 2 -->
     <div class="gap"></div>
-    <a class="nav-link" href="accommodation-details.html">
+    <a class="nav-link" href="accommodation-details.php">
       <div class="list-accommodation">
         <!-- Left-aligned media object -->
         <div class="media">
@@ -150,7 +150,7 @@
 
     <!-- accommodation - 3 -->
     <div class="gap"></div>
-    <a class="nav-link" href="accommodation-details.html">
+    <a class="nav-link" href="accommodation-details.php">
       <div class="list-accommodation">
         <!-- Left-aligned media object -->
         <div class="media">
@@ -172,7 +172,7 @@
 
     <!-- accommodation - 4 -->
     <div class="gap"></div>
-    <a class="nav-link" href="accommodation-details.html">
+    <a class="nav-link" href="accommodation-details.php">
       <div class="list-accommodation">
         <!-- Left-aligned media object -->
         <div class="media">
@@ -194,7 +194,7 @@
 
     <!-- accommodation - 5 -->
     <div class="gap"></div>
-    <a class="nav-link" href="accommodation-details.html">
+    <a class="nav-link" href="accommodation-details.php">
       <div class="list-accommodation">
         <!-- Left-aligned media object -->
         <div class="media">

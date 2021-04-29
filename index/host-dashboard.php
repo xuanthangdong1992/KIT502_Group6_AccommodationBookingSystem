@@ -98,7 +98,7 @@ include('session.php');
                 <div class="card-body align-items-center mb-3">
                     <h3 class="font-normal">Booking Management Dashboard</h3>
                     <!--When click on the button, the page will jump to User Management Dashboard-->
-                    <a href="host-dashboard-booking.html" button class="btn btn-success btn-rounded waves-effect waves-light mt-3">Booking Management</a>
+                    <a href="host-dashboard-booking.php" button class="btn btn-success btn-rounded waves-effect waves-light mt-3">Booking Management</a>
                 </div>
             </div>
         </div>
@@ -109,7 +109,7 @@ include('session.php');
                 <div class="card-body align-items-center mb-3">
                     <h3 class="font-normal">Accomdation Management Dashboard</h3>
                     <!--When click on the button, the page will jump to User Management Dashboard-->
-                    <a href="host-dashboard-accommodation.html" button class="btn btn-success btn-rounded waves-effect waves-light mt-3">Manage Accommodations Here</a>
+                    <a href="host-dashboard-accommodation.php" button class="btn btn-success btn-rounded waves-effect waves-light mt-3">Manage Accommodations Here</a>
                 </div>
             </div>
         </div>

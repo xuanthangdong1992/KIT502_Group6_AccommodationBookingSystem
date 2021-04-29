@@ -125,7 +125,7 @@ include('session.php');
                 <div class="card-body align-items-center mb-3">
                     <h3 class="font-normal">User Management Dashboard</h3>
                     <!--When click on the button, the page will jump to User Management Dashboard-->
-                    <a href="Manager_Dashboard_User.html" button class="btn btn-success btn-rounded waves-effect waves-light mt-3">User Management</a>
+                    <a href="Manager_Dashboard_User.php" button class="btn btn-success btn-rounded waves-effect waves-light mt-3">User Management</a>
                 </div>
             </div>
         </div>
@@ -136,7 +136,7 @@ include('session.php');
                 <div class="card-body align-items-center mb-3">
                     <h3 class="font-normal">Accomdation Management Dashboard</h3>
                     <!--When click on the button, the page will jump to User Management Dashboard-->
-                    <a href="Manager_Dashboard_Accommodation.html" button class="btn btn-success btn-rounded waves-effect waves-light mt-3">Manage Accommodations Here</a>
+                    <a href="Manager_Dashboard_Accommodation.php" button class="btn btn-success btn-rounded waves-effect waves-light mt-3">Manage Accommodations Here</a>
                 </div>
             </div>
         </div>
