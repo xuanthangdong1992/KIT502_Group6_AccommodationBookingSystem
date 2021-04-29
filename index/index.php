@@ -171,9 +171,9 @@ include('session.php');
 						<div class="form-group required">
 							<div>
 								<label class="label-control">Account Type:</label>
-								<input type="radio" id="host" name="accountType" value="host" />
+								<input type="radio" class="accountType" name="accountType" value="host" />
 								<label for="host">Host</label>
-								<input type="radio" id="client" name="accountType" value="client" checked="checked" />
+								<input type="radio" class="accountType" name="accountType" value="client" checked="checked" />
 								<label for="client">Client</label>
 							</div>
 						</div>
@@ -287,7 +287,7 @@ include('session.php');
 
 			// process form login
 			$(document).ready(function() {
-
+				// validate login form
 				$('form[id="loginForm"]').validate({
 					rules: {
 						loginUsername: 'required',
@@ -298,6 +298,7 @@ include('session.php');
 						loginPass: '<span class="error">This field is required</span>',
 					},
 					submitHandler: function(form) {
+						// use ajax to send request to server
 						var loginUsername = $('#loginUsername').val();
 						var loginPass = $('#loginPass').val();
 						$.ajax({
@@ -307,17 +308,15 @@ include('session.php');
 								loginUsername: loginUsername,
 								loginPass: loginPass
 							},
+							// get success message from server
 							success: function(data) {
 								// if respond from server is "No"
-								if (data == 'No') {
-									alert("Wrong Data");
+								if (data == 'fail') {
+									alert("Wrong user id or password.");
 								} else {
 									$('#loginModal').hide();
 									location.reload();
 								}
-							},
-							error: function(e) {
-								console.log(e.message);
 							}
 						});
 					}
@@ -355,8 +354,11 @@ include('session.php');
 					}
 				});
 			});
-			// validate register form
+
+
+			// process register form
 			$(document).ready(function() {
+				// validate register form
 				$('form[id="registrationForm"]').validate({
 					rules: {
 						username: 'required',
@@ -395,7 +397,66 @@ include('session.php');
 						abnNumber: '<span class="error">This field is required</span>',
 					},
 					submitHandler: function(form) {
-						form.submit();
+						//use ajax to send request to server.
+						// use ajax to send request to server
+						var accountType = $('.accountType:checked').val();
+						var username = $('#username').val();
+						var password = $('#password').val();
+						var firstName = $('#firstName').val();
+						var lastName = $('#lastName').val();
+						var email = $('#email').val();
+						var phoneNumber = $('#phoneNumber').val();
+						var postalAddress = $('#postalAddress').val();
+						var abnNumber = $('#abnNumber').val();
+						
+
+						$.ajax({
+							url: 'registrationProcess.php',
+							method: 'POST',
+							data: {
+								accountType: accountType,
+								username: username,
+								password: password,
+								firstName: firstName,
+								lastName: lastName,
+								email: email,
+								phoneNumber: phoneNumber,
+								postalAddress: postalAddress,
+								abnNumber: abnNumber
+							},
+							// get success message from server
+							success: function(data) {								
+								// if respond from server is "duplicate_user_id"
+								if (data == 'duplicate_user_id') {
+									alert("User id already exists, please enter another user id.");
+								
+								} else 
+								// if respond from server is "duplicate_email"
+								if (data == 'duplicate_email') {
+									alert("The email is already in use by another account. Please enter another email or contact us for help.");
+								
+								} else 
+								// if respond from server is "duplicate_phone_number"
+								if (data == 'duplicate_phone_number') {
+									alert("The phone number is already in use by another account. Please enter another phone number or contact us for help.");
+								
+								} else 
+								// if respond from server is "duplicate_abn_number"
+								if (data == 'duplicate_abn_number') {
+									alert("The ABN number is already in use by another account. Please enter another ABN number or contact us for help.");
+								
+								} else 
+								if (data == 'fail'){
+									alert("Something wrong! Please register again.");
+								}else
+								{
+									alert("Register successful!");
+									$('#registerModal').hide();
+									location.reload();
+								}
+							}
+						});
+
 					}
 				});
 				//password check

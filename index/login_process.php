@@ -8,15 +8,14 @@ if(isset($_POST["loginUsername"])){
     if(mysqli_num_rows($result) > 0)  
       {  
            $_SESSION['loginUsername'] = $_POST['loginUsername'];  
-           echo 'Yes';  
+           echo 'success';  
       }  
       else  
       {  
-           echo 'No';  
+           echo 'fail';  
       }  
 }
 if(isset($_POST["logout"]))  
 {  
      unset($_SESSION["loginUsername"]);  
-} 
-?>
+}
