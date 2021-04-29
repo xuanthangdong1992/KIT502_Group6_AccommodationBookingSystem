@@ -8,4 +8,5 @@ if(!isset($_SESSION['session_user'])){
 }
 //save username in the session 
 $session_user=$_SESSION['session_user'];
+
 ?>
