@@ -66,7 +66,7 @@ include('session.php');
 										</script>";
                                 } else 
 									if ($_SESSION["permission"] == "client") {
-                                    // redirect to host page
+                                    // redirect to client page
                                     echo "<script>
 										alert('Sorry! Your account is not allowed to access this website!');
 										window.location.href='index.php';
