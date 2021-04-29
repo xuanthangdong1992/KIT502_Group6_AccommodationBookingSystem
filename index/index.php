@@ -44,25 +44,41 @@ include('session.php');
 						<div class="collapse navbar-collapse" id="navbarResponsive">
 							<ul class="navbar-nav ml-auto">
 								<li class="nav-item active">
-									<a class="nav-link" href="index.html">Home
+									<a class="nav-link" href="index.php">Home
 										<span class="sr-only">(current)</span>
 									</a>
 								</li>
 								<!-- Display wellcome status when login sucess -->
 								<?php
 								if (isset($_SESSION['loginUsername'])) {
+									// check permission if login account is client
+									if ($_SESSION["permission"] == "client") {
+
 								?>
-									<li class="nav-item">
-										<a class="nav-link" href="">Welcome <?php echo $_SESSION['loginUsername']; ?></a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link" href="" id="logout">Logout</a>
-									</li>
-								<?php
+										<li class="nav-item">
+											<a class="nav-link" href="">Welcome <?php echo $_SESSION['loginUsername']; ?></a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="" id="logout">Logout</a>
+										</li>
+									<?php
+									} else 
+									if ($_SESSION["permission"] == "host") {
+										// redirect to host page
+										echo "<script>
+										alert('Sorry! Your account is not allowed to access this website!');
+										window.location.href='host-dashboard.php';
+										</script>";
+									} else 
+									if ($_SESSION["permission"] == "system_manager") {
+										// redirect to host page
+										echo "<script>
+										alert('Sorry! Your account is not allowed to access this website!');
+										window.location.href='Manager_Dashboard_Home.php';
+										</script>";
+									}
 								} else {
-
-
-								?>
+									?>
 									<li class="nav-item">
 										<a class="nav-link" href="" data-toggle="modal" data-target="#loginModal">Login</a>
 									</li>
@@ -310,13 +326,26 @@ include('session.php');
 							},
 							// get success message from server
 							success: function(data) {
-								// if respond from server is "No"
+								// alert(data);
+								// if respond from server is "fail"
 								if (data == 'fail') {
 									alert("Wrong user id or password.");
-								} else {
-									$('#loginModal').hide();
-									location.reload();
-								}
+								} else
+									// if login account is client
+									if (data == 'client') {
+										$('#loginModal').hide();
+										location.href = "index.php";
+									} else
+										// if login account is host
+										if (data == 'host') {
+											$('#loginModal').hide();
+											location.href = "host-dashboard.php";
+										} else
+											// if login account is system manager
+											if (data == 'system_manager') {
+												$('#loginModal').hide();
+												location.href = "Manager_Dashboard_Home.php";
+											}
 							}
 						});
 					}
@@ -408,7 +437,7 @@ include('session.php');
 						var phoneNumber = $('#phoneNumber').val();
 						var postalAddress = $('#postalAddress').val();
 						var abnNumber = $('#abnNumber').val();
-						
+
 
 						$.ajax({
 							url: 'registrationProcess.php',
@@ -425,31 +454,30 @@ include('session.php');
 								abnNumber: abnNumber
 							},
 							// get success message from server
-							success: function(data) {								
+							success: function(data) {
 								// if respond from server is "duplicate_user_id"
 								if (data == 'duplicate_user_id') {
 									alert("User id already exists, please enter another user id.");
-								
-								} else 
-								// if respond from server is "duplicate_email"
-								if (data == 'duplicate_email') {
-									alert("The email is already in use by another account. Please enter another email or contact us for help.");
-								
-								} else 
-								// if respond from server is "duplicate_phone_number"
-								if (data == 'duplicate_phone_number') {
-									alert("The phone number is already in use by another account. Please enter another phone number or contact us for help.");
-								
-								} else 
-								// if respond from server is "duplicate_abn_number"
-								if (data == 'duplicate_abn_number') {
-									alert("The ABN number is already in use by another account. Please enter another ABN number or contact us for help.");
-								
-								} else 
-								if (data == 'fail'){
+
+								} else
+									// if respond from server is "duplicate_email"
+									if (data == 'duplicate_email') {
+										alert("The email is already in use by another account. Please enter another email or contact us for help.");
+
+									} else
+										// if respond from server is "duplicate_phone_number"
+										if (data == 'duplicate_phone_number') {
+											alert("The phone number is already in use by another account. Please enter another phone number or contact us for help.");
+
+										} else
+											// if respond from server is "duplicate_abn_number"
+											if (data == 'duplicate_abn_number') {
+												alert("The ABN number is already in use by another account. Please enter another ABN number or contact us for help.");
+
+											} else
+								if (data == 'fail') {
 									alert("Something wrong! Please register again.");
-								}else
-								{
+								} else {
 									alert("Register successful!");
 									$('#registerModal').hide();
 									location.reload();

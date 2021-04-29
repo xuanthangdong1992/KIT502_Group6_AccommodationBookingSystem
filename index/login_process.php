@@ -2,20 +2,34 @@
 include('session.php');
 include('db_conn.php');
 
-if(isset($_POST["loginUsername"])){
-    $query = "SELECT * FROM account WHERE user_id = '".$_POST["loginUsername"]."' AND password = '".$_POST["loginPass"]."'";
+if (isset($_POST["loginUsername"])) {
+    $query = "SELECT * FROM account WHERE user_id = '" . $_POST["loginUsername"] . "' AND password = '" . $_POST["loginPass"] . "'";
     $result = mysqli_query($conn, $query);
-    if(mysqli_num_rows($result) > 0)  
-      {  
-           $_SESSION['loginUsername'] = $_POST['loginUsername'];  
-           echo 'success';  
-      }  
-      else  
-      {  
-           echo 'fail';  
-      }  
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_array($result);
+        // phan quyen khi dang nhap
+        $_SESSION['loginUsername'] = $_POST['loginUsername'];
+        //system manager
+        if($row["account_type"] == "system manager"){
+            $_SESSION["permission"] = "system_manager";
+            echo 'system_manager';
+        } else
+        //client
+        if($row["account_type"] == "client"){
+            $_SESSION["permission"] = "client";
+            echo 'client';
+        }else
+        //host
+        if($row["account_type"] == "host") {
+            $_SESSION["permission"] = "host";
+            echo 'host';
+        }
+        
+    } else {
+        echo 'fail';
+    }
 }
-if(isset($_POST["logout"]))  
-{  
-     unset($_SESSION["loginUsername"]);  
+if (isset($_POST["logout"])) {
+    unset($_SESSION["loginUsername"]);
+    unset($_SESSION["permission"]);
 }
