@@ -1,5 +1,9 @@
 <!DOCTYPE html>
+<?php
+include('session.php');
+?>
 <html>
+
 <head>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
@@ -11,13 +15,16 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
 	<title>Accommodation Booking System - Group test</title>
-
-
 </head>
+
 <body>
 	<!-- jQuery and Bootstrap Bundle (includes Popper) -->
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+	<!-- support call ajax -->
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
 	<!-- validation plugin -->
 	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 
@@ -41,12 +48,30 @@
 										<span class="sr-only">(current)</span>
 									</a>
 								</li>
-								<li class="nav-item">
-									<a class="nav-link" href="" data-toggle="modal" data-target="#loginModal">Login</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" href="" data-toggle="modal" data-target="#registerModal">Register</a>
-								</li>
+								<!-- Display wellcome status when login sucess -->
+								<?php
+								if (isset($_SESSION['loginUsername'])) {
+								?>
+									<li class="nav-item">
+										<a class="nav-link" href="">Welcome <?php echo $_SESSION['loginUsername']; ?></a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="" id="logout">Logout</a>
+									</li>
+								<?php
+								} else {
+
+
+								?>
+									<li class="nav-item">
+										<a class="nav-link" href="" data-toggle="modal" data-target="#loginModal">Login</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="" data-toggle="modal" data-target="#registerModal">Register</a>
+									</li>
+								<?php
+								}
+								?>
 							</ul>
 						</div>
 					</div>
@@ -93,8 +118,8 @@
 						</div>
 					</div>
 					<div class="btnSearch">
-						<button type="submit" class="btn btn-primary">Search</button> 
-					</div> 
+						<button type="submit" class="btn btn-primary">Search</button>
+					</div>
 
 				</form>
 			</div>
@@ -112,18 +137,18 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 					<h1>Login</h1>
-					
-					<form id="loginForm" action="" method="post">
+					<form id="loginForm">
+						<!-- <form id="loginForm" action="login_process.php" method="post"> -->
 						<div class="form-group required">
 							<label class="label-control">Username:</label>
-							<input class="form-control" type="text" id="loginUsername" name="loginUsername"/>
+							<input class="form-control" type="text" id="loginUsername" name="loginUsername" />
 						</div>
 						<div class="form-group required">
 							<label class="label-control">Password:</label>
-							<input class="form-control" type="password" id="loginPass" name="loginPass"/>
+							<input class="form-control" type="password" id="loginPass" name="loginPass" />
 						</div>
 						<div class="submit-button">
-							<button type="submit" class="btn btn-primary">Login</button> 
+							<button type="submit" class="btn btn-primary">Login</button>
 						</div>
 					</form>
 				</div>
@@ -142,11 +167,11 @@
 					</button>
 					<h1>Register</h1>
 
-					<form id="registrationForm" action="" method="post">
+					<form id="registrationForm" action="registrationProcess.php" method="post">
 						<div class="form-group required">
 							<div>
 								<label class="label-control">Account Type:</label>
-								<input type="radio" id="host" name="accountType" value="host"/>
+								<input type="radio" id="host" name="accountType" value="host" />
 								<label for="host">Host</label>
 								<input type="radio" id="client" name="accountType" value="client" checked="checked" />
 								<label for="client">Client</label>
@@ -155,44 +180,44 @@
 
 						<div class="form-group required">
 							<label class="label-control">Username:</label>
-							<input class="form-control" type="text" id="username" name="username"/>
+							<input class="form-control" type="text" id="username" name="username" />
 						</div>
 						<div class="form-group required">
 							<label class="label-control">Password:</label>
-							<input class="form-control" type="password" id="password" name="password"/>
+							<input class="form-control" type="password" id="password" name="password" />
 						</div>
 						<div class="form-group required">
 							<label class="label-control">Confirm Password:</label>
-							<input class="form-control" type="password" id="confirmPass" name="confirmPass"/>
+							<input class="form-control" type="password" id="confirmPass" name="confirmPass" />
 						</div>
 
 
 						<div class="form-group required">
 							<label class="label-control">First Name:</label>
-							<input class="form-control" type="text" id="firstName" name="firstName"/>
+							<input class="form-control" type="text" id="firstName" name="firstName" />
 						</div>
 						<div class="form-group required">
 							<label class="label-control">Last Name:</label>
-							<input class="form-control" type="text" id="lastName" name="lastName"/>
+							<input class="form-control" type="text" id="lastName" name="lastName" />
 						</div>
 						<div class="form-group required">
 							<label class="label-control">Email:</label>
-							<input class="form-control" type="text" id="email" name="email"/>
+							<input class="form-control" type="text" id="email" name="email" />
 						</div>
 						<div class="form-group required">
 							<label class="label-control">Phone Number:</label>
-							<input class="form-control" type="text" id="phoneNumber" name="phoneNumber"/>
+							<input class="form-control" type="text" id="phoneNumber" name="phoneNumber" />
 						</div>
 						<div class="form-group required">
 							<label class="label-control">Postal Address:</label>
-							<input class="form-control" type="text" id="postalAddress" name="postalAddress"/>
+							<input class="form-control" type="text" id="postalAddress" name="postalAddress" />
 						</div>
 						<div id="hostOrClient" class="form-group required">
 							<label class="label-control">ABN Number:</label>
-							<input class="form-control" type="text" id="abnNumber" name="abnNumber"/>
+							<input class="form-control" type="text" id="abnNumber" name="abnNumber" />
 						</div>
 						<div class="submit-button">
-							<button type="submit" class="btn btn-primary">Register</button> 
+							<button type="submit" class="btn btn-primary" name="register_button">Register</button>
 						</div>
 					</form>
 				</div>
@@ -201,37 +226,47 @@
 		</div>
 		<!-- End Register Modal -->
 
-	<script type="text/javascript">
-	//validation search form
-	$(document).ready(function() {
-		$('form[id="search-accommodation-form"]').validate({
-			rules: {
-				city: 'required',
-				startDate: 'required',
-				endDate: 'required',
-				numberOfGuest: {
-					digits: true
-				}
-			},
-			messages: {
-				city: '<span class="error">This field is required</span>',
-				startDate: '<span class="error">This field is required</span>',
-				endDate: '<span class="error">This field is required</span>',
-				numberOfGuest: '<span class="error">This field is required</span>'
-			},
-			submitHandler: function(form) {
-				form.submit();
-			}
-		});
-	});
+
+		<script type="text/javascript">
+			<?php if (isset($_POST['btn_register'])) { ?> /* Your (php) way of checking that the form has been submitted */
+
+				$(function() { // On DOM ready
+					$('#registerModal').modal('show'); // Show the modal
+				});
+
+			<?php } ?>
+
+
+			//validation search form
+			$(document).ready(function() {
+				$('form[id="search-accommodation-form"]').validate({
+					rules: {
+						city: 'required',
+						startDate: 'required',
+						endDate: 'required',
+						numberOfGuest: {
+							digits: true
+						}
+					},
+					messages: {
+						city: '<span class="error">This field is required</span>',
+						startDate: '<span class="error">This field is required</span>',
+						endDate: '<span class="error">This field is required</span>',
+						numberOfGuest: '<span class="error">This field is required</span>'
+					},
+					submitHandler: function(form) {
+						form.submit();
+					}
+				});
+			});
 			// validate start date and end date
 			var td = new Date();
 			var mm = td.getMonth() + 1;
 			var dd = td.getDate();
 			var yyyy = td.getFullYear();
-			if(mm < 10)
+			if (mm < 10)
 				mm = '0' + mm.toString();
-			if(dd < 10)
+			if (dd < 10)
 				dd = '0' + dd.toString();
 
 			var minDate = yyyy + '-' + mm + '-' + dd;
@@ -250,7 +285,9 @@
 					sd.max = ed.value;
 			}, false);
 
+			// process form login
 			$(document).ready(function() {
+
 				$('form[id="loginForm"]').validate({
 					rules: {
 						loginUsername: 'required',
@@ -261,79 +298,122 @@
 						loginPass: '<span class="error">This field is required</span>',
 					},
 					submitHandler: function(form) {
-						form.submit();
+						var loginUsername = $('#loginUsername').val();
+						var loginPass = $('#loginPass').val();
+						$.ajax({
+							url: 'login_process.php',
+							method: 'POST',
+							data: {
+								loginUsername: loginUsername,
+								loginPass: loginPass
+							},
+							success: function(data) {
+								// if respond from server is "No"
+								if (data == 'No') {
+									alert("Wrong Data");
+								} else {
+									$('#loginModal').hide();
+									location.reload();
+								}
+							},
+							error: function(e) {
+								console.log(e.message);
+							}
+						});
+					}
+				});
+
+
+			});
+
+
+			$(document).ready(function() {
+				$('#logout').click(function() {
+					var logout = "logout";
+					$.ajax({
+						url: "login_process.php",
+						method: "POST",
+						data: {
+							logout: logout
+						},
+						success: function() {
+							location.reload();
+						}
+					});
+				});
+
+			});
+			//show and hide ABN Number
+			$(document).ready(function() {
+				// hide and show abn number follow the choice host or client
+				$("#hostOrClient").hide();
+				$('input:radio[name=accountType]').change(function() {
+					if (this.value == 'host') {
+						$("#hostOrClient").show();
+					} else if (this.value == 'client') {
+						$("#hostOrClient").hide();
 					}
 				});
 			});
-
-	//show and hide ABN Number
-	$(document).ready(function() {
-		 	// hide and show abn number follow the choice host or client
-		 	$("#hostOrClient").hide();
-		 	$('input:radio[name=accountType]').change(function() {
-		 		if (this.value == 'host') {
-		 			$("#hostOrClient").show();
-		 		}
-		 		else if (this.value == 'client') {
-		 			$("#hostOrClient").hide();
-		 		}
-		 	});
-		 });
-	// validate register form
-	$(document).ready(function() {
-		$('form[id="registrationForm"]').validate({
-			rules: {
-				username: 'required',
-				password: {
-					required: true,
-					minlength: 6,
-					maxlength: 12,
-					passwordcheck: true
-				},
-				confirmPass: {
-					required: true,
-					equalTo: "#password"
-				},
-				firstName: 'required',
-				lastName: 'required',
-				email: {
-					required: true,
-					email: true
-				},
-				phoneNumber: {
-					required: true,
-					phonecheck: true
-				},
-				postalAddress: 'required',
-				abnNumber: 'required',
-			},
-			messages: {
-				username: '<span class="error">This field is required</span>',
-				password: '<span class="error">Password is 6 to 12 characters in length and contains at least 1 lower case letter, 1 upper case letter, 1 number and 1 of following characters ! @ # $ %</span>',
-				confirmPass: '<span class="error">The confirm password not matching</span>',
-				firstName: '<span class="error">This field is required</span>',
-				lastName: '<span class="error">This field is required</span>',
-				email: '<span class="error">The email not valid</span>',
-				phoneNumber: '<span class="error">This field is required and phone number contains only number</span>',
-				postalAddress: '<span class="error">This field is required</span>',
-				abnNumber: '<span class="error">This field is required</span>',
-			},
-			submitHandler: function(form) {
-				form.submit();
-			}
-		});
-		//password check
-		$.validator.addMethod("passwordcheck", function(value) {
-			   	return /[a-z]/.test(value) // has at least 1 lowercase letter
-			       && /[A-Z]/.test(value) // has at least 1 uppercase letter
-			       && /\d/.test(value) // has at least 1 digit
-			       && /[!@#\$%]/.test(value) // has at least 1 following special characters ! @ # $ %
-			   });
-		//phone number check
-		$.validator.addMethod("phonecheck", function(value) {
-			   	return /^[0-9]*$/.test(value) // has at least 1 lowercase letter
-			   });
-	});
-	</script>
+			// validate register form
+			$(document).ready(function() {
+				$('form[id="registrationForm"]').validate({
+					rules: {
+						username: 'required',
+						password: {
+							required: true,
+							minlength: 6,
+							maxlength: 12,
+							passwordcheck: true
+						},
+						confirmPass: {
+							required: true,
+							equalTo: "#password"
+						},
+						firstName: 'required',
+						lastName: 'required',
+						email: {
+							required: true,
+							email: true
+						},
+						phoneNumber: {
+							required: true,
+							phonecheck: true
+						},
+						postalAddress: 'required',
+						abnNumber: 'required',
+					},
+					messages: {
+						username: '<span class="error">This field is required</span>',
+						password: '<span class="error">Password is 6 to 12 characters in length and contains at least 1 lower case letter, 1 upper case letter, 1 number and 1 of following characters ! @ # $ %</span>',
+						confirmPass: '<span class="error">The confirm password not matching</span>',
+						firstName: '<span class="error">This field is required</span>',
+						lastName: '<span class="error">This field is required</span>',
+						email: '<span class="error">The email not valid</span>',
+						phoneNumber: '<span class="error">This field is required and phone number contains only number</span>',
+						postalAddress: '<span class="error">This field is required</span>',
+						abnNumber: '<span class="error">This field is required</span>',
+					},
+					submitHandler: function(form) {
+						form.submit();
+					}
+				});
+				//password check
+				$.validator.addMethod("passwordcheck", function(value) {
+					return /[a-z]/.test(value) // has at least 1 lowercase letter
+						&&
+						/[A-Z]/.test(value) // has at least 1 uppercase letter
+						&&
+						/\d/.test(value) // has at least 1 digit
+						&&
+						/[!@#\$%]/.test(value) // has at least 1 following special characters ! @ # $ %
+				});
+				//phone number check
+				$.validator.addMethod("phonecheck", function(value) {
+					return /^[0-9]*$/.test(value) // has at least 1 lowercase letter
+				});
+			});
+		</script>
 </body>
+
 </html>
