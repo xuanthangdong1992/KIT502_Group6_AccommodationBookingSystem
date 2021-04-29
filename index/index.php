@@ -136,7 +136,6 @@ include('session.php');
 					<div class="btnSearch">
 						<button type="submit" class="btn btn-primary">Search</button>
 					</div>
-
 				</form>
 			</div>
 
@@ -354,7 +353,7 @@ include('session.php');
 
 			});
 
-
+			//logout process
 			$(document).ready(function() {
 				$('#logout').click(function() {
 					var logout = "logout";
@@ -371,6 +370,7 @@ include('session.php');
 				});
 
 			});
+
 			//show and hide ABN Number
 			$(document).ready(function() {
 				// hide and show abn number follow the choice host or client
