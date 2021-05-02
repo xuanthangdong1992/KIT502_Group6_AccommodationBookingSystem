@@ -1,6 +1,6 @@
 <?php
-include 'session.php';
-include 'db_conn.php';
+include ('session.php');
+include ('db_conn.php');
 $output = '';
 $city = addslashes($_POST['city']);
 $startDate = addslashes($_POST['startDate']);
@@ -19,7 +19,7 @@ while ($row = mysqli_fetch_array($result)) {
     $arr_img = explode(";", $row["image"]);
     $output .= '
     <div class="gap"></div>
-    <a class="nav-link" href="accommodation-details.php">
+    <a class="nav-link" href="accommodation-details.php?id=' . $row["accommodation_id"] . '">
       <div class="list-accommodation">
         <div class="media">
           <div class="media-left">
