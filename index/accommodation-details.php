@@ -109,9 +109,15 @@ include ('db_conn.php');
         <p><b>State:</b> <?php echo $row["state"];?></p>
         <p><b>Max-guests-allowed:</b> <?php echo $row["max_guests_allowed"];?></p>
         <p><b>Accommodation_rate:</b> <span class="fa fa-star checked"></span><?php echo $row["accommodation_rate"];?></p>
+        <div class="submit-button">
+			<button class="btn btn-primary" name="booking_button">Booking</button>
+		</div>
       </div>
       <!-- end Accommodation details -->
+
     </div>
+
+   
     <footer>
       <div class="footer">
       </div>

@@ -13,7 +13,8 @@ include('session.php');
 	<link rel="stylesheet" href="../css/clientstyle.css">
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-
+	<!-- script -->
+	<script type="text/javascript" src="../js/script.js"></script>
 	<title>Accommodation Booking System - Group test</title>
 </head>
 
@@ -31,70 +32,9 @@ include('session.php');
 
 	<div class="form-bg">
 		<div class="main-page">
-			<header>
-				<!-- bootstrap navigation bar -->
-				<nav class="navbar navbar-expand-lg navbar-dark static-top">
-					<div class="container">
-						<a href="../index/index.php">
-							<img class="logo" src="../img/logo.png" alt="">
-						</a>
-						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-							<span class="navbar-toggler-icon"></span>
-						</button>
-						<div class="collapse navbar-collapse" id="navbarResponsive">
-							<ul class="navbar-nav ml-auto">
-								<li class="nav-item active">
-									<a class="nav-link" href="index.php">Home
-										<span class="sr-only">(current)</span>
-									</a>
-								</li>
-								<!-- Display well come status when login success -->
-								<?php
-								if (isset($_SESSION['loginUsername'])) {
-									// check permission if login account is client
-									if ($_SESSION["permission"] == "client") {
-
-								?>
-										<li class="nav-item">
-											<a class="nav-link" href="">Welcome <?php echo $_SESSION['loginUsername']; ?></a>
-										</li>
-										<li class="nav-item">
-											<a class="nav-link" href="" id="logout">Logout</a>
-										</li>
-									<?php
-									} else 
-									if ($_SESSION["permission"] == "host") {
-										// redirect to host page
-										echo "<script>
-										alert('Sorry! Your account is not allowed to access this website!');
-										window.location.href='host-dashboard.php';
-										</script>";
-									} else 
-									if ($_SESSION["permission"] == "system_manager") {
-										// redirect to host page
-										echo "<script>
-										alert('Sorry! Your account is not allowed to access this website!');
-										window.location.href='Manager_Dashboard_Home.php';
-										</script>";
-									}
-								} else {
-									?>
-									<li class="nav-item">
-										<a class="nav-link" href="" data-toggle="modal" data-target="#loginModal">Login</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link" href="" data-toggle="modal" data-target="#registerModal">Register</a>
-									</li>
-								<?php
-								}
-								?>
-							</ul>
-						</div>
-					</div>
-				</nav>
-
-				<!-- end bootstrap navigation bar -->
-			</header>
+			<?php
+				include ('header.php');
+			?>
 
 			<!-- searching -->
 			<div class="index-banner">
@@ -148,157 +88,25 @@ include('session.php');
 
 	
 
+	<!-- include login and register modal   -->
+	<?php
+	include ('login-register-modal.php');
+	?>
 
-	<!-- Login Modal -->
-	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-body">
-					<!-- login form -->
-					<button type="button" class="close float-right btn" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h1>Login</h1>
-					<form id="loginForm">
-						<!-- <form id="loginForm" action="login_process.php" method="post"> -->
-						<div class="form-group required">
-							<label class="label-control">Username:</label>
-							<input class="form-control" type="text" id="loginUsername" name="loginUsername" />
-						</div>
-						<div class="form-group required">
-							<label class="label-control">Password:</label>
-							<input class="form-control" type="password" id="loginPass" name="loginPass" />
-						</div>
-						<div class="submit-button">
-							<button type="submit" class="btn btn-primary">Login</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- End Login Modal -->
-	<!-- Register Modal -->
-	<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-body">
-					<!-- register form -->
-					<button type="button" class="close float-right btn" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h1>Register</h1>
-
-					<form id="registrationForm" action="registrationProcess.php" method="post">
-						<div class="form-group required">
-							<div>
-								<label class="label-control">Account Type:</label>
-								<input type="radio" class="accountType" name="accountType" value="host" />
-								<label for="host">Host</label>
-								<input type="radio" class="accountType" name="accountType" value="client" checked="checked" />
-								<label for="client">Client</label>
-							</div>
-						</div>
-
-						<div class="form-group required">
-							<label class="label-control">Username:</label>
-							<input class="form-control" type="text" id="username" name="username" />
-						</div>
-						<div class="form-group required">
-							<label class="label-control">Password:</label>
-							<input class="form-control" type="password" id="password" name="password" />
-						</div>
-						<div class="form-group required">
-							<label class="label-control">Confirm Password:</label>
-							<input class="form-control" type="password" id="confirmPass" name="confirmPass" />
-						</div>
-
-
-						<div class="form-group required">
-							<label class="label-control">First Name:</label>
-							<input class="form-control" type="text" id="firstName" name="firstName" />
-						</div>
-						<div class="form-group required">
-							<label class="label-control">Last Name:</label>
-							<input class="form-control" type="text" id="lastName" name="lastName" />
-						</div>
-						<div class="form-group required">
-							<label class="label-control">Email:</label>
-							<input class="form-control" type="text" id="email" name="email" />
-						</div>
-						<div class="form-group required">
-							<label class="label-control">Phone Number:</label>
-							<input class="form-control" type="text" id="phoneNumber" name="phoneNumber" />
-						</div>
-						<div class="form-group required">
-							<label class="label-control">Postal Address:</label>
-							<input class="form-control" type="text" id="postalAddress" name="postalAddress" />
-						</div>
-						<div id="hostOrClient" class="form-group required">
-							<label class="label-control">ABN Number:</label>
-							<input class="form-control" type="text" id="abnNumber" name="abnNumber" />
-						</div>
-						<div class="submit-button">
-							<button type="submit" class="btn btn-primary" name="register_button">Register</button>
-						</div>
-					</form>
-				</div>
-
-			</div>
-		</div>
-		<!-- End Register Modal -->
-
-
+<script type="text/javascript" src="../js/script.js">
 		<script type="text/javascript">
-			<?php if (isset($_POST['btn_register'])) { ?> /* Your (php) way of checking that the form has been submitted */
+			<?php if (isset($_POST['btn_register'])) { ?> 
 
-				$(function() { // On DOM ready
+				$(function() { 
 					$('#registerModal').modal('show'); // Show the modal
 				});
 
 			<?php } ?>
 
 
-			//validation search form
-			$(document).ready(function() {
-				$('form[id="search-accommodation-form"]').validate({
-					rules: {
-						city: 'required',
-						startDate: 'required',
-						endDate: 'required',
-						numberOfGuest: {
-							digits: true
-						}
-					},
-					messages: {
-						city: '<span class="error">This field is required</span>',
-						startDate: '<span class="error">This field is required</span>',
-						endDate: '<span class="error">This field is required</span>',
-						numberOfGuest: '<span class="error">This field is required</span>'
-					},
-					submitHandler: function(form) {
-						// use ajax to send request to server
-						var city = $('#city').val();
-						var startDate = $('#startDate').val();
-						var endDate = $('#endDate').val();
-						var numberOfGuest = $('#numberOfGuest').val();
-						$.ajax({
-							url: 'list-accommodation-process.php',
-							method: 'POST',
-							data: {
-								city: city,
-								startDate: startDate,
-								endDate: endDate,
-								numberOfGuest: numberOfGuest
-							},
-							// get success message from server
-							success: function(data) {
-							$('#accommodation_data_list').html(data);
-							}
-						});
-					}
-				});
-			});
+			
+
+
 			// validate start date and end date
 			var td = new Date();
 			var mm = td.getMonth() + 1;
@@ -379,7 +187,8 @@ include('session.php');
 
 			});
 
-			//logout process
+			            
+            //logout process
 			$(document).ready(function() {
 				$('#logout').click(function() {
 					var logout = "logout";
