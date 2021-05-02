@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<?php
+// connect database
+include('db_conn.php');
+?>
 <html dir="ltr" lang="en">
 
 <head>
@@ -92,7 +96,7 @@
                     <th class="text-dark font-weight-bold">Last Name</th>
                     <th class="text-dark font-weight-bold">Email</th>
                     <th class="text-dark font-weight-bold">Phone Number</th>
-                    <th class="text-dark font-weight-bold">User Type</th>
+                    <th class="text-dark font-weight-bold">Account Type</th>
                     <th class="text-dark font-weight-bold">ABN Number</th>
                     <th class="text-dark font-weight-bold">Postal Address</th>
                     <th class="text-center">
@@ -105,53 +109,58 @@
 
 
                     <!-- This is the information of user1-->
+                    <?PHP
+                     $sql = "SELECT * FROM account";
+                     $result = $conn->query($sql);
+                     $check_n=1;
+                        if ($result->num_rows > 0) {
+                       // output data of each row
+                       while($row = $result->fetch_assoc()) {
+                    ?>
                     <tr class="search-items">
                         <td>
                             <!-- This is the checkbox for user1-->
                             <div class="n-chk align-self-center text-center">
                                 <div class="checkbox checkbox-info">
-                                    <input type="checkbox" class="material-inputs user-chkbox" id="checkbox1">
-                                    <label class="" for="checkbox1"></label>
+                                    <input type="checkbox" class="material-inputs user-chkbox" id="checkbox<?php echo $check_n;?>">
+                                    <label class="" for="checkbox<?php echo $check_n;?>"></label>
                                 </div>
                             </div>
                         </td>
                         <!-- This is the user id of user1-->
+                        
                         <td>
-                            <span class="user_user_id mb-0" data_user_id="001">001</span>
+                            <span class="user_user_id mb-0" data_user_id="<?php echo $row["user_id"];?>"><?php echo $row["user_id"];?></span>
                         </td>
                         <!-- This is the first name of user1-->
                         <td>
-                            <span class="user_first_name mb-0" data_first_name="Andrew">Andrew</span>
+                            <span class="user_first_name mb-0" data_first_name="<?php echo $row["first_name"];?>"><?php echo $row["first_name"];?></span>
                         </td>
                         <!-- This is the last name of user1-->
                         <td>
-                            <span class="user_last_name mb-0" data_last_name="Smith">Smith</span>
+                            <span class="user_last_name mb-0" data_last_name="<?php echo $row["last_name"];?>"><?php echo $row["last_name"];?></span>
                         </td>
                         <!-- This is the email of user1-->
                         <td>
-                            <span class="user_email" data_email="AS@mail.com">AS@mail.com</span>
+                            <span class="user_email" data_email="<?php echo $row["email"];?>"><?php echo $row["email"];?></span>
                         </td>
                         <!-- This is the phone number of user1-->
                         <td>
-                            <span class="user_phone_number" data_phone_number="0411111111">0411111111</span>
+                            <span class="user_phone_number" data_phone_number="<?php echo $row["phone_number"];?>"><?php echo $row["phone_number"];?></span>
                         </td>
                         <!-- This is the user type of user1-->
                         <td>
-                            <span class="user_user_type text-info" data_user_type="client">client</span>
+                            <span class="user_account_type text-info" data_account_type="<?php echo $row["account_type"];?>"><?php echo $row["account_type"];?></span>
                         </td>
                         <td>
-                            <span class="user_user_type text-info" data_user_type="A437437">A437437</span>
+                            <span class="user_abn_number text-info" data_abn_number="<?php echo $row["abn_number"];?>"><?php echo $row["abn_number"];?></span>
                         </td>
                         <td>
-                            <span class="user_user_type text-info" data_user_type="4 redwood rd, Kingston">4 redwood rd, Kingston</span>
+                            <span class="user_postal_address text-info" data_postal_address="<?php echo $row["postal_address"];?>"><?php echo $row["postal_address"];?></span>
                         </td>
                         <!-- This is the password of user1, but it is hidden on the table-->
                         <td style="display: none;">
-                            <span  class="user_password mb-0" data_password="123456">123456</span>
-                        </td>
-                        <!-- This is the postal address of user1, but it is hidden on the table-->
-                        <td style="display: none;">
-                            <span  class="user_postal_address mb-0" data_postal_address="Sydney, NSW">Sydney, NSW</span>
+                            <span  class="user_password mb-0" data_password="<?php echo $row["password"];?>"><?php echo $row["password"];?></span>
                         </td>
                         <!--This is the function for edit and delete user1-->
                         <td class="text-center">
@@ -162,123 +171,17 @@
                         </td>
                     </tr>
 
-                    <!-- This is the information of user1-->
-                    <tr class="search-items">
-                        <td>
-                            <!-- This is the checkbox for user1-->
-                            <div class="n-chk align-self-center text-center">
-                                <div class="checkbox checkbox-info">
-                                    <input type="checkbox" class="material-inputs user-chkbox" id="checkbox1">
-                                    <label class="" for="checkbox1"></label>
-                                </div>
-                            </div>
-                        </td>
-                        <!-- This is the user id of user1-->
-                        <td>
-                            <span class="user_user_id mb-0" data_user_id="001">001</span>
-                        </td>
-                        <!-- This is the first name of user1-->
-                        <td>
-                            <span class="user_first_name mb-0" data_first_name="Andrew">Andrew</span>
-                        </td>
-                        <!-- This is the last name of user1-->
-                        <td>
-                            <span class="user_last_name mb-0" data_last_name="Smith">Smith</span>
-                        </td>
-                        <!-- This is the email of user1-->
-                        <td>
-                            <span class="user_email" data_email="AS@mail.com">AS@mail.com</span>
-                        </td>
-                        <!-- This is the phone number of user1-->
-                        <td>
-                            <span class="user_phone_number" data_phone_number="0411111111">0411111111</span>
-                        </td>
-                        <!-- This is the user type of user1-->
-                        <td>
-                            <span class="user_user_type text-info" data_user_type="client">client</span>
-                        </td>
-                        <td>
-                            <span class="user_user_type text-info" data_user_type="A437437">A437437</span>
-                        </td>
-                        <td>
-                            <span class="user_user_type text-info" data_user_type="4 redwood rd, Kingston">4 redwood rd, Kingston</span>
-                        </td>
-                        <!-- This is the password of user1, but it is hidden on the table-->
-                        <td style="display: none;">
-                            <span  class="user_password mb-0" data_password="123456">123456</span>
-                        </td>
-                        <!-- This is the postal address of user1, but it is hidden on the table-->
-                        <td style="display: none;">
-                            <span  class="user_postal_address mb-0" data_postal_address="Sydney, NSW">Sydney, NSW</span>
-                        </td>
-                        <!--This is the function for edit and delete user1-->
-                        <td class="text-center">
-                            <div class="action-btn">
-                                <a href="javascript:void(0)" class="text-info edit"><i class="mdi mdi-account-edit font-20"></i></a>
-                                <a href="javascript:void(0)" class="text-dark delete ml-2"><i class="mdi mdi-delete font-20"></i></a>
-                            </div>
-                        </td>
-                    </tr>
+      <?php
+  }
+  ?>
 
-                    <!-- This is the information of user1-->
-                    <tr class="search-items">
-                        <td>
-                            <!-- This is the checkbox for user1-->
-                            <div class="n-chk align-self-center text-center">
-                                <div class="checkbox checkbox-info">
-                                    <input type="checkbox" class="material-inputs user-chkbox" id="checkbox1">
-                                    <label class="" for="checkbox1"></label>
-                                </div>
-                            </div>
-                        </td>
-                        <!-- This is the user id of user1-->
-                        <td>
-                            <span class="user_user_id mb-0" data_user_id="001">001</span>
-                        </td>
-                        <!-- This is the first name of user1-->
-                        <td>
-                            <span class="user_first_name mb-0" data_first_name="Andrew">Andrew</span>
-                        </td>
-                        <!-- This is the last name of user1-->
-                        <td>
-                            <span class="user_last_name mb-0" data_last_name="Smith">Smith</span>
-                        </td>
-                        <!-- This is the email of user1-->
-                        <td>
-                            <span class="user_email" data_email="AS@mail.com">AS@mail.com</span>
-                        </td>
-                        <!-- This is the phone number of user1-->
-                        <td>
-                            <span class="user_phone_number" data_phone_number="0411111111">0411111111</span>
-                        </td>
-                        <!-- This is the user type of user1-->
-                        <td>
-                            <span class="user_user_type text-info" data_user_type="client">client</span>
-                        </td>
-                        <td>
-                            <span class="user_user_type text-info" data_user_type="A437437">A437437</span>
-                        </td>
-                        <td>
-                            <span class="user_user_type text-info" data_user_type="4 redwood rd, Kingston">4 redwood rd, Kingston</span>
-                        </td>
-                        <!-- This is the password of user1, but it is hidden on the table-->
-                        <td style="display: none;">
-                            <span  class="user_password mb-0" data_password="123456">123456</span>
-                        </td>
-                        <!-- This is the postal address of user1, but it is hidden on the table-->
-                        <td style="display: none;">
-                            <span  class="user_postal_address mb-0" data_postal_address="Sydney, NSW">Sydney, NSW</span>
-                        </td>
-                        <!--This is the function for edit and delete user1-->
-                        <td class="text-center">
-                            <div class="action-btn">
-                                <a href="javascript:void(0)" class="text-info edit"><i class="mdi mdi-account-edit font-20"></i></a>
-                                <a href="javascript:void(0)" class="text-dark delete ml-2"><i class="mdi mdi-delete font-20"></i></a>
-                            </div>
-                        </td>
-                    </tr>
-
-
+<?PHP
+} else {
+  echo "0 results";
+}
+$conn->close();
+?>                
+                   
                 </tbody>
             </table>
         </div>
