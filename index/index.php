@@ -35,7 +35,7 @@ include('session.php');
 				<!-- bootstrap navigation bar -->
 				<nav class="navbar navbar-expand-lg navbar-dark static-top">
 					<div class="container">
-						<a href="index.html">
+						<a href="../index/index.php">
 							<img class="logo" src="../img/logo.png" alt="">
 						</a>
 						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,7 +48,7 @@ include('session.php');
 										<span class="sr-only">(current)</span>
 									</a>
 								</li>
-								<!-- Display wellcome status when login sucess -->
+								<!-- Display well come status when login success -->
 								<?php
 								if (isset($_SESSION['loginUsername'])) {
 									// check permission if login account is client
@@ -98,7 +98,7 @@ include('session.php');
 
 			<!-- searching -->
 			<div class="index-banner">
-				<form id="search-accommodation-form" action="list-accommodation.html" method="post">
+				<form id="search-accommodation-form" action="list-accommodation.php" method="post">
 					<div class="row">
 						<!-- city -->
 						<div class="form-group col">
@@ -120,16 +120,16 @@ include('session.php');
 							<label>Number of guests</label>
 							<select class="form-control" id="numberOfGuest" name="numberOfGuest">
 								<option>Select ...</option>
-								<option>1</option>
-								<option>2</option>
-								<option>3</option>
-								<option>4</option>
-								<option>5</option>
-								<option>6</option>
-								<option>7</option>
-								<option>8</option>
-								<option>9</option>
-								<option>10</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
 							</select>
 						</div>
 					</div>
@@ -139,8 +139,15 @@ include('session.php');
 				</form>
 			</div>
 
+			<!-- Display data search  -->
+			<div id="accommodation_data_list">
+			</div>
+
 		</div>
 	</div>
+
+	
+
 
 	<!-- Login Modal -->
 	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -270,7 +277,25 @@ include('session.php');
 						numberOfGuest: '<span class="error">This field is required</span>'
 					},
 					submitHandler: function(form) {
-						form.submit();
+						// use ajax to send request to server
+						var city = $('#city').val();
+						var startDate = $('#startDate').val();
+						var endDate = $('#endDate').val();
+						var numberOfGuest = $('#numberOfGuest').val();
+						$.ajax({
+							url: 'list-accommodation-process.php',
+							method: 'POST',
+							data: {
+								city: city,
+								startDate: startDate,
+								endDate: endDate,
+								numberOfGuest: numberOfGuest
+							},
+							// get success message from server
+							success: function(data) {
+							$('#accommodation_data_list').html(data);
+							}
+						});
 					}
 				});
 			});
@@ -286,7 +311,7 @@ include('session.php');
 
 			var minDate = yyyy + '-' + mm + '-' + dd;
 			$('#startDate').attr('min', minDate);
-			$('#endDaten').attr('min', minDate);
+			$('#endDate').attr('min', minDate);
 			// the check-in date is always greater than the checkout date 
 			var sd = document.getElementById('startDate');
 			var ed = document.getElementById('endDate');
@@ -299,6 +324,7 @@ include('session.php');
 				if (ed.value)
 					sd.max = ed.value;
 			}, false);
+
 
 			// process form login
 			$(document).ready(function() {
@@ -325,26 +351,26 @@ include('session.php');
 							},
 							// get success message from server
 							success: function(data) {
-								// alert(data);
-								// if respond from server is "fail"
+							// alert(data);
+							// if respond from server is "fail"
 								if (data == 'fail') {
 									alert("Wrong user id or password.");
 								} else
-									// if login account is client
-									if (data == 'client') {
-										$('#loginModal').hide();
-										location.href = "index.php";
-									} else
-										// if login account is host
-										if (data == 'host') {
-											$('#loginModal').hide();
-											location.href = "host-dashboard.php";
-										} else
-											// if login account is system manager
-											if (data == 'system_manager') {
-												$('#loginModal').hide();
-												location.href = "Manager_Dashboard_Home.php";
-											}
+								// if login account is client
+								if (data == 'client') {
+									$('#loginModal').hide();
+									location.href = "index.php";
+								} else
+									// if login account is host
+								if (data == 'host') {
+									$('#loginModal').hide();
+									location.href = "host-dashboard.php";
+								} else
+								// if login account is system manager
+								if (data == 'system_manager') {
+									$('#loginModal').hide();
+									location.href = "Manager_Dashboard_Home.php";
+								}
 							}
 						});
 					}
@@ -465,16 +491,16 @@ include('session.php');
 										alert("The email is already in use by another account. Please enter another email or contact us for help.");
 
 									} else
-										// if respond from server is "duplicate_phone_number"
-										if (data == 'duplicate_phone_number') {
-											alert("The phone number is already in use by another account. Please enter another phone number or contact us for help.");
+									// if respond from server is "duplicate_phone_number"
+									if (data == 'duplicate_phone_number') {
+										alert("The phone number is already in use by another account. Please enter another phone number or contact us for help.");
 
-										} else
-											// if respond from server is "duplicate_abn_number"
-											if (data == 'duplicate_abn_number') {
-												alert("The ABN number is already in use by another account. Please enter another ABN number or contact us for help.");
+									} else
+									// if respond from server is "duplicate_abn_number"
+									if (data == 'duplicate_abn_number') {
+										alert("The ABN number is already in use by another account. Please enter another ABN number or contact us for help.");
 
-											} else
+									} else
 								if (data == 'fail') {
 									alert("Something wrong! Please register again.");
 								} else {

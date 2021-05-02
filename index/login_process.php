@@ -7,7 +7,7 @@ if (isset($_POST["loginUsername"])) {
     $result = mysqli_query($conn, $query);
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_array($result);
-        // phan quyen khi dang nhap
+        // divide role when login
         $_SESSION['loginUsername'] = $_POST['loginUsername'];
         //system manager
         if($row["account_type"] == "system manager"){
@@ -33,3 +33,5 @@ if (isset($_POST["logout"])) {
     unset($_SESSION["loginUsername"]);
     unset($_SESSION["permission"]);
 }
+
+?>

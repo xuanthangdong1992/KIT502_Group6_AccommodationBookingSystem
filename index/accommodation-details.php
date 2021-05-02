@@ -27,7 +27,7 @@
       <!-- bootstrap navigation bar -->
       <nav class="navbar navbar-expand-lg navbar-dark static-top">
         <div class="container">
-          <a href="index.html">
+          <a href="index.php">
             <img class="logo" src="../img/logo.png" alt="">
           </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,7 @@
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item active">
-                <a class="nav-link" href="index.html">Home
+                <a class="nav-link" href="index.php">Home
                   <span class="sr-only">(current)</span>
                 </a>
               </li>
