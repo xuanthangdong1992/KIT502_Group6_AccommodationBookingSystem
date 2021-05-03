@@ -127,42 +127,44 @@ include('db_conn.php');
                                 </div>
                             </div>
                         </td>
-                        <!-- This is the user id of user1-->
+                        <!-- This is the user id-->
                         
                         <td>
                             <span class="user_user_id mb-0" data_user_id="<?php echo $row["user_id"];?>"><?php echo $row["user_id"];?></span>
                         </td>
-                        <!-- This is the first name of user1-->
+                        <!-- This is the first name of the user-->
                         <td>
                             <span class="user_first_name mb-0" data_first_name="<?php echo $row["first_name"];?>"><?php echo $row["first_name"];?></span>
                         </td>
-                        <!-- This is the last name of user1-->
+                        <!-- This is the last name of the user-->
                         <td>
                             <span class="user_last_name mb-0" data_last_name="<?php echo $row["last_name"];?>"><?php echo $row["last_name"];?></span>
                         </td>
-                        <!-- This is the email of user1-->
+                        <!-- This is the email of the user-->
                         <td>
                             <span class="user_email" data_email="<?php echo $row["email"];?>"><?php echo $row["email"];?></span>
                         </td>
-                        <!-- This is the phone number of user1-->
+                        <!-- This is the phone number of the user-->
                         <td>
                             <span class="user_phone_number" data_phone_number="<?php echo $row["phone_number"];?>"><?php echo $row["phone_number"];?></span>
                         </td>
-                        <!-- This is the user type of user1-->
+                        <!-- This is the user type of the user-->
                         <td>
                             <span class="user_account_type text-info" data_account_type="<?php echo $row["account_type"];?>"><?php echo $row["account_type"];?></span>
                         </td>
+                        <!-- This is the ABN number of the user-->
                         <td>
                             <span class="user_abn_number text-info" data_abn_number="<?php echo $row["abn_number"];?>"><?php echo $row["abn_number"];?></span>
                         </td>
+                        <!-- This is the poatal address of the user-->
                         <td>
                             <span class="user_postal_address text-info" data_postal_address="<?php echo $row["postal_address"];?>"><?php echo $row["postal_address"];?></span>
                         </td>
-                        <!-- This is the password of user1, but it is hidden on the table-->
+                        <!-- This is the password of the user, but it is hidden on the table-->
                         <td style="display: none;">
                             <span  class="user_password mb-0" data_password="<?php echo $row["password"];?>"><?php echo $row["password"];?></span>
                         </td>
-                        <!--This is the function for edit and delete user1-->
+                        <!--This is the function for edit and delete the user-->
                         <td class="text-center">
                             <div class="action-btn">
                                 <a href="javascript:void(0)" class="text-info edit"><i class="mdi mdi-account-edit font-20"></i></a>

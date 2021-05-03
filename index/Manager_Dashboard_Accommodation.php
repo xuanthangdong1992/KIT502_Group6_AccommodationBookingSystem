@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<?php
+// connect database
+include('db_conn.php');
+?>
+
 <html dir="ltr" lang="en">
 
 <head>
@@ -49,7 +54,7 @@
 
             <!-- end bootstrap navigation bar -->
         </header>
-        
+
     </div>
 
     <!-- Topbar for search accomodation -->
@@ -59,7 +64,7 @@
                 <!-- for searching accomodations -->
                 <form>
                     <input type="text" class="form-control product-search" id="input-search" placeholder="Search Accomodation">
-                </form>                    
+                </form>
             </div>
         </div>
     </div>
@@ -97,458 +102,243 @@
                 <tbody>
 
                     <!-- This is the information of Accomdation1-->
-                    <tr class="search-items">
-                        <td>
-                            <!-- This is the checkbox for Accomdation1-->
-                            <div class="n-chk align-self-center text-center">
-                                <div class="checkbox checkbox-info">
-                                    <input type="checkbox" class="material-inputs user-chkbox" id="checkbox1">
-                                    <label class="" for="checkbox1"></label>
-                                </div>
-                            </div>
-                        </td>
-                        <!-- This is the accommodation id of Accomdation1-->
-                        <td>
-                            <img src="../img/ACC1.jpg" alt="avatar" width="150" height="100">
-                        </td>
-                        <!-- This is the accommodation id of Accomdation1-->
-                        <td>
-                            <span class="acc_accommodation_id mb-0" data_accomodation_id="001">001</span>
-                        </td>
-                        <!-- This is the House Name of Accommodation1-->
-                        <td>
-                            <span class="acc_house_name mb-0" data_house_name="Beautiful Garden House">Beautiful Garden House</span>
-                        </td>
-                        <!-- This is the Host Name of Accommodation1-->
-                        <td>
-                            <span class="acc_host_name mb-0" data_house_name="Emily Davis">Emily Davis</span>
-                        </td>
-                        <!-- This is the address of Accommodation1-->
-                        <td>
-                            <span class="acc_address" data_email="111 Sandybay Rd">111 Sandybay Rd</span>
-                        </td>
-                        <!-- This is the city of Accommodation1-->
-                        <td>
-                            <span class="acc_city" data_acc_city="Hobart">Hobart</span>
-                        </td>
-                        <!-- This is the rate of Accommodation1-->
-                        <td>
-                            <div class="acc_accomodation_rate" data_accommodation_rate="4.0">
-                             <span class="text-warning fa fa-star"></span>
-                             <span class="text-warning fa fa-star"></span>
-                             <span class="text-warning fa fa-star"></span>
-                             <span class="text-warning fa fa-star"></span>
-                             <span class="fa fa-star"></span>
-                             <!--When click the button, the page of review will show-->
-                             <span class="action-btn">
-                                 <a href="Manager_Dashboard_Accommodation Management_Client Review.html" class="text-info edit-rate"><i class="fa fa-edit font-18"></i></a>
-                             </span>
-                         </div>
-                     </td>
-                     <!--This is the function for edit and delete Accommodation1-->
-                     <td class="text-center">
-                        <div class="action-btn">
-                            <a href="javascript:void(0)" class="text-info edit"><i class="mdi mdi-account-edit font-20"></i></a>
-                            <a href="javascript:void(0)" class="text-dark delete ml-2"><i class="mdi mdi-delete font-20"></i></a>
-                        </div>
-                    </td>
-                </tr>
+                    <?PHP
+                    $sql = "SELECT * FROM accommodation";
+                    $result = $conn->query($sql);
+                    $check_n = 1;
+                    if ($result->num_rows > 0) {
+                        // output data of each row
+                        while ($row = $result->fetch_assoc()) {
+                    ?>
 
-                <!-- This is the information of Accomdation2-->
-                <tr class="search-items">
-                    <td>
-                        <!-- This is the checkbox for Accomdation2-->
-                        <div class="n-chk align-self-center text-center">
-                            <div class="checkbox checkbox-info">
-                                <input type="checkbox" class="material-inputs user-chkbox" id="checkbox2">
-                                <label class="" for="checkbox2"></label>
-                            </div>
-                        </div>
-                    </td>
-                    <!-- This is the accommodation id of Accomdation2-->
-                    <td>
-                        <img src="../img/ACC2.jpg" alt="avatar" width="150" height="100">
-                    </td>
-                    <!-- This is the accommodation id of Accomdation2-->
-                    <td>
-                        <span class="acc_accommodation_id mb-0" data_accomodation_id="002">002</span>
-                    </td>
-                    <!-- This is the House Name of Accommodation2-->
-                    <td>
-                        <span class="acc_house_name mb-0" data_house_name="Luxury Urban Apartment">Luxury Urban Apartment</span>
-                    </td>
-                    <!-- This is the Host Name of Accommodation2-->
-                    <td>
-                        <span class="acc_host_name mb-0" data_house_name="Emily Davis">Emily Davis</span>
-                    </td>
-                    <!-- This is the address of Accommodation2-->
-                    <td>
-                        <span class="acc_address" data_email="200 Elizabeth St">200 Elizabeth St</span>
-                    </td>
-                    <!-- This is the city of Accommodation2-->
-                    <td>
-                        <span class="acc_city" data_acc_city="Hobart">Hobart</span>
-                    </td>
-                    <!-- This is the rate of Accommodation2-->
-                    <td>
-                        <div class="acc_accomodation_rate" data_accommodation_rate="3.5">
-                         <span class="text-warning fa fa-star"></span>
-                         <span class="text-warning fa fa-star"></span>
-                         <span class="text-warning fa fa-star"></span>
-                         <span class="text-warning fa fa-star-half"></span>
-                         <span class="fa fa-star"></span>
-                         <!--When click the button, the page of review will show-->
-                         <span class="action-btn">
-                            <a href="Manager_Dashboard_Accommodation Management_Client Review.html" class="text-info edit-rate"><i class="fa fa-edit font-18"></i></a>
-                        </span>
-                    </td>
-                    <!--This is the function for edit and delete Accommodation2-->
-                    <td class="text-center">
-                        <div class="action-btn">
-                            <a href="javascript:void(0)" class="text-info edit"><i class="mdi mdi-account-edit font-20"></i></a>
-                            <a href="javascript:void(0)" class="text-dark delete ml-2"><i class="mdi mdi-delete font-20"></i></a>
-                        </div>
-                    </td>
-                </tr>
+                            <tr class="search-items">
+                                <td>
+                                    <!-- This is the checkbox for each accommodation-->
+                                    <div class="n-chk align-self-center text-center">
+                                        <div class="checkbox checkbox-info">
+                                            <input type="checkbox" class="material-inputs user-chkbox" id="checkbox<?php echo $check_n; ?>">
+                                            <label class="" for="checkbox<?php echo $check_n; ?>"></label>
+                                        </div>
+                                    </div>
+                                </td>
+                                <!-- This is the accommodation id of each accommodation-->
+                                <td>
+                                    <img src="../img/ACC1.jpg" alt="avatar" width="150" height="100">
+                                </td>
+                                <!-- This is the accommodation id of each accommodation-->
+                                <td>
+                                    <span class="acc_accommodation_id mb-0" data_accomodation_id="<?php echo $row["accommodation_id"]; ?>"><?php echo $row["accommodation_id"]; ?></span>
+                                </td>
+                                <!-- This is the House Name of each accommodation-->
+                                <td>
+                                    <span class="acc_house_name mb-0" data_house_name="<?php echo $row["house_name"]; ?>"><?php echo $row["house_name"]; ?></span>
+                                </td>
+                                <!-- This is the Host Name of each accommodation-->
+                                <td>
+                                    <span class="acc_host_name mb-0" data_host_name="<?php echo $row["host_name"]; ?>"><?php echo $row["host_name"]; ?></span>
+                                </td>
+                                <!-- This is the address of each accommodation-->
+                                <td>
+                                    <span class="acc_address" data_acc_address="<?php echo $row["address"]; ?>"><?php echo $row["address"]; ?></span>
+                                </td>
+                                <!-- This is the city of each accommodation-->
+                                <td>
+                                    <span class="acc_city" data_acc_city="<?php echo $row["city"]; ?>"><?php echo $row["city"]; ?></span>
+                                </td>
+                                <!-- This is the rate of each accommodation-->
+                                <td>
+                                    <div class="acc_accomodation_rate" data_accommodation_rate="<?php echo $row["accommodation_rate"]; ?>">
+                                        <?php
+                                        $accommodation_rate=$row["accommodation_rate"];
+                                        $accommodation_rate_nums = explode(".",$accommodation_rate);
+                                        
+                                        for ($i = 0; $i < $accommodation_rate_nums[0]; $i++) {
+                                        ?>
+                                            <span class="text-warning fa fa-star"></span>
+                                        <?php
+                                        }
+                                        
 
-                <!-- This is the information of Accomdation3-->
-                <tr class="search-items">
-                    <td>
-                        <!-- This is the checkbox for Accomdation3-->
-                        <div class="n-chk align-self-center text-center">
-                            <div class="checkbox checkbox-info">
-                                <input type="checkbox" class="material-inputs user-chkbox" id="checkbox3">
-                                <label class="" for="checkbox3"></label>
-                            </div>
-                        </div>
-                    </td>
-                    <!-- This is the accommodation id of Accomdation3-->
-                    <td>
-                        <img src="../img/ACC3.jpg" alt="avatar" width="150" height="100">
-                    </td>
-                    <!-- This is the accommodation id of Accomdation3-->
-                    <td>
-                        <span class="acc_accommodation_id mb-0" data_accomodation_id="003">003</span>
-                    </td>
-                    <!-- This is the House Name of Accommodation3-->
-                    <td>
-                        <span class="acc_house_name mb-0" data_house_name="Seaside Apartment">Seaside Apartment</span>
-                    </td>
-                    <!-- This is the Host Name of Accommodation3-->
-                    <td>
-                        <span class="acc_host_name mb-0" data_house_name="Emily Davis">Emily Davis</span>
-                    </td>
-                    <!-- This is the address of Accommodation3-->
-                    <td>
-                        <span class="acc_address" data_email="400 Sandybay Rd">400 Sandybay Rd</span>
-                    </td>
-                    <!-- This is the city of Accommodation3-->
-                    <td>
-                        <span class="acc_city" data_acc_city="Hobart">Hobart</span>
-                    </td>
-                    <!-- This is the rate of Accommodation3-->
-                    <td>
-                        <div class="acc_accomodation_rate" data_accommodation_rate="3.5">
-                         <span class="text-warning fa fa-star"></span>
-                         <span class="text-warning fa fa-star"></span>
-                         <span class="text-warning fa fa-star"></span>
-                         <span class="text-warning fa fa-star"></span>
-                         <span class="text-warning fa fa-star"></span>
-                         <!--When click the button, the page of review will show-->
-                         <span class="action-btn">
-                             <a href="Manager_Dashboard_Accommodation Management_Client Review.html" class="text-info edit-rate"><i class="fa fa-edit font-18"></i></a>
-                         </span>
-                     </div>
-                 </td>
-                 <!--This is the function for edit and delete Accommodation3-->
-                 <td class="text-center">
-                    <div class="action-btn">
-                        <a href="javascript:void(0)" class="text-info edit"><i class="mdi mdi-account-edit font-20"></i></a>
-                        <a href="javascript:void(0)" class="text-dark delete ml-2"><i class="mdi mdi-delete font-20"></i></a>
-                    </div>
-                </td>
-            </tr>
+                                        if (count($accommodation_rate_nums)==2) {
+                                        ?>
+                                            <span class="text-warning fa fa-star-half"></span>
+                                        <?php
 
-            <!-- This is the information of Accomdation4-->
-            <tr class="search-items">
-                <td>
-                    <!-- This is the checkbox for Accomdation4-->
-                    <div class="n-chk align-self-center text-center">
-                        <div class="checkbox checkbox-info">
-                            <input type="checkbox" class="material-inputs user-chkbox" id="checkbox4">
-                            <label class="" for="checkbox4"></label>
-                        </div>
-                    </div>
-                </td>
-                <!-- This is the accommodation id of Accomdation4-->
-                <td>
-                    <img src="../img/ACC4.jpg" alt="avatar" width="150" height="100">
-                </td>
-                <!-- This is the accommodation id of Accomdation4-->
-                <td>
-                    <span class="acc_accommodation_id mb-0" data_accomodation_id="004">004</span>
-                </td>
-                <!-- This is the House Name of Accommodation4-->
-                <td>
-                    <span class="acc_house_name mb-0" data_house_name="Comfortable Apartment">Comfortable Apartment</span>
-                </td>
-                <!-- This is the Host Name of Accommodation4-->
-                <td>
-                    <span class="acc_host_name mb-0" data_house_name="Jennifer Lee">Jennifer Lee</span>
-                </td>
-                <!-- This is the address of Accommodation4-->
-                <td>
-                    <span class="acc_address" data_email="15 Birsbane St">15 Birsbane St</span>
-                </td>
-                <!-- This is the city of Accommodation4-->
-                <td>
-                    <span class="acc_city" data_acc_city="Launceston">Launceston</span>
-                </td>
-                <!-- This is the rate of Accommodation4-->
-                <td>
-                    <div class="acc_accomodation_rate" data_accommodation_rate="4.0">
-                     <span class="text-warning fa fa-star"></span>
-                     <span class="text-warning fa fa-star"></span>
-                     <span class="text-warning fa fa-star"></span>
-                     <span class="text-warning fa fa-star"></span>
-                     <span class="fa fa-star"></span>
-                     <!--When click the button, the page of review will show-->
-                     <span class="action-btn">
-                         <a href="Manager_Dashboard_Accommodation Management_Client Review.html" class="text-info edit-rate"><i class="fa fa-edit font-18"></i></a>
-                     </span>
-                 </div>
-             </td>
-             <!--This is the function for edit and delete Accommodation4-->
-             <td class="text-center">
-                <div class="action-btn">
-                    <a href="javascript:void(0)" class="text-info edit"><i class="mdi mdi-account-edit font-20"></i></a>
-                    <a href="javascript:void(0)" class="text-dark delete ml-2"><i class="mdi mdi-delete font-20"></i></a>
-                </div>
-            </td>
-        </tr>
+                                        };
 
-        <!-- This is the information of Accomdation5-->
-        <tr class="search-items">
-            <td>
-                <!-- This is the checkbox for Accomdation5-->
-                <div class="n-chk align-self-center text-center">
-                    <div class="checkbox checkbox-info">
-                        <input type="checkbox" class="material-inputs user-chkbox" id="checkbox5">
-                        <label class="" for="checkbox5"></label>
-                    </div>
-                </div>
-            </td>
-            <!-- This is the accommodation id of Accomdation5-->
-            <td>
-                <img src="../img/ACC5.jpg" alt="avatar" width="150" height="100">
-            </td>
-            <!-- This is the accommodation id of Accomdation5-->
-            <td>
-                <span class="acc_accommodation_id mb-0" data_accomodation_id="005">005</span>
-            </td>
-            <!-- This is the House Name of Accommodation5-->
-            <td>
-                <span class="acc_house_name mb-0" data_house_name="Sweet Apartment">Sweet Apartment</span>
-            </td>
-            <!-- This is the Host Name of Accommodation5-->
-            <td>
-                <span class="acc_host_name mb-0" data_house_name="Jennifer Lee">Jennifer Lee</span>
-            </td>
-            <!-- This is the address of Accommodation5-->
-            <td>
-                <span class="acc_address" data_email="35 Birsbane St">35 Birsbane St</span>
-            </td>
-            <!-- This is the city of Accommodation5-->
-            <td>
-                <span class="acc_city" data_acc_city="Launceston">Launceston</span>
-            </td>
-            <!-- This is the rate of Accommodation5-->
-            <td>
-                <div class="acc_accomodation_rate" data_accommodation_rate="4.5">
-                 <span class="text-warning fa fa-star"></span>
-                 <span class="text-warning fa fa-star"></span>
-                 <span class="text-warning fa fa-star"></span>
-                 <span class="text-warning fa fa-star"></span>
-                 <span class="text-warning fa fa-star-half"></span>
-                 <!--When click the button, the page of review will show-->
-                 <span class="action-btn">
-                     <a href="Manager_Dashboard_Accommodation Management_Client Review.html" class="text-info edit" id="edit-rate"> <i class="fa fa-edit font-18"></i></a>
-                 </span>
-             </div>
-         </td>
-         <!--This is the function for edit and delete Accommodation5-->
-         <td class="text-center">
-            <div class="action-btn">
-                <a href="javascript:void(0)" class="text-info edit"><i class="mdi mdi-account-edit font-20"></i></a>
-                <a href="javascript:void(0)" class="text-dark delete ml-2"><i class="mdi mdi-delete font-20"></i></a>
-            </div>
-        </td>
-    </tr>
-</tbody>
-</table>
-</div>
-</div>
+                                        ?>
 
 
-<!-- Modal of Accommodation Details -->
-<div id="accommodation_detail_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <!--This is the header of the modal-->
-            <div class="modal-header">
-                <h4 class="modal-title" id="accDetailModalLabel">Accommodation Details</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            </div>
+                                        <!--When click the button, the page of review will show-->
+                                        <span class="action-btn">
+                                            <a href="Manager_Dashboard_Accommodation Management_Client Review.html" class="text-info edit-rate"><i class="fa fa-edit font-18"></i></a>
+                                        </span>
+                                    </div>
+                                </td>
+                                <!--This is the function for edit and delete each accommodation-->
+                                <td class="text-center">
+                                    <div class="action-btn">
+                                        <a href="javascript:void(0)" class="text-info edit"><i class="mdi mdi-account-edit font-20"></i></a>
+                                        <a href="javascript:void(0)" class="text-dark delete ml-2"><i class="mdi mdi-delete font-20"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
 
-            <!--This is the body of the modal-->
-            <div class="modal-body">
-                <!--Here to input House Name-->
-                <div class="form-group row">
-                    <label class="col-md-3 text-left control-label col-form-label">House Name</label>
-                    <div class="col-md-9">
-                        <input type="text" class="form-control" id="house_name" placeholder="House Name">
-                    </div>
-                </div>
-                <!--Here to input description-->
-                <div class="description">
-                    <label class="text-left control-label col-form-label">Description</label>
-                    <textarea class="form-control" rows="5"></textarea>
-                </div>
-                <br>
-                <!--Here to input price-->
-                <div class="form-group row">
-                    <label class="col-md-3 text-left control-label col-form-label">Price</label>
-                    <div class="col-md-9">
-                        <span class="input-group-text col-md-9">$<input type="text" class="form-control col-md-9" id="price" placeholder="Price"></span>
-                    </div>
-                </div>
-                <!--Here to input how many rooms-->
-                <div class="form-group row">
-                    <label class="col-md-3 text-left control-label col-form-label">Number of Room</label>
-                    <div class="col-md-9">
-                        <input type="text" class="form-control" id="number_of_room" placeholder="Number of Room">
-                    </div>
-                </div>
-                <!--Here to input how many bathrooms-->
-                <div class="form-group row">
-                    <label class="col-md-3 text-left control-label col-form-label">Number of Bathroom</label>
-                    <div class="col-md-9">
-                        <input type="text" class="form-control" id="number_of_bathroom" placeholder="Number of Bathroom">
-                    </div>
-                </div>
-                <!--Here to input Max Guests Allowed-->
-                <div class="form-group row">
-                    <label class="col-md-3 text-left control-label col-form-label">Max Guests Allowed</label>
-                    <div class="col-md-9">
-                        <input type="text" class="form-control" id="max_guests_allowed" placeholder="Max Guests Allowed">
-                    </div>
-                </div>
-                <br>
-                <!--Here to choose facilities-->
-                <div class="form-group row">
-                    <!--Weather smoke allowed?-->
-                    <div class="col-md-3">
-                        <input type="checkbox" id="smoke_allowed" class="material-inputs chk-col-light-blue">
-                        <label for="smoke_allowed">Smoke Allowed</label>
-                    </div>
-                    <!--Any garage?-->
-                    <div class="col-md-3">
-                        <input type="checkbox" id="garage" class="material-inputs chk-col-light-blue">
-                        <label for="garage">Garage</label>
-                    </div>
-                    <!--Pet friendly?-->
-                    <div class="col-md-3">
-                        <input type="checkbox" id="pet_friendly" class="material-inputs chk-col-light-blue">
-                        <label for="pet_friendly">Pet Friendly</label>
-                    </div>
-                    <!--Internet provided?-->
-                    <div class="col-md-3">
-                        <input type="checkbox" id="internet_provided" class="material-inputs chk-col-light-blue">
-                        <label for="internet_provided">Internet Provided</label>
-                    </div>
-                </div>
-                <br>
-                <!--Choose check in time-->
-                <div class="form-group row">
-                    <label for="check_in_time" class="col-md-3 col-form-label">Date Check In</label>
-                    <div class="col-md-9">
-                        <input class="form-control" type="date" value="2021-04-01"
-                        id="check_in_time">
-                    </div>
-                </div>
-                <!--Choose check out time-->
-                <div class="form-group row">
-                    <label for="check_out_time" class="col-md-3 col-form-label">Date Check Out</label>
-                    <div class="col-md-9">
-                        <input class="form-control" type="date" value="2021-04-05"
-                        id="check_out_time">
-                    </div>
-                </div>
-                <!--Here to input Address-->
-                <div class="form-group row">
-                    <label class="col-md-3 text-left control-label col-form-label">Address</label>
-                    <div class="col-md-9">
-                        <input type="text" class="form-control" id="address" placeholder="Address">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <!--Here to input City-->
-                    <label class="col-md-1 text-left control-label col-form-label">City</label>
-                    <div class="col-md-3">
-                        <input type="text" class="form-control" id="city" placeholder="City">
-                    </div>
-                    <!--Here to input Postal Code-->
-                    <label class="col-md-1 text-left control-label col-form-label">Postal Code</label>
-                    <div class="col-md-3">
-                        <input type="text" class="form-control" id="postal_code" placeholder="Postal Code">
-                    </div>
-                    <!--Here to input State-->
-                    <label class="col-md-1 text-left control-label col-form-label">State</label>
-                    <div class="col-md-3">
-                        <input type="text" class="form-control" id="state" placeholder="State">
-                    </div>
-                </div>
-                <!--Here to upload image-->
-                <div class="form-group row">
-                    <label class="col-md-6 text-left control-label col-form-label">&nbsp Image upload</label>
-                    <div class="col-md-6">
-                        <input type="file" class="form-control" id="uoload_image" aria-describedby="fileHelp">
-                    </div>
-                </div>
-            </div>
-            <br>
-            
-            <!--This is the footer of the modal, to close the modal or save changes-->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger">Save changes</button>
-            </div>
+                        <?php
+                        }
+                        ?>
 
+                    <?PHP
+                    } else {
+                        echo "0 results";
+                    }
+                    $conn->close();
+                    ?>
+
+                    
+                </tbody>
+            </table>
         </div>
     </div>
-</div>
+
+
+    <!-- Modal of Accommodation Details -->
+    <div id="accommodation_detail_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <!--This is the header of the modal-->
+                <div class="modal-header">
+                    <h4 class="modal-title" id="accDetailModalLabel">Accommodation Details</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+
+                <!--This is the body of the modal-->
+                <div class="modal-body">
+                    <!--Here to input House Name-->
+                    <div class="form-group row">
+                        <label class="col-md-3 text-left control-label col-form-label">House Name</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" id="house_name" placeholder="House Name">
+                        </div>
+                    </div>
+                    <!--Here to input description-->
+                    <div class="description">
+                        <label class="text-left control-label col-form-label">Description</label>
+                        <textarea class="form-control" rows="5"></textarea>
+                    </div>
+                    <br>
+                    <!--Here to input price-->
+                    <div class="form-group row">
+                        <label class="col-md-3 text-left control-label col-form-label">Price</label>
+                        <div class="col-md-9">
+                            <span class="input-group-text col-md-9">$<input type="text" class="form-control col-md-9" id="price" placeholder="Price"></span>
+                        </div>
+                    </div>
+                    <!--Here to input how many rooms-->
+                    <div class="form-group row">
+                        <label class="col-md-3 text-left control-label col-form-label">Number of Room</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" id="number_of_room" placeholder="Number of Room">
+                        </div>
+                    </div>
+                    <!--Here to input how many bathrooms-->
+                    <div class="form-group row">
+                        <label class="col-md-3 text-left control-label col-form-label">Number of Bathroom</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" id="number_of_bathroom" placeholder="Number of Bathroom">
+                        </div>
+                    </div>
+                    <!--Here to input Max Guests Allowed-->
+                    <div class="form-group row">
+                        <label class="col-md-3 text-left control-label col-form-label">Max Guests Allowed</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" id="max_guests_allowed" placeholder="Max Guests Allowed">
+                        </div>
+                    </div>
+                    <br>
+                    <!--Here to choose facilities-->
+                    <div class="form-group row">
+                        <!--Weather smoke allowed?-->
+                        <div class="col-md-3">
+                            <input type="checkbox" id="smoke_allowed" class="material-inputs chk-col-light-blue">
+                            <label for="smoke_allowed">Smoke Allowed</label>
+                        </div>
+                        <!--Any garage?-->
+                        <div class="col-md-3">
+                            <input type="checkbox" id="garage" class="material-inputs chk-col-light-blue">
+                            <label for="garage">Garage</label>
+                        </div>
+                        <!--Pet friendly?-->
+                        <div class="col-md-3">
+                            <input type="checkbox" id="pet_friendly" class="material-inputs chk-col-light-blue">
+                            <label for="pet_friendly">Pet Friendly</label>
+                        </div>
+                        <!--Internet provided?-->
+                        <div class="col-md-3">
+                            <input type="checkbox" id="internet_provided" class="material-inputs chk-col-light-blue">
+                            <label for="internet_provided">Internet Provided</label>
+                        </div>
+                    </div>
+                    <br>
+                    <!--Choose check in time-->
+                    <div class="form-group row">
+                        <label for="check_in_time" class="col-md-3 col-form-label">Date Check In</label>
+                        <div class="col-md-9">
+                            <input class="form-control" type="date" value="2021-04-01" id="check_in_time">
+                        </div>
+                    </div>
+                    <!--Choose check out time-->
+                    <div class="form-group row">
+                        <label for="check_out_time" class="col-md-3 col-form-label">Date Check Out</label>
+                        <div class="col-md-9">
+                            <input class="form-control" type="date" value="2021-04-05" id="check_out_time">
+                        </div>
+                    </div>
+                    <!--Here to input Address-->
+                    <div class="form-group row">
+                        <label class="col-md-3 text-left control-label col-form-label">Address</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" id="address" placeholder="Address">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <!--Here to input City-->
+                        <label class="col-md-1 text-left control-label col-form-label">City</label>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="city" placeholder="City">
+                        </div>
+                        <!--Here to input Postal Code-->
+                        <label class="col-md-1 text-left control-label col-form-label">Postal Code</label>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="postal_code" placeholder="Postal Code">
+                        </div>
+                        <!--Here to input State-->
+                        <label class="col-md-1 text-left control-label col-form-label">State</label>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="state" placeholder="State">
+                        </div>
+                    </div>
+                    <!--Here to upload image-->
+                    <div class="form-group row">
+                        <label class="col-md-6 text-left control-label col-form-label">&nbsp Image upload</label>
+                        <div class="col-md-6">
+                            <input type="file" class="form-control" id="uoload_image" aria-describedby="fileHelp">
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+                <!--This is the footer of the modal, to close the modal or save changes-->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger">Save changes</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
