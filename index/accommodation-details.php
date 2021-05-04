@@ -38,35 +38,9 @@ include ('db_conn.php');
     $row = mysqli_fetch_array($result);
   ?>
   <div class="regis-bg">
-    <header>
-      <!-- bootstrap navigation bar -->
-      <nav class="navbar navbar-expand-lg navbar-dark static-top">
-        <div class="container">
-          <a href="index.php">
-            <img class="logo" src="../img/logo.png" alt="">
-          </a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="index.php">Home
-                  <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="login.html">Login</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="registration.html">Register</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-      <!-- end bootstrap navigation bar -->
-    </header>
+      <?php
+				include ('header.php');
+			?>
 
     <h1>Accommodation details</h1>
     <div>
@@ -110,7 +84,7 @@ include ('db_conn.php');
         <p><b>Max-guests-allowed:</b> <?php echo $row["max_guests_allowed"];?></p>
         <p><b>Accommodation_rate:</b> <span class="fa fa-star checked"></span><?php echo $row["accommodation_rate"];?></p>
         <div class="submit-button">
-			<button class="btn btn-primary" name="booking_button">Booking</button>
+			<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#bookingModal" >Booking</button>
 		</div>
       </div>
       <!-- end Accommodation details -->
@@ -123,6 +97,77 @@ include ('db_conn.php');
       </div>
     </footer>
   </div>
+
+  <!-- Booking Modal -->
+<div class="modal fade" id="bookingModal" tabindex="-1" role="dialog" aria-labelledby="bookingModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<!-- booking form -->
+					<button type="button" class="close float-right btn" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h1>Confirm booking</h1>
+					<form id="bookingForm">
+						<!-- <form id="loginForm" action="login_process.php" method="post"> -->
+            <!-- Get user information -->
+            <?php
+            $username = $_SESSION["loginUsername"];
+            $user_details_query = "SELECT * FROM account WHERE user_id = '$username'";
+            $user_details_result = mysqli_query($conn, $user_details_query);
+            $user_details_row = mysqli_fetch_array($user_details_result);
+            ?>
+						<div class="form-group required">
+							<b><label>Client Information:</label></b><br>
+              <label>Name: <?php echo $user_details_row['first_name'] .' '. $user_details_row['last_name']; ?></label><br>
+              <label>Postal address: <?php echo $user_details_row['postal_address']; ?></label><br>
+              <label>Email: <?php echo $user_details_row['email']; ?></label><br>
+              <label>Phone number: <?php echo $user_details_row['phone_number'] ?></label><br>
+            <!-- Get host information -->
+            <?php
+              $host_id = $row['host_id'];
+              $host_details_query = "SELECT * FROM account WHERE user_id = '$host_id'";
+              $host_details_result = mysqli_query($conn, $host_details_query);
+              $host_details_row = mysqli_fetch_array($host_details_result);
+            ?>
+							<b><label>Host Information:</label></b><br>
+              <label>Name: <?php echo $host_details_row['first_name'] .' '. $host_details_row['last_name']; ?></label><br>
+              <label>Phone number: <?php echo $host_details_row['phone_number'] ?></label><br>
+
+            <!-- Get accommodation information and information to payment.  -->
+              <b><label>Accommodation Information:</label></b><br>
+              <!-- check in date -->
+              <label>Check-in on time at : <?php echo $row['check_in_time']; echo ' on ' .$_GET['startDate']; ?></label><br>
+              <!-- check out date -->
+              <label>Check-in on before : <?php echo $row['check_out_time']; echo ' on ' .$_GET['endDate']; ?></label><br>
+              <!-- number of guests -->
+              <label>Number of guests: <?php echo $_GET['numberOfGuests'] ?></label><br>
+              <!-- house price -->
+              <label>House price: <?php echo $row['price']; ?> AUD</label><br>
+              <!-- total price -->
+              <?php
+              $date1=date_create($_GET['startDate']);
+              $date2=date_create($_GET['endDate']);
+              $subDate=date_diff($date1,$date2);
+              $total_price = $subDate->format("%a")*$row['price'];
+              ?>
+              <label>Total price: <?php echo $total_price ?> AUD</label><br>
+						</div>
+					
+						<div class="submit-button">
+							<button type="submit" class="btn btn-primary">Payment</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Booking Modal -->
+
+<!-- include login and register modal   -->
+<?php
+	include ('login-register-modal.php');
+	?>
   <script>
     //slider
     var slideIndex = 1;
