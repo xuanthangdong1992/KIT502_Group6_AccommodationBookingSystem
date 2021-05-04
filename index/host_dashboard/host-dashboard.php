@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
-include('session.php');
+include('../db_conn.php');
+include('../session.php');
 ?>
 <html dir="ltr" lang="en">
 

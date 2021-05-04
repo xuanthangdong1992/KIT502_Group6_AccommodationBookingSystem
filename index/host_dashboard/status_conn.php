@@ -1,5 +1,6 @@
 <?php
-include ('db_conn.php');
+include('../db_conn.php');
+//include('../session.php');
 $eid = $_GET['eid'];
 $approval ="confirm";
 $napproval="reject";
