@@ -1,6 +1,8 @@
 <?php
-include('db_conn.php');
-include('session.php');
+// $path = $_SERVER['DOCUMENT_ROOT'];
+// $path .= "/../db_conn.php";
+include('../db_conn.php');
+include('../session.php');
 
 //session_start();  
 //if(!isset($_SESSION["user"]))
