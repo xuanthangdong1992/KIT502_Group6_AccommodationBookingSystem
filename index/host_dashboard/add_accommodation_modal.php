@@ -101,8 +101,7 @@
                 <div class="form-group row">
                     <label class="col-md-6 text-left control-label col-form-label">&nbsp Image upload</label>
                     <div class="col-md-6">
-                    <input type="file" class="form-control" id="image" name="image" aria-describedby="fileHelp"
-                    value="<?php echo $erow['image']; ?>">
+                    <input type="file" class="form-control" id="image" name="image" aria-describedby="fileHelp">
                     </div>
                 </div>
                 <!--save and cancel button-->

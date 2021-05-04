@@ -4,10 +4,10 @@ session_start();
 
 // prepare and bind
 $stmt = $conn->prepare("INSERT INTO accommodation (house_name, description, 
-price, number_of_room, number_of_bathroom, smoke_allowed, pet_friendly,
-check_in_time, check_out_time, address, city, postal_code, state, max_guests_allowed) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("ssdiiiissssssi", $house,$description, $price, $room, $bathroom, $smoke, 
-$pet, $checkin, $checkout, $address, $city, $postal, $state, 
+price, number_of_room, number_of_bathroom, smoke_allowed, garage, pet_friendly,internet_provided,
+check_in_time, check_out_time, address, city, postal_code, state, max_guests_allowed) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("ssdiiiiiissssssi", $house,$description, $price, $room, $bathroom, $smoke, $garage,
+$pet, $internet, $checkin, $checkout, $address, $city, $postal, $state, 
 $maxguests);
 
 // set parameters and execute
@@ -19,9 +19,9 @@ $price= $_POST['price'];
 $room= $_POST['number_of_room']; 
 $bathroom= $_POST['number_of_bathroom'];
 $smoke= $_POST['smoke_allowed'];
-//$garage= $_POST['garage'];
+$garage= $_POST['garage'];
 $pet= $_POST['pet_friendly'];
-//$internet= $_POST['internet_provided'];
+$internet= $_POST['internet_provided'];
 $checkin= $_POST['check_in_time'];
 $checkout= $_POST['check_out_time'];
 $address= $_POST['address'];
