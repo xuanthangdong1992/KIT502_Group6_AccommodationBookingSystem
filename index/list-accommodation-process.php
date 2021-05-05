@@ -51,7 +51,5 @@ while ($row = mysqli_fetch_array($result)) {
       </div>
     </a>';
 }
-
-
 echo $output;
 ?>
