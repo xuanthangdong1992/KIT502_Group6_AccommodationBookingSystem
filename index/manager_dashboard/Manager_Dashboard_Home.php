@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-include('session.php');
+include('../db_conn.php');
 ?>
 <html dir="ltr" lang="en">
 <head>
@@ -10,9 +10,9 @@ include('session.php');
     <!-- Title -->
     <title>System Management Dashboard</title>
     <!-- This page plugin CSS -->
-    <link href="../css/style.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
     <!-- Main CSS file -->
-    <link rel="stylesheet" href="../css/clientstyle.css">
+    <link rel="stylesheet" href="../../css/clientstyle.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 </head>
