@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-include('session.php');
+include('../session.php');
 ?>
 <html dir="ltr" lang="en">
 <head>
@@ -62,14 +62,14 @@ include('session.php');
                                     // redirect to host page
                                     echo "<script>
 										alert('Sorry! Your account is not allowed to access this website!');
-										window.location.href='host-dashboard.php';
+										window.location.href='../host_dashboard/host-dashboard.php';
 										</script>";
                                 } else 
 									if ($_SESSION["permission"] == "client") {
                                     // redirect to client page
                                     echo "<script>
 										alert('Sorry! Your account is not allowed to access this website!');
-										window.location.href='index.php';
+										window.location.href='../index.php';
 										</script>";
                                 }
                             } else {
@@ -158,7 +158,7 @@ include('session.php');
                         var loginUsername = $('#loginUsername').val();
                         var loginPass = $('#loginPass').val();
                         $.ajax({
-                            url: 'login_process.php',
+                            url: '../login_process.php',
                             method: 'POST',
                             data: {
                                 loginUsername: loginUsername,
@@ -173,12 +173,12 @@ include('session.php');
                                 // if login account is client
                                 if (data == 'client') {
                                     $('#loginModal').hide();
-                                    location.href = "index.php";
+                                    location.href = "../index.php";
                                 } else
                                 // if login account is host
                                 if (data == 'host') {
                                     $('#loginModal').hide();
-                                    location.href = "host-dashboard.php";
+                                    location.href = "../host_dashboard/host-dashboard.php";
                                 } else
                                 // if login account is system manager
                                 if (data == 'system_manager') {
@@ -195,7 +195,7 @@ include('session.php');
                 $('#logout').click(function() {
                     var logout = "logout";
                     $.ajax({
-                        url: "login_process.php",
+                        url: "../login_process.php",
                         method: "POST",
                         data: {
                             logout: logout

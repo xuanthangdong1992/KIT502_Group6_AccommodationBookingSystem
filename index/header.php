@@ -6,7 +6,7 @@
 				<!-- bootstrap navigation bar -->
 				<nav class="navbar navbar-expand-lg navbar-dark static-top">
 					<div class="container">
-						<a href="../index/index.php">
+						<a href="index.php">
 							<img class="logo" src="../img/logo.png" alt="">
 						</a>
 						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,14 +38,14 @@
 										// redirect to host page
 										echo "<script>
 										alert('Sorry! Your account is not allowed to access this website!');
-										window.location.href='host-dashboard.php';
+										window.location.href='host-dashboard/host-dashboard.php';
 										</script>";
 									} else 
 									if ($_SESSION["permission"] == "system_manager") {
 										// redirect to host page
 										echo "<script>
 										alert('Sorry! Your account is not allowed to access this website!');
-										window.location.href='Manager_Dashboard_Home.php';
+										window.location.href='manager_dashboard/Manager_Dashboard_Home.php';
 										</script>";
 									}
 								} else {

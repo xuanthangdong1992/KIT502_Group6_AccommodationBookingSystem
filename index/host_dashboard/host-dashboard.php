@@ -77,14 +77,14 @@ include('../session.php');
 										// redirect to client page
 										echo "<script>
 										alert('Sorry! Your account is not allowed to access this website!');
-										window.location.href='indexbackup.php';
+										window.location.href='../index.php';
 										</script>";
 									} else 
 									if ($_SESSION["permission"] == "system_manager") {
 										// redirect to manager page
 										echo "<script>
 										alert('Sorry! Your account is not allowed to access this website!');
-										window.location.href='Manager_Dashboard_Home.php';
+										window.location.href='../manager_dashboard/Manager_Dashboard_Home.php';
 										</script>";
 									}
 								} else {
@@ -177,7 +177,7 @@ include('../session.php');
 						var loginUsername = $('#loginUsername').val();
 						var loginPass = $('#loginPass').val();
 						$.ajax({
-							url: 'login_process.php',
+							url: '../login_process.php',
 							method: 'POST',
 							data: {
 								loginUsername: loginUsername,
@@ -193,7 +193,7 @@ include('../session.php');
 									// if login account is client
 									if (data == 'client') {
 										$('#loginModal').hide();
-										location.href = "index.php";
+										location.href = "../index.php";
 									} else
 										// if login account is host
 										if (data == 'host') {
@@ -203,7 +203,7 @@ include('../session.php');
 											// if login account is system manager
 											if (data == 'system_manager') {
 												$('#loginModal').hide();
-												location.href = "Manager_Dashboard_Home.php";
+												location.href = "../manager_dashboard/Manager_Dashboard_Home.php";
 											}
 							}
 						});
@@ -218,7 +218,7 @@ include('../session.php');
 				$('#logout').click(function() {
 					var logout = "logout";
 					$.ajax({
-						url: "login_process.php",
+						url: "../login_process.php",
 						method: "POST",
 						data: {
 							logout: logout

@@ -14,7 +14,7 @@ include ('db_conn.php');
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
-	<title>Accommodation Booking System - Group test</title>
+	<title>Accommodation Booking System - Group 6</title>
 
 </head>
 <body>
@@ -108,8 +108,6 @@ include ('db_conn.php');
 						<span aria-hidden="true">&times;</span>
 					</button>
 					<h1>Confirm booking</h1>
-					<!-- <form id="bookingForm" action="booking-process.php" method="post"> -->
-						<!-- <form id="loginForm" action="login_process.php" method="post"> -->
             <!-- Get user information -->
             <?php
             $username = $_SESSION["loginUsername"];
