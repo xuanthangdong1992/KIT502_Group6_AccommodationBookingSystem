@@ -230,7 +230,7 @@ include('../session.php');
                     </div>
                     <div id="reasonReject" class="form-group required">
                         <label class="label-control">Give the reason for reject decision:</label>
-                        <textarea rows="5" class="form-control" type="text" id="reason" name="reason"></textarea>
+                        <textarea rows="5" class="form-control" type="text" id="reason" name="rejected_reason"></textarea>
                     </div>
 
                     <div class="submit-button">
@@ -248,10 +248,10 @@ include('../session.php');
         $(document).ready(function() {
             $("#reasonReject").hide();
             $(".form-control").change(function() {
-                if (this.value == 'reject') {
+                if (this.value == 'rejected') {
                     $("#reasonReject").show();
                 }
-                else if (this.value == 'pending' || this.value == 'confirmed' || this.value == 'cancel') {
+                else if (this.value == 'pending' || this.value == 'confirmed' || this.value == 'canceled') {
                     $("#reasonReject").hide();
                 }
             });
