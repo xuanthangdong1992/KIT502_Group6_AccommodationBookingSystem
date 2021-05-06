@@ -5,10 +5,10 @@ session_start();
 // prepare and bind
 $stmt = $conn->prepare("INSERT INTO accommodation (house_name, description, 
 price, number_of_room, number_of_bathroom, smoke_allowed, garage, pet_friendly,internet_provided,
-check_in_time, check_out_time, address, city, postal_code, state, max_guests_allowed) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("ssdiiiiiissssssi", $house,$description, $price, $room, $bathroom, $smoke, $garage,
+check_in_time, check_out_time, address, city, postal_code, state, max_guests_allowed, host_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("ssdiiiiiissssssis", $house,$description, $price, $room, $bathroom, $smoke, $garage,
 $pet, $internet, $checkin, $checkout, $address, $city, $postal, $state, 
-$maxguests);
+$maxguests, $host);
 
 // set parameters and execute
 
@@ -29,6 +29,7 @@ $city= $_POST['city'];
 $postal= $_POST['postal_code'];
 $state= $_POST['state'];
 $maxguests= $_POST['max_guests_allowed'];
+$host=$_POST['host_id'];
 //$image= $_POST['image'];
 //$rate= $_POST['accommodation_rate'];
 

@@ -141,7 +141,7 @@ include('../session.php');
 
             <tbody>
             <?php
-				$query=$conn->query("SELECT * FROM `accommodation`");
+				$query=$conn->query("SELECT * FROM `accommodation` WHERE host_id='host'");
 				while($row=$query->fetch_array()){
                 $image = "http://localhost:8080/KIT502_tutorials/crud_prac/img/".$row['accommodation_id']. ".jpg";
 			?>
