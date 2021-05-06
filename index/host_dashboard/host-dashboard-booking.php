@@ -224,8 +224,8 @@ include('../session.php');
                         <select class="form-control" id="booking_status_u" name="booking_status">
                             <option value="pending">pending</option>
                             <option value="confirmed">confirmed</option>
-                            <option value="cancel">canceled</option>
-                            <option value="reject">rejected</option>
+                            <option value="canceled">canceled</option>
+                            <option value="rejected">rejected</option>
                         </select>
                     </div>
                     <div id="reasonReject" class="form-group required">
