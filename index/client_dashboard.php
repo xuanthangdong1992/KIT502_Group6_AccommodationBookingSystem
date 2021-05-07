@@ -45,16 +45,17 @@ include ('db_conn.php');
 				include ('header.php');
             ?>
     <!-- Data table paging -->
-    <table id="booking_table" class="table table-dark table-bordered nowrap" >
+    <div class="table-responsive">
+    <table id="booking_table" class="table table-dark table-bordered nowrap" style="width: 100%">
         <thead class="thead-dark">
             <tr>
-                <th>Booking ID</th>
+                <th>ID</th>
                 <th>Accommodation ID</th>
                 <th>Start Date</th>
                 <th>End Date</th>
-                <th>Number of Guests</th>
-                <th>Booking status</th>
-                <th width="130px">Action</th>
+                <th>Max Guests</th>
+                <th>Status</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -108,7 +109,7 @@ include ('db_conn.php');
 
         </tbody>
     </table>
-
+</div>
 
         </div>
     </div>
@@ -132,7 +133,7 @@ include ('db_conn.php');
 	</div>
 
 
-<!-- Display reason rejected modal -->
+<!-- Display payment modal -->
 <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -162,7 +163,7 @@ include ('db_conn.php');
                             </div>
                         </div>
                         <div class="form-group required">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block" name="pay_button" id="pay_button" onclick="pay()">Pay</button>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block" name="pay_button" id="pay_button" >Pay</button>
 						</div>
                         </form>
 				</div>
@@ -227,9 +228,6 @@ include ('db_conn.php');
             $("#rejectedReasonModal").modal();
         }
 
-        function pay(){
-
-        }
         //click button pay on datatable.
         function paymentProcess(booking_id, client_id, total_price){
 

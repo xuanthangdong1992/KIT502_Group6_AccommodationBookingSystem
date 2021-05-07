@@ -34,6 +34,34 @@ if($_POST['action'] == "payment_process"){
             echo "Error: " . $sql . "<br>" . $conn->error;
           }
         // echo $queryInsertPayment;
+} else
+//Delete review
+if($_POST['action'] == "delete_review"){
+  $review_id = addslashes($_POST['review_id']);
+  $queryReview = "DELETE FROM accommodation_review WHERE accommodation_review_id='$review_id'";
+  if ($conn->query($queryReview) === TRUE){
+    echo "success";
+  }else{
+    echo "fail";
+    echo "Error: " . $sql . "<br>" . $conn->error;
+  }
+} else
+
+//edit review
+if($_POST['action'] == "edit_review"){
+  $review_id = addslashes($_POST['review_id']);
+  $rate = addslashes($_POST['rate']);
+  $comment = addslashes($_POST['comment']);
+  $queryEditReview = "UPDATE accommodation_review SET rate = '$rate', comment = '$comment' WHERE accommodation_review_id ='$review_id'";
+  // echo $queryEditReview;
+  if ($conn->query($queryEditReview) === TRUE){
+    echo "success";
+  }else{
+    echo "fail";
+    echo "Error: " . $sql . "<br>" . $conn->error;
+  }
+}else{
+  echo "action not found!";
 }
 
 ?>
