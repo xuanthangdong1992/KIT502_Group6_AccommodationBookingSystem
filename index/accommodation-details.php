@@ -93,6 +93,8 @@ include ('db_conn.php');
         <p><b>Accommodation rate:</b> <i class="bi bi-star-fill" style="color: red;"></i> <?php echo $row["accommodation_rate"];?> (<?php echo $countReviews; ?> reviews)</p>
         <!-- Review list   -->
         <!-- end Accommodation details -->
+        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#leaveReviewModal" >Leave a review!</button><br><br>
+
         <?php
         //just show 5 reviews. If client want to see more, they can click to view all reviews button. 
         $i = 0;
@@ -257,8 +259,42 @@ include ('db_conn.php');
 			</div>
 		</div>
 	</div>
-	<!-- End Booking Modal -->
+	<!-- End review Modal -->
 
+  <!-- Leave review Modal -->
+  <div class="modal fade" id="leaveReviewModal" tabindex="-1" role="dialog" aria-labelledby="leaveReviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<!-- payment form -->
+					<button type="button" class="close float-right btn" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h3>Edit review</h3>
+                    <!-- Get review details -->
+                       <div class="form-group">
+                            <label for="rate">Rate:</label>
+							<select class="form-control" id="rate" name="rate">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5" selected>5</option>
+							</select>
+						</div>
+                        <div class="form-group">
+                            <label for="comment">Enter comment: </label>
+                            <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary btn-lg btn-block" name="btn_leave_review" id="btn_leave_review" onclick = "leave_review('<?php echo $accommodation_id; ?>', '<?php echo $username; ?>')">Submit</button>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- End leave review Modal -->
 
 
 <!-- include login and register modal   -->
@@ -320,9 +356,32 @@ include ('db_conn.php');
 							}
 						});
     });
-
-
     });
+
+
+// leave a review
+function leave_review(accommodation_id, client_id){
+    var rate = $('#rate').val();
+    var comment = $('#comment').val();
+      $.ajax({
+
+    url: "leave_review_process.php",
+    method: "POST",
+    data: {
+      accommodation_id: accommodation_id,
+      client_id: client_id,
+      rate: rate,
+      comment: comment
+    },
+    success: function(data) {
+
+                    if (data == "success"){
+                        alert("Review success!");
+                        location.reload();
+                    }
+    }
+    });
+}
     
     //slider
     var slideIndex = 1;
