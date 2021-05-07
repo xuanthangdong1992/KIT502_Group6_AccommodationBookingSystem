@@ -198,7 +198,6 @@ include ('db_conn.php');
 	  include ('login-register-modal.php');
 	?>
   <script>
-  //Booking process
 
    //logout process
    $(document).ready(function() {
@@ -218,6 +217,7 @@ include ('db_conn.php');
 
 			});
 
+  //Booking process
 
   // Get value
   // var 
