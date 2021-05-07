@@ -199,3 +199,8 @@ body, html {
 {
 	background-color: black;
 }
+
+hr.solid {
+	border-top: 3px solid #bbb;
+  }
+
