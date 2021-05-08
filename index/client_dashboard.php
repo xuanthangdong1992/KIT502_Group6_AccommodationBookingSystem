@@ -64,6 +64,7 @@ include ('db_conn.php');
                 $client_id = $_SESSION["loginUsername"];
                 $booking_query = "SELECT * FROM booking WHERE client_id = '$client_id'";
                 $booking_list_result = mysqli_query($conn, $booking_query);
+                if (is_array($booking_list_result) || is_object($booking_list_result)){
                 foreach($booking_list_result as $booking){
 			?>
             <tr>
@@ -105,6 +106,7 @@ include ('db_conn.php');
             </tr>
             <?php
             }
+        }
             ?>
 
         </tbody>

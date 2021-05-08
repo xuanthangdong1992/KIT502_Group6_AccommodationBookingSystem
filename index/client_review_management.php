@@ -64,6 +64,7 @@ include ('db_conn.php');
                 $client_id = $_SESSION["loginUsername"];
                 $reviews_query = "SELECT * FROM accommodation_review WHERE client_id = '$client_id'";
                 $reviews_list_result = mysqli_query($conn, $reviews_query);
+                if (is_array($reviews_list_result) || is_object($reviews_list_result)){
                 foreach($reviews_list_result as $review){
 			?>
             <tr>
@@ -80,6 +81,7 @@ include ('db_conn.php');
             </tr>
             <?php
             }
+        }
             ?>
         </tbody>
     </table>
