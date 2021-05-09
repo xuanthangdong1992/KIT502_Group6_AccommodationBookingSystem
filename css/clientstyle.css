@@ -204,3 +204,12 @@ hr.solid {
 	border-top: 3px solid #bbb;
   }
 
+
+/* .overflow-box-mes{
+	height: 200px; overflow-y: scroll;
+} */
+
+.modal .modal-body {
+    height: 550px;
+    overflow-y: scroll;
+}

@@ -13,7 +13,8 @@ include ('db_conn.php');
 
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-	<title>Accommodation Booking System - Group 6</title>
+	
+    <title>Accommodation Booking System - Group 6</title>
     <!-- Css data table paging -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"> -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
@@ -59,15 +60,15 @@ include ('db_conn.php');
                 <!-- Get last message content -->
                 <?php
                     $receiver = $row['receiver'];
-                    $list_message_query = "SELECT * FROM `message` WHERE sender='$client_id' AND receiver='$receiver' ORDER BY reading_time DESC LIMIT 1";
+                    $list_message_query = "SELECT * FROM `message` WHERE sender='$client_id' AND receiver='$receiver' ORDER BY sending_time DESC LIMIT 1";
                     // echo $list_message_query;
                     $list_message_result = mysqli_query($conn, $list_message_query);
                     if (is_array($list_message_result) || is_object($list_message_result)){
                         foreach($list_message_result as $message){
                 ?>
                 <p class="card-text"> <?php echo $message['message_content']; ?></p>
-                <p class="card-text" style="font-size: 10px;"> <?php echo date_format(date_create($message['reading_time']), "d/m/Y"); ?></p>
-                <a href="#" class="btn btn-primary">Chat</a>
+                <p class="card-text" style="font-size: 10px;"> <?php echo date_format(date_create($message['sending_time']), "d/m/Y"); ?></p>
+                <button type="button" class="btn btn-primary" onclick="showChatBox('<?php echo $client_id; ?>', '<?php echo $receiver; ?>')">Chat</button>
                 <?php
                         }
                     }
@@ -83,7 +84,64 @@ include ('db_conn.php');
 
         </div>
     </div>
+
+    <!-- Chat Modal  -->
+    <div class="modal fade" id="chatModal" tabindex="-1" role="dialog" aria-labelledby="chatModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content" id="mes_container">
+				<div class="modal-body" id="message_content_box">
+
+				</div>
+                <div class="modal-footer">
+                            <div class="input-group mb-3">
+                                <textarea class="form-control" placeholder="Type message.." name="input_mes" id="input_mes" rows="1"></textarea>
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button" name="btn_send_mes" id="btn_send_mes" onclick="sendMessage('<?php echo $client_id; ?>')">Send</button>
+                                </div>
+                            </div>
+                </div>
+			</div>
+		</div>
+	</div>
     <script type="text/javascript"> 
+            // show chatbox function  
+          function showChatBox(client_id, receiver_id){
+            $("#chatModal").modal();
+                $.ajax({
+                        url: "client_inbox_process.php",
+                        method: "POST",
+                        data: {
+                            client_id: client_id,
+                            receiver_id: receiver_id,
+                            action: "show_messages"
+                        },
+                        success: function(data) {
+                            $('#message_content_box').html(data);
+
+                        }
+                    });
+            }
+            //send message
+            function sendMessage(client_id){
+                var mes_content = $('#input_mes').val();
+                var host_id = $('#get_receiver_id').val();
+                if(mes_content != ""){
+                    $.ajax({
+                        url: "client_inbox_process.php",
+                        method: "POST",
+                        data: {
+                            client_id: client_id,
+                            host_id: host_id,
+                            mes_content: mes_content ,
+                            action: "insert_message"
+                        },
+                        success: function(data) {
+
+                            $('#message_content_box').append(data);
+                        }
+                    });
+                }
+            }
     </script>
 </body>
 </html>
