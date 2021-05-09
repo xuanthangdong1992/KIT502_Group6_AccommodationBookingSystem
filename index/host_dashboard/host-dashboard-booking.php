@@ -127,11 +127,11 @@ include('../session.php');
                     </td>
                     <!-- This is the start date of booking 1-->
                     <td>
-                        <span class="mb-0"><?php echo $row["start_date"]; ?></span>
+                        <span class="mb-0"><?php echo date_format(date_create($row['start_date']), "d/m/Y"); ?></span>
                     </td>
                     <!-- This is the end date of booking 1 -->
                     <td>
-                        <span class="mb-0"><?php echo $row["end_date"]; ?></span>
+                        <span class="mb-0"><?php echo date_format(date_create($row['end_date']), "d/m/Y"); ?></span>          
                     </td>
                     <!-- This is the number of guests of booking 1-->
                     <td>
