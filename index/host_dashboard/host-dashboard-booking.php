@@ -180,11 +180,11 @@ include('../session.php');
                     <input required="required" type="text" class="form-control" id="accommodation_id" name="accommodation_id">
                 </div>    
                 <div class="form-group">
-                        <label>Check in time: </label>
+                        <label>Start time: </label>
                         <input required="required" type="time" class="form-control" id="start_date" name="start_date">
                 </div>
                 <div class="form-group">
-                        <label>Check out time: </label>
+                        <label>End time: </label>
                         <input required="required" type="time" class="form-control" id="end_date" name="end_date">
                 </div>
                 <div class="form-group">

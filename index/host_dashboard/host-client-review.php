@@ -59,7 +59,7 @@ include('../session.php');
                                     <a class="nav-link" href="host-dashboard-booking.php">Host Booking management</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="Mhost-client-review.php">Review</a>
+                                    <a class="nav-link" href="host-client-review.php">Review</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="host-inbox.php">Inbox</a>

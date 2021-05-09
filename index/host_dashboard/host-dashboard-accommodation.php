@@ -18,7 +18,7 @@ include('../session.php');
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Title -->
-    <title>CRUD Host Management Dashboard</title>
+    <title>Host Management Dashboard</title>
     <!-- This page plugin CSS -->
     <link href="../../css/style.css" rel="stylesheet">
     <link href="../../css/clientstyle.css" rel="stylesheet">

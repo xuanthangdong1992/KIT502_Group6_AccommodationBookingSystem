@@ -1,6 +1,6 @@
 <?php
 	include('../db_conn.php');
-	session_start();
+	include('../session.php');
 
 $id=$_GET['id'];
 //$clientid=$_POST['client_id'];

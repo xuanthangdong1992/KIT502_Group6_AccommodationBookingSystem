@@ -71,41 +71,33 @@ include('../session.php');
                     </div>
                 </nav>
                 <!-- end bootstrap navigation bar -->
-    </header>            
+    </header>    
+            <!-- send messages modal -->
     </div>
-
-   
 				 <?php
 				$mail = "SELECT * FROM `message`";
-				$rew = mysqli_query($conn,$mail);
-				
+				$rew = mysqli_query($conn,$mail);			
 			   ?>
 				 <div class="row">
                 <div class="col-md-12">
                     <div class="jumbotron">
-                        <h3>Send message to client</h3>
+                        <h3>Reply messages to client</h3>
 						<?php
 						while($rows = mysqli_fetch_array($rew))
 						{
 								$app=$rows['message_status'];
-								if($app=="Allowed")
+								if($app=="replied")
 								{
 									
 								}
 						}
 						?>
-                        <p></p>
-                        <p>
-						<div class="panel-body">
-                            <button class="btn btn-primary btn" data-toggle="modal" data-target="#myModal">
-                              Send New message
-                            </button>
                             <!--mymodal-->
                             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h4 class="modal-title" id="myModalLabel">Compose New message</h4>
+                                            <h4 class="modal-title" id="myModalLabel">Reply messages</h4>
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                         </div>
 										<form action="" method="post">
@@ -143,32 +135,21 @@ include('../session.php');
 							if(isset($_POST['log']))
 							{	
 								$log ="INSERT INTO `message`(`sender`, `receiver`, `message_content`) 
-                                VALUES ($sender,$receiver,$content)";
-                                 
-                                 $sender=$_POST['sender'];
-                                 $receiver=$_POST['receiver'];
-                                 $content=$_POST['message_content'];
+                                VALUES ('$_POST[sender]','$_POST[receiver]','$_POST[message_content]')";
     
 								if(mysqli_query($conn,$log))
 								{
 									echo '<script>alert("New message sent") </script>' ;				
 								}
 								
-							}
-							
-								
+							}		
 							?>
-                          
-                        </p>
-						
                     </div>
                 </div>
             </div>
                <?php
-				
 				$sql = "SELECT * FROM `message`";
-				$re = mysqli_query($conn,$sql);
-				
+				$re = mysqli_query($conn,$sql);	
 			   ?>
             <div class="row">
                 <div class="col-md-12">
@@ -195,17 +176,14 @@ include('../session.php');
 										{
                                             $id = $row['message_id'];
                                     ?>
-						                <tr class='gradeC'>
+						                <tr>
 													<td><?php echo $row['sender'] ?></td>
 													<td><?php echo $row['receiver'] ?></td>
 													<td><?php echo $row['message_content']?></td>
 													<td><?php echo $row['message_status']?></td>
-													<td><?php echo $row['reading_time']?></td>
+													<td><?php echo date_format(date_create($row['reading_time']), "d/m/Y"); ?></td>
 													<td><a href="#myModal" class='btn btn-primary' data-toggle="modal"> <i class='fa fa-edit' ></i> Reply</button></td>
-													<td><a href="message_conndel.php?id=<?php echo $row['message_id']; ?>"
-                                                    class='btn btn-danger'> <i class='fa fa-edit' ></i> Delete</button></td>
-									</tr>
-											
+									</tr>	
 									<?php		
 											}	
 									?>
@@ -219,12 +197,5 @@ include('../session.php');
                 </div>
                 <!--table end-->
             
-
-        <script>
-            $(document).ready(function () {
-                $('#dataTables-example').dataTable();
-            });
-    </script>
-  
 </body>
 </html>
