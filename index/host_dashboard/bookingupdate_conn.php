@@ -11,7 +11,7 @@ $id=$_GET['id'];
 $status=$_POST['booking_status'];
 $rejectedreason=$_POST['rejected_reason'];
 
-$conn->query("update booking set booking_status='$status', rejected_reason='$rejectedreason' ");
+$conn->query("update booking set booking_status='$status', rejected_reason='$rejectedreason'");
 $conn->query("select * from `booking` where booking_id='$id' ");
 //where booking_id='$id' is not working
 

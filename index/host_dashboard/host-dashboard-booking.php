@@ -15,7 +15,7 @@ include('../session.php');
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Title -->
-    <title>System Management Dashboard</title>
+    <title>Host Management Dashboard</title>
     <!-- This page plugin CSS -->
     <link href="../../css/style.css" rel="stylesheet">
     <link href="../../css/clientstyle.css" rel="stylesheet">
@@ -85,13 +85,9 @@ include('../session.php');
         </div>
     </div>
 
-<!--Add new booking button-->
+<!--title-->
 <div class="card card-body">
-    <div class="btn-create">
-        <span class="pull-left">
-        <a href="#addStatus" data-toggle="modal" class="btn btn-info btn-lg">
-        <span class="glyphicon glyphicon-plus"></span> Create new Booking</a></span>
-    </div>
+        <h3>Manage Booking Request </h3>
 </div>
 
     <!--This is the table of all the accomodations-->
@@ -159,54 +155,6 @@ include('../session.php');
     </div>
 </div>
 
-<!-- add Status Modal -->
-<div class="modal fade" id="addStatus" tabindex="-1" role="dialog" aria-labelledby="changeStatusLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <!-- change status form -->
-                <button type="button" class="close float-right btn" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h1>Add new pending booking</h1>
-                <!--form action-->
-                <form id="addStatusForm" action="booking_conn.php" method="post">
-                <div class="form-group">
-                    <label>Client ID </label>
-                    <input required="required" type="text" class="form-control" id="client_id" name="client_id">
-                </div>
-                <div class="form-group">
-                    <label>Accommodation ID </label>
-                    <input required="required" type="text" class="form-control" id="accommodation_id" name="accommodation_id">
-                </div>    
-                <div class="form-group">
-                        <label>Start time: </label>
-                        <input required="required" type="time" class="form-control" id="start_date" name="start_date">
-                </div>
-                <div class="form-group">
-                        <label>End time: </label>
-                        <input required="required" type="time" class="form-control" id="end_date" name="end_date">
-                </div>
-                <div class="form-group">
-                    <label>Number of guests</label>
-                    <input required="required" type="text" class="form-control" id="number_of_guests" name="number_of_guests">
-                </div>
-                <div class="form-group">
-                        <label>Status</label>
-                        <select class="form-control" id="booking_status" name="booking_status">
-                            <option selected>pending</option>
-                        </select>
-                </div>
-                <div class="submit-button">
-                        <button type="submit" class="btn btn-primary">Save</button>
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End add Status Modal -->
-
 <!-- change Status Modal -->
 <div class="modal fade" id="changeStatus" tabindex="-1" role="dialog" aria-labelledby="changeStatusLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -218,7 +166,7 @@ include('../session.php');
                 </button>
                 <h1>Change status</h1>
                 <!--form action-->
-                <form id="changeStatusForm" action="bookingupdate_conn.php" method="post">
+                <form id="changeStatusForm" action="bookingupdate_conn.php?" method="post">     
                     <div class="form-group">
                         <label>Number of guests</label>
                         <select class="form-control" id="booking_status_u" name="booking_status">
