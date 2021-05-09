@@ -61,6 +61,19 @@ if($_POST['action'] == "insert_message"){
     } else {
         echo 'fail';
     }
+}else 
+if($_POST['action'] == "leave_message"){
+    $client_id = addslashes($_POST['client_id']);
+    $host_id = addslashes($_POST['host_id']);
+    $mes_content = addslashes($_POST['mes_content']);
+    $mes_status = "unread";
+    // $sending_time = date('Y-m-d H:i:s');;
+    $leave_message_query = "INSERT INTO `message`(`sender`, `receiver`, `message_content`, `message_status`, `sending_time`) VALUES ('$client_id', '$host_id', '$mes_content', '$mes_status', now())";
+    if ($conn->query($leave_message_query)) {
+        echo "success";
+    }else {
+        echo "fail";
+    }
 }else {
     echo "action not found";
 }

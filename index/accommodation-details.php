@@ -79,7 +79,10 @@ include ('db_conn.php');
         <p><b>State:</b> <?php echo $row["state"];?></p>
         <p><b>Max guests allowed:</b> <?php echo $row["max_guests_allowed"];?></p>
         <div class="submit-button">
-          <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#bookingModal" >Booking</button>
+          <button class="btn btn-primary btn-lg btn-block" type="button" data-toggle="modal" data-target="#bookingModal" >Booking</button>
+        </div>
+        <div class="submit-button">
+          <button class="btn btn-warning btn-lg btn-block" type="button" data-toggle="modal" data-target="#contactHostModal" >Contact Host</button>
         </div>
         <hr class="solid">
         <!-- Accommodation review and rating -->
@@ -297,6 +300,32 @@ include ('db_conn.php');
 	<!-- End leave review Modal -->
 
 
+  <!-- Contact Host Modal -->
+  <div class="modal fade" id="contactHostModal" tabindex="-1" role="dialog" aria-labelledby="contactHostModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<!-- payment form -->
+					<button type="button" class="close float-right btn" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h3>Contact Host</h3>
+
+                        <div class="form-group">
+                            <label for="comment">Leave a message for host: </label>
+                            <textarea class="form-control" id="mes_content" name="mes_content" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary btn-lg btn-block" name="btn_leave_review" id="btn_leave_review" onclick = "leave_message('<?php echo $username; ?>', '<?php echo $host_id; ?>')">Send Message</button>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- End Contact Host Modal -->
+
+
 <!-- include login and register modal   -->
   <?php
 	  include ('login-register-modal.php');
@@ -382,6 +411,28 @@ function leave_review(accommodation_id, client_id){
     }
     });
 }
+
+//leave a message for host
+function leave_message(client_id, host_id){
+  var mes_content = $('#mes_content').val();
+                if(mes_content != ""){
+                    $.ajax({
+                        url: "client_inbox_process.php",
+                        method: "POST",
+                        data: {
+                            client_id: client_id,
+                            host_id: host_id,
+                            mes_content: mes_content ,
+                            action: "leave_message"
+                        },
+                        success: function(data) {
+                            if(data == "success"){
+                                alert("Send message success!");
+                                location.reload();                            }
+                        }
+                    });
+                }
+}
     
     //slider
     var slideIndex = 1;
@@ -405,6 +456,8 @@ function leave_review(accommodation_id, client_id){
           }
           slides[slideIndex-1].style.display = "block";
         }
+
+
   </script>
 
 </body>
