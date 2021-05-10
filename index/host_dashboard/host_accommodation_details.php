@@ -32,10 +32,12 @@ include ('../db_conn.php');
     $result = mysqli_query($conn, $query);
     $row = mysqli_fetch_array($result);
   ?>
-  <div class="regis-bg">
+
+<div class="management-nav">
     <?php
-		include ('host_header.php');
-	?>
+				include ('host_header.php');
+			?>          
+    </div>
     <h1>Accommodation details</h1>
     <div>
       <!-- slider -->
@@ -124,7 +126,6 @@ include ('../db_conn.php');
       <div class="footer">
       </div>
     </footer>
-  </div>
 
 
    <!-- review Modal -->

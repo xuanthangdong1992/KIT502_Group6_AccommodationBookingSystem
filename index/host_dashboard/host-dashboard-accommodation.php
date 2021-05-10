@@ -39,7 +39,7 @@ include('../session.php');
         </div>
         <!-- Accommodation management data table   -->
         <div class="table-responsive">
-        <button type="button" class="btn btn-success" name="btn_add" id="btn_add">Add new House</button>
+        <button type="button" class="btn btn-success" name="btn_add" id="btn_add" data-toggle="modal" data-target="#createAccModal">Add new House</button>
             <table id="booking_table" class="table table-info table-bordered nowrap" style="width: 100%">
                 <thead class="thead-dark">
                     <tr>
@@ -83,6 +83,121 @@ include('../session.php');
         </div>
 
     </div>
+
+
+<!-- add new accommodation Modal -->
+<!-- Modal -->
+<div class="modal fade" id="createAccModal" tabindex="-1" role="dialog" aria-labelledby="createAccModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="close float-right btn" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h3>Create new Accommodation</h3>
+            <!--accommodation details-->
+                <div class="form-group">
+                    <label>House name: </label>
+                    <input required="required" type="text" class="form-control" id="house_name" name="house_name">
+                </div>
+                <div class="form-group">
+                    <label>Description: </label>
+                    <textarea required="required" type="text" rows="4" class="form-control" id="description" name="description"></textarea>
+                </div>
+                <div class="row">
+                    <div class="form-group col-3">
+                        <label>Price (AUD):</label>
+                        <input required="required" type="text" class="form-control" id="price" name="price">
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Number of room: </label>
+                        <input required="required" type="text" class="form-control col-3" id="number_of_room" name="number_of_room">
+                    </div>
+                    <div class="form-group col-5">
+                        <label>Number of bathroom: </label>
+                        <input required="required" type="text" class="form-control col-3" id="number_of_bathroom" name="number_of_bathroom">
+                    </div>
+                </div>
+                <div class="form-inline row">
+                    <div class="form-group col-6">
+                        <label>Smoke allowed: </label>
+                        <input class="form-control" type="checkbox" name="smoke_allowed" id="smoke_allowed"> 
+                    </div>
+                    <div class="form-group col-6">
+                        <label>Garage: </label>
+                        <input class="form-control" type="checkbox" name="garage" id="garage"> 
+                    </div>
+                </div>
+                <div class="form-inline row">
+                    <div class="form-group col-6">
+                        <label>Pet friendly: </label>
+                        <input class="form-control" type="checkbox" name="pet_friendly" id="pet_friendly"> 
+                    </div>
+                    <div class="form-group col-6">
+                        <label>Internet: </label>
+                        <input class="form-control" type="checkbox" name="internet_provided" id="internet_provided"> 
+                    </div>
+                    
+                </div>
+                <div class="form-inline row">
+                    <div class="form-group col-6">
+                        <label for="checkin">Check in time: </label>
+                        <input required="required" type="time" id="check_in_time" name="check_in_time">
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="checkout">Check out time: </label>
+                        <input required="required" type="time" id="check_out_time" name="check_out_time">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Address: </label>
+                    <input required="required" type="text" class="form-control" id="address" name="address">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>City</label>
+                        <input required="required" type="text" class="form-control" id="city" name="city">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>State</label>
+                        <select required="required" id="state" class="form-control" name="state">
+                            <option>ACT</option>
+                            <option>NSW</option>
+                            <option>NT</option>
+                            <option>QLD</option>
+                            <option>SA</option>
+                            <option selected>TAS</option>
+                            <option>VIC</option>
+                            <option>WA</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Postal</label>
+                        <input required="required" type="text" class="form-control" id="postal_code" name="postal_code">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Max guests allow: </label>
+                    <input required="required" type="text" class="form-control" id="max_guests_allowed" name="max_guests_allowed">
+                </div>
+                <!--Here to upload image-->
+                <div class="form-group">
+                    <label>Image upload</label>
+                    <input name="file[]" id="fileUpload" type="file" multiple="multiple"/>
+                    <div id="imgList">
+                </div>
+                <!--save and cancel button-->
+                <div>
+                    <button type="button" class="btn btn-primary btn-lg btn-block" onclick="addHouse('<?php echo $host_id; ?>')">Add</button>
+                </div>
+        </div>
+    </div>
+      
+    </div>
+  </div>
+ <!-- add new accommodation Modal end--> 
 
 
     <script type="text/javascript">
@@ -138,6 +253,79 @@ include('../session.php');
             function detailsHouse(house_id){
                 location.href = "host_accommodation_details.php?id="+house_id;		
             }
+            // add house 
+            function addHouse(host_id){
+            //get information from form.
+            var house_name = $('#house_name').val();
+            var description = $('#description').val();
+            var price = $('#price').val();
+            var number_of_room = $('#number_of_room').val();
+            var number_of_bathroom = $('#number_of_bathroom').val();
+            var smoke_allowed = document.getElementById("smoke_allowed").checked==true?'1':'0';
+            var garage = document.getElementById("garage").checked==true?'1':'0';
+            var pet_friendly = document.getElementById("pet_friendly").checked==true?'1':'0';
+            var internet_provided = document.getElementById("internet_provided").checked==true?'1':'0';
+            var check_in_time = $('#check_in_time').val();
+            var check_out_time = $('#check_out_time').val();
+            var address = $('#address').val();
+            var city = $('#city').val();
+            var state = $('#state').val();
+            var postal_code = $('#postal_code').val();
+            var max_guests_allowed = $('#max_guests_allowed').val();
+            //get image source
+            var img_source = "";
+            var imgUp = document.getElementById('fileUpload');
+            for (var i = 0; i < imgUp.files.length; ++i) {
+            img_source += "../img/";
+            img_source += imgUp.files.item(i).name;
+            if(i < imgUp.files.length - 1){
+                img_source += "; ";
+            }
+            }
+            // alert(host_id);
+            //Ajax
+            var file_data = $('#fileUpload').prop('files')[0];   
+            var form_data = new FormData();                  
+            form_data.append('file', file_data);
+            alert(form_data);  
+
+            // $.ajax({
+            //                 url: "host_dashboard_accommodation_process.php",
+            //                 method: "POST",
+            //                 data: {
+            //                     house_name: house_name,
+            //                     description: description,
+            //                     price: price,
+            //                     number_of_room: number_of_room,
+            //                     number_of_bathroom: number_of_bathroom,
+            //                     smoke_allowed: smoke_allowed,
+            //                     garage: garage,
+            //                     pet_friendly: pet_friendly,
+            //                     internet_provided: internet_provided,
+            //                     check_in_time: check_in_time,
+            //                     check_out_time: check_out_time,
+            //                     address: address,
+            //                     city: city,
+            //                     state: state,
+            //                     postal_code: postal_code,
+            //                     max_guests_allowed: max_guests_allowed,
+            //                     img_source: img_source,
+            //                     host_id: host_id,
+            //                     action: "add_house"
+            //                 },
+            //                 success: function(data) {
+            //                     // alert(data);
+            //                     if (data == "success"){
+            //                         alert("Add new accommodation successful!");
+            //                         location.reload();
+            //                     }
+            //                 }
+            //             });
+
+            }
+
+
+
     </script>
 </body>
 </html>
