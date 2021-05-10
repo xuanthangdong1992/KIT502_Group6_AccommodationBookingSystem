@@ -109,6 +109,7 @@ include('../db_conn.php');
                     if ($result->num_rows > 0) {
                         // output data of each row
                         while ($row = $result->fetch_assoc()) {
+                            
                             $check_n++;
                     ?>
 
@@ -172,7 +173,7 @@ include('../db_conn.php');
 
                                         <!--When click the button, the page of review will show-->
                                         <span class="action-btn">
-                                            <a href="Manager_Dashboard_Accommodation Management_Client Review.html" class="text-info edit-rate"><i class="fa fa-edit font-18"></i></a>
+                                            <a href="Manager_Dashboard_Review.php" class="text-info edit-rate"><i class="fa fa-edit font-18"></i></a>
                                         </span>
                                     </div>
                                 </td>

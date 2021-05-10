@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <?php
-<<<<<<< HEAD
+// connect database
 include('../db_conn.php');
-=======
-include('../session.php');
->>>>>>> 871028c880e133e847f616accf72f13bab9c17d5
 ?>
 <html dir="ltr" lang="en">
 <head>
