@@ -8,38 +8,22 @@ include ('db_conn.php');
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<!-- Main CSS file -->
+    <title>Accommodation Booking System - Group 6</title>
+	<!-- Local CSS file -->
 	<link rel="stylesheet" href="../css/clientstyle.css">
-
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"> -->
-
-	<title>Accommodation Booking System - Group 6</title>
-    <!-- Css data table paging -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"> -->
+    <!-- Data table CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.bootstrap4.min.css">
 
-       
 </head>
 <body>
-	<!-- jQuery and Bootstrap Bundle (includes Popper) -->
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-		<!-- validation plugin -->
-	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-  <!-- support call ajax -->
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-
- <!-- Data table paging -->
+    <!-- Data table paging -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 
-
-
-
+  
 
 	<div class="form-bg">
 		<div class="main-page">
@@ -47,15 +31,16 @@ include ('db_conn.php');
 				include ('header.php');
             ?>
     <!-- Data table paging -->
-    <div class="table-responsive">
-    <table id="reviews_table" class="table table-dark table-bordered nowrap" style="width: 100%">
+    <!-- <div class="table-responsive"> -->
+    <div class="container">
+    <table id="reviews_table" class="table table-dark table-bordered nowrap dt-responsive v-middle" width="100%">
         <thead class="thead-dark">
             <tr>
-                <th class="col-md-2">Review ID</th>
-                <th class="col-md-2">Accommondation ID</th>
-                <th class="col-md-2">Rate</th>
-                <th class="col-md-4">Comment</th>
-                <th class="col-md-2">Action</th>
+                <th>Review ID</th>
+                <th>Accommondation ID</th>
+                <th>Rate</th>
+                <th>Comment</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -87,6 +72,7 @@ include ('db_conn.php');
     </table>
 
 </div>
+
         </div>
     </div>
 
@@ -128,7 +114,13 @@ include ('db_conn.php');
     <script type="text/javascript">
             //data table process
             $(document).ready(function() {
-                $('#reviews_table').DataTable();
+                $('#reviews_table').DataTable(
+                    {
+                        "scrollY":        "550px",
+                        "scrollCollapse": true,
+                        "paging":         false
+                    }
+                );
             });
             
             //logout process
