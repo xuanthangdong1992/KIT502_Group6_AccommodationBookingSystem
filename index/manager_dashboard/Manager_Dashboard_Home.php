@@ -132,7 +132,7 @@ include('../db_conn.php');
             <div class="card">
                 <img class="card-img-top" src="../../img/M1.png" alt="Card image cap" height="300">
                 <div class="card-body align-items-center mb-3">
-                    <h4 class="font-normal">User Management Dashboard</h4>
+                    <h3 class="font-normal">User Management Dashboard</h3>
                     <!--When click on the button, the page will jump to User Management Dashboard-->
                     <a href="Manager_Dashboard_User.php" button class="btn btn-success btn-rounded waves-effect waves-light mt-3">User Management</a>
                 </div>
