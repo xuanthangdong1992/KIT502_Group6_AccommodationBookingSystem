@@ -24,11 +24,9 @@ include('../db_conn.php');
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <!--This page plugins -->
     <script src="../../js/manageAccommodation.js"></script>
+    
 
     <!--This is a container for all the reviews of this accommodation-->
-
-
-
     <div class="container">
         <div class="col-md-16 single-review align-self-center">
             <!--This is the first review-->
@@ -112,6 +110,7 @@ include('../db_conn.php');
                         <!-- Delete Modal End-->
 
                     </div>
+
                 <?php
                 }
                 ?>
@@ -125,10 +124,6 @@ include('../db_conn.php');
             ?>
 
         </div>
-
-
-
-
 
 </body>
 

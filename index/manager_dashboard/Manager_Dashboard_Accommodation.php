@@ -31,8 +31,8 @@ include('../db_conn.php');
             <!-- bootstrap navigation bar -->
             <nav class="navbar navbar-expand-lg navbar-dark static-top">
                 <div class="container">
-                    <a href="Manager_Dashboard_Home.html">
-                        <img class="logo" src="../img/logo.png" alt="">
+                    <a href="Manager_Dashboard_Home.php">
+                        <img class="logo" src="../../img/logo.png" alt="">
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -40,12 +40,15 @@ include('../db_conn.php');
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="Manager_Dashboard_Home.html">Home
+                                <a class="nav-link" href="Manager_Dashboard_Home.php">Home
                                     <span class="sr-only">(current)</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="Manager_Dashboard_User.html">User management</a>
+                                <a class="nav-link" href="Manager_Dashboard_User.php">User management</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="Manager_Dashboard_Booking.php">Booking management</a>
                             </li>
                         </ul>
                     </div>

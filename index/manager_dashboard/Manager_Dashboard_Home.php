@@ -32,7 +32,7 @@ include('../db_conn.php');
             <nav class="navbar navbar-expand-lg navbar-dark static-top">
                 <div class="container">
                     <a href="index.html">
-                        <img class="logo" src="../img/logo.png" alt="">
+                        <img class="logo" src="../../img/logo.png" alt="">
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
