@@ -148,17 +148,17 @@ include('../session.php');
 
                 <!-- This is the information of Accomdation-->
                 <tr class="search-items">
-                    <!-- This is the checkbox for Accomdation-->
                     <td>
-                        <div class="n-chk align-self-center text-center">
-                            <div class="checkbox checkbox-info">
-                                <input type="checkbox" class="material-inputs user-chkbox" id="<?php echo $row["accommodation_id"]; ?>">
-                                <label class="" for="checkbox1"></label>
-                            </div>
-                        </div>
+                         <!-- This is the checkbox for each accommodation-->
+                         <div class="n-chk align-self-center text-center">
+                                        <div class="checkbox checkbox-info">
+                                            <input type="checkbox" class="material-inputs user-chkbox" id="checkbox<?php echo $check_n; ?>">
+                                            <label class="" for="checkbox<?php echo $check_n; ?>"></label>
+                                        </div>
+                                    </div>
                     </td> 
                     <!-- This is the accommodation image of Accomdation-->
-                    <td> <img src='<?php echo $image ?>' height="50px" width="70px" /></td>               
+                    <td> <img src='<?php echo $row["image"] ?>' height="100px" width="140px" /></td>               
                     <!-- This is the accommodation id of Accomdation-->
                     <td><?php echo $row["accommodation_id"]; ?></td>
                     <!-- This is the House Name of Accommodation-->
@@ -171,15 +171,29 @@ include('../session.php');
                     <td><?php echo $row["city"]; ?></td>
                     <!-- This is the rate of Accommodation-->
                     <td>
-                    <div class="acc_accomodation_rate" data_accommodation_rate="4.0">
-                           <span class="text-warning fa fa-star"></span>
-                           <span class="text-warning fa fa-star"></span>
-        	               <span class="text-warning fa fa-star"></span>
-        	               <span class="text-warning fa fa-star"></span>
-                           <span class="fa fa-star"></span>
+                    <div class="acc_accomodation_rate" data_accommodation_rate="<?php echo $row["accommodation_rate"]; ?>">
+                                        <?php
+                                        $accommodation_rate=$row["accommodation_rate"];
+                                        $accommodation_rate_nums = explode(".",$accommodation_rate);
+                                        
+                                        for ($i = 0; $i < $accommodation_rate_nums[0]; $i++) {
+                                        ?>
+                                            <span class="text-warning fa fa-star"></span>
+                                        <?php
+                                        }
+                                        
+
+                                        if (count($accommodation_rate_nums)==2) {
+                                        ?>
+                                            <span class="text-warning fa fa-star-half"></span>
+                                        <?php
+
+                                        };
+
+                                        ?>
                             <!--When click the button, the page of review will show-->
                            <span class="action-btn">
-                               <a href="Manager_Dashboard_Accommodation Management_Client Review.php" class="text-info edit-rate"><i class="fa fa-edit font-18"></i></a>
+                               <a href="host-client-review.php" class="text-info edit-rate"><i class="fa fa-edit font-18"></i></a>
                            </span>
                     </div>
                     </td>

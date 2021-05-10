@@ -15,7 +15,7 @@ include('session.php');
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 	<!-- script -->
 	<script type="text/javascript" src="../js/script.js"></script>
-	<title>Accommodation Booking System - Group test</title>
+	<title>Accommodation Booking System - Group 6</title>
 </head>
 
 <body>
@@ -211,12 +211,12 @@ include('session.php');
 									// if login account is host
 								if (data == 'host') {
 									$('#loginModal').hide();
-									location.href = "host-dashboard.php";
+									location.href = "host_dashboard/host-dashboard.php";
 								} else
 								// if login account is system manager
 								if (data == 'system_manager') {
 									$('#loginModal').hide();
-									location.href = "Manager_Dashboard_Home.php";
+									location.href = "manager_dashboard/Manager_Dashboard_Home.php";
 								}
 							}
 						});
