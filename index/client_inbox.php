@@ -130,6 +130,26 @@ include ('db_conn.php');
                     });
                 }
             }
+            
+            //logout process
+			$(document).ready(function() {
+				$('#logout').click(function() {
+					var logout = "logout";
+					$.ajax({
+						url: "login_process.php",
+						method: "POST",
+						data: {
+							logout: logout
+						},
+						success: function() {
+                            //when client logout this will redirect to home page.
+							location.href="index.php";
+						}
+					});
+				});
+
+			});
+
     </script>
 </body>
 </html>

@@ -340,7 +340,7 @@ include ('db_conn.php');
 							logout: logout
 						},
 						success: function() {
-							location.reload();
+							location.href="index.php";
 						}
 					});
 				});

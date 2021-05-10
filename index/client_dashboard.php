@@ -29,7 +29,7 @@ include ('db_conn.php');
 	<div class="form-bg">
 		<div class="main-page">
 			<?php
-				include ('header.php');
+				        include ('header.php');
             ?>
     <!-- Data table paging -->
     <div class="table-responsive">
