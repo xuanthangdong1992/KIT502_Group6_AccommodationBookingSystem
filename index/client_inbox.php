@@ -30,6 +30,7 @@ include ('db_conn.php');
 				include ('header.php');
             ?>
             <h2>Inbox message</h2>
+            
             <!-- Get list host contact -->
             <?php
             $client_id = $_SESSION["loginUsername"];
@@ -92,7 +93,7 @@ include ('db_conn.php');
 		</div>
 	</div>
     <script type="text/javascript"> 
-            // show chatbox function  
+        // show chatbox function  
           function showChatBox(client_id, receiver_id){
             $("#chatModal").modal();
                 $.ajax({
@@ -130,7 +131,7 @@ include ('db_conn.php');
                     });
                 }
             }
-            
+
             //logout process
 			$(document).ready(function() {
 				$('#logout').click(function() {

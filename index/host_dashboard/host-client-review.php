@@ -1,12 +1,6 @@
 <?php
 include('../db_conn.php');
 include('../session.php');
-
-//session_start();  
-//if(!isset($_SESSION["user"]))
-//{
-// header("location:host-dashboard.php");
-//}
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -15,66 +9,35 @@ include('../session.php');
     <meta charset="utf-8">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Title -->
-    <title>Host Review Dashboard</title>
-    <!-- This page plugin CSS -->
+	<title>Host Dashboard</title>
+    
+    <!-- Local CSS   -->
     <link href="../../css/style.css" rel="stylesheet">
-    <link href="../../css/clientstyle.css" rel="stylesheet">
+	<link rel="stylesheet" href="../../css/clientstyle.css">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
 </head>
 
 
 <body>
-    <!-- Bootstrap JQuery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <!--This page plugins -->
-    <script src="../../js/manageAccommodation.js"></script>
+    <!-- Local JS file -->
     <script src="../../js/manageuser.js"></script>
-    
+    <script src="../../js/manageAccommodation.js"></script>
+    <!-- Jquery -->
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<!-- validation plugin -->
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+	<!-- Bootstrap   -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 
-    <!-- validation plugin -->
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 
     <div class="management-nav">
-    <header>
-                <!-- bootstrap navigation bar -->
-                <nav class="navbar navbar-expand-lg navbar-dark static-top">
-                    <div class="container">
-                        <a href="host-dashboard.php">
-                            <img class="logo" src="../../img/logo.png" alt="">
-                        </a>
-                        <h2 style="color: white">Welcome to Host accommodation management</h2>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarResponsive">
-                            <ul class="navbar-nav ml-auto">
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="host-dashboard.php">Home
-                                        <span class="sr-only">(current)</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="host-dashboard-booking.php">Host Booking management</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="host-client-review.php">Review</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="host-inbox.php">Inbox</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="">Logout</a>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-                <!-- end bootstrap navigation bar -->
-    </header>            
+    <?php
+				include ('host_header.php');
+			?>          
     </div>
+
 
     <?php
 				$query=$conn->query("SELECT * FROM `accommodation_review`");
@@ -117,6 +80,25 @@ include('../session.php');
     </div>
 </div>
 <?php } ?>
-                   
+             
+
+<script type="text/javascript">
+   //logout process
+   $(document).ready(function() {
+				$('#logout').click(function() {
+					var logout = "logout";
+					$.ajax({
+						url: "../login_process.php",
+						method: "POST",
+						data: {
+							logout: logout
+						},
+						success: function() {
+							location.href = "../index.php";						}
+					});
+				});
+
+			});
+                </script>
 </body>
 </html>
