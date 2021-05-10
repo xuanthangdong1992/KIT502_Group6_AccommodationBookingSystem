@@ -1,11 +1,6 @@
 <?php
 include('../db_conn.php');
 include('../session.php');
-//session_start();  
-//if(!isset($_SESSION["user"]))
-//{
-// header("location:host-dashboard.php");
-//}
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -14,65 +9,38 @@ include('../session.php');
     <meta charset="utf-8">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Title -->
-    <title>System Management Dashboard</title>
-    <!-- This page plugin CSS -->
+	<title>Host Dashboard</title>
+    
+    <!-- Local CSS   -->
     <link href="../../css/style.css" rel="stylesheet">
-    <link href="../../css/clientstyle.css" rel="stylesheet">
+	<link rel="stylesheet" href="../../css/clientstyle.css">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
 </head>
 
 <body>
-    <!-- Bootstrap JQuery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <!--This page plugins -->
+     <!-- Local JS file -->
     <script src="../../js/manageuser.js"></script>
     <script src="../../js/manageAccommodation.js"></script>
-    <!-- validation plugin -->
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <!-- Jquery -->
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<!-- validation plugin -->
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+	<!-- Bootstrap   -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
 
     <div class="management-nav">
-
-        <header>
-            <!-- bootstrap navigation bar -->
-            <nav class="navbar navbar-expand-lg navbar-dark static-top">
-                <div class="container">
-                    <a href="host-dashboard.html">
-                        <img class="logo" src="../../img/logo.png" alt="">
-                    </a>
-                    <h2 style="color: white">Welcome to booking management</h2>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarResponsive">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="host-dashboard.php">Home
-                                    <span class="sr-only">(current)</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="host-dashboard-accommodation.php">Accommodation management</a>
-                            </li>
-                            <li class="nav-item">
-                                    <a class="nav-link" href="host-client-review.php">Review</a>
-                                </li>
-                            <li class="nav-item">
-                                    <a class="nav-link" href="host-inbox.php">Inbox</a>
-                            </li>
-                            <li class="nav-item">
-                                    <a class="nav-link" href="">Logout</a>
-                                </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-
-            <!-- end bootstrap navigation bar -->
-        </header>
-
+    <?php
+				include ('host_header.php');
+			?>          
     </div>
+
+    
+
+
+
     <!-- Topbar for search accomodation -->
     <div class="Topbar">
         <div class="card card-body">
@@ -85,13 +53,9 @@ include('../session.php');
         </div>
     </div>
 
-<!--Add new booking button-->
+<!--title-->
 <div class="card card-body">
-    <div class="btn-create">
-        <span class="pull-left">
-        <a href="#addStatus" data-toggle="modal" class="btn btn-info btn-lg">
-        <span class="glyphicon glyphicon-plus"></span> Create new Booking</a></span>
-    </div>
+        <h3>Manage Booking Request </h3>
 </div>
 
     <!--This is the table of all the accomodations-->
@@ -131,11 +95,11 @@ include('../session.php');
                     </td>
                     <!-- This is the start date of booking 1-->
                     <td>
-                        <span class="mb-0"><?php echo $row["start_date"]; ?></span>
+                        <span class="mb-0"><?php echo date_format(date_create($row['start_date']), "d/m/Y"); ?></span>
                     </td>
                     <!-- This is the end date of booking 1 -->
                     <td>
-                        <span class="mb-0"><?php echo $row["end_date"]; ?></span>
+                        <span class="mb-0"><?php echo date_format(date_create($row['end_date']), "d/m/Y"); ?></span>          
                     </td>
                     <!-- This is the number of guests of booking 1-->
                     <td>
@@ -159,54 +123,6 @@ include('../session.php');
     </div>
 </div>
 
-<!-- add Status Modal -->
-<div class="modal fade" id="addStatus" tabindex="-1" role="dialog" aria-labelledby="changeStatusLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <!-- change status form -->
-                <button type="button" class="close float-right btn" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h1>Add new pending booking</h1>
-                <!--form action-->
-                <form id="addStatusForm" action="booking_conn.php" method="post">
-                <div class="form-group">
-                    <label>Client ID </label>
-                    <input required="required" type="text" class="form-control" id="client_id" name="client_id">
-                </div>
-                <div class="form-group">
-                    <label>Accommodation ID </label>
-                    <input required="required" type="text" class="form-control" id="accommodation_id" name="accommodation_id">
-                </div>    
-                <div class="form-group">
-                        <label>Check in time: </label>
-                        <input required="required" type="time" class="form-control" id="start_date" name="start_date">
-                </div>
-                <div class="form-group">
-                        <label>Check out time: </label>
-                        <input required="required" type="time" class="form-control" id="end_date" name="end_date">
-                </div>
-                <div class="form-group">
-                    <label>Number of guests</label>
-                    <input required="required" type="text" class="form-control" id="number_of_guests" name="number_of_guests">
-                </div>
-                <div class="form-group">
-                        <label>Status</label>
-                        <select class="form-control" id="booking_status" name="booking_status">
-                            <option selected>Pending</option>
-                        </select>
-                </div>
-                <div class="submit-button">
-                        <button type="submit" class="btn btn-primary">Save</button>
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End add Status Modal -->
-
 <!-- change Status Modal -->
 <div class="modal fade" id="changeStatus" tabindex="-1" role="dialog" aria-labelledby="changeStatusLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -218,19 +134,19 @@ include('../session.php');
                 </button>
                 <h1>Change status</h1>
                 <!--form action-->
-                <form id="changeStatusForm" action="bookingupdate_conn.php" method="post">
+                <form id="changeStatusForm" action="bookingupdate_conn.php?" method="post">     
                     <div class="form-group">
                         <label>Number of guests</label>
                         <select class="form-control" id="booking_status_u" name="booking_status">
-                            <option value="pending">Pending</option>
-                            <option value="confirmed">Confirmed</option>
-                            <option value="cancel">Cancel</option>
-                            <option value="reject">Reject</option>
+                            <option value="pending">pending</option>
+                            <option value="confirmed">confirmed</option>
+                            <option value="canceled">canceled</option>
+                            <option value="rejected">rejected</option>
                         </select>
                     </div>
                     <div id="reasonReject" class="form-group required">
                         <label class="label-control">Give the reason for reject decision:</label>
-                        <textarea rows="5" class="form-control" type="text" id="reason" name="reason"></textarea>
+                        <textarea rows="5" class="form-control" type="text" id="reason" name="rejected_reason"></textarea>
                     </div>
 
                     <div class="submit-button">
@@ -248,10 +164,10 @@ include('../session.php');
         $(document).ready(function() {
             $("#reasonReject").hide();
             $(".form-control").change(function() {
-                if (this.value == 'reject') {
+                if (this.value == 'rejected') {
                     $("#reasonReject").show();
                 }
-                else if (this.value == 'pending' || this.value == 'confirmed' || this.value == 'cancel') {
+                else if (this.value == 'pending' || this.value == 'confirmed' || this.value == 'canceled') {
                     $("#reasonReject").hide();
                 }
             });
@@ -271,10 +187,24 @@ include('../session.php');
                 }
             });
         });
+
+        //logout process
+		$(document).ready(function() {
+				$('#logout').click(function() {
+					var logout = "logout";
+					$.ajax({
+						url: "../login_process.php",
+						method: "POST",
+						data: {
+							logout: logout
+						},
+						success: function() {
+							location.href = "../index.php";						}
+					});
+				});
+
+			});
     </script>
-
-
-
 </body>
 </html>
 

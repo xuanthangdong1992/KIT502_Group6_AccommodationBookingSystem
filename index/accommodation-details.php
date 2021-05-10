@@ -5,23 +5,21 @@ include ('db_conn.php');
 ?>
 <html>
 <head>
-	<!-- Required meta tags -->
-	<meta charset="utf-8">
+<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<!-- Main CSS file -->
+	<title>Accommodation Booking System - Group 6</title>
+	<!-- Local CSS file -->
 	<link rel="stylesheet" href="../css/clientstyle.css">
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-	<title>Accommodation Booking System - Group 6</title>
 </head>
 <body>
-	<!-- jQuery and Bootstrap Bundle (includes Popper) -->
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-	<!-- support call ajax -->
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<!-- Jquery -->
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<!-- validation plugin -->
 	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+	<!-- Bootstrap   -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 
 
   <?php
@@ -66,7 +64,7 @@ include ('db_conn.php');
         <p><b>Price: <?php echo $row["price"];?> AUD</b></p>
         <p><b>Number of room:</b> <?php echo $row["number_of_room"];?></p>
         <p><b>Number of bathroom:</b> <?php echo $row["number_of_bathroom"];?></p>
-        <p><b>Smoke_allowed:</b> <?php echo $row["smoke_allowed"]==1?'Yes':'No';?></p>
+        <p><b>Smoke allowed:</b> <?php echo $row["smoke_allowed"]==1?'Yes':'No';?></p>
         <p><b>Garage:</b> <?php echo $row["garage"]==1?'Yes':'No';?></p>
         <p><b>Pet friendly:</b> <?php echo $row["pet_friendly"]==1?'Yes':'No';?></p>
         <p><b>Internet provided:</b> <?php echo $row["internet_provided"]==1?'Yes':'No';?></p>
@@ -76,13 +74,52 @@ include ('db_conn.php');
         <p><b>City:</b> <?php echo $row["city"];?></p>
         <p><b>Postal code:</b> <?php echo $row["postal_code"];?></p>
         <p><b>State:</b> <?php echo $row["state"];?></p>
-        <p><b>Max-guests-allowed:</b> <?php echo $row["max_guests_allowed"];?></p>
-        <p><b>Accommodation_rate:</b> <span class="fa fa-star checked"></span><?php echo $row["accommodation_rate"];?></p>
+        <p><b>Max guests allowed:</b> <?php echo $row["max_guests_allowed"];?></p>
         <div class="submit-button">
-			<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#bookingModal" >Booking</button>
-		</div>
+          <button class="btn btn-primary btn-lg btn-block" type="button" data-toggle="modal" data-target="#bookingModal" >Booking</button>
+        </div>
+        <div class="submit-button">
+          <button class="btn btn-warning btn-lg btn-block" type="button" data-toggle="modal" data-target="#contactHostModal" >Contact Host</button>
+        </div>
+        <hr class="solid">
+        <!-- Accommodation review and rating -->
+        <?php
+          $queryAccommodationReview = "SELECT * FROM accommodation_review
+          WHERE accommodation_id = '$accommodation_id'";
+          $resultAccommdationReview = mysqli_query($conn, $queryAccommodationReview);
+          $countReviews = mysqli_num_rows($resultAccommdationReview);
+
+        ?>
+        <p><b>Accommodation rate:</b> <i class="bi bi-star-fill" style="color: red;"></i> <?php echo $row["accommodation_rate"];?> (<?php echo $countReviews; ?> reviews)</p>
+        <!-- Review list   -->
+        <!-- end Accommodation details -->
+        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#leaveReviewModal" >Leave a review!</button><br><br>
+
+        <?php
+        //just show 5 reviews. If client want to see more, they can click to view all reviews button. 
+        $i = 0;
+        foreach($resultAccommdationReview as $review){
+        $i++;
+        ?>
+        <div class="card border-info mb-12">
+          <div class="card-header">User: <?php echo $review["client_id"] ?> </div>
+          <div class="card-body text-info">
+            <p class="card-text"><i class="bi bi-star-fill" style="color: red;"></i> <?php echo $review["rate"] ?></p>
+            <p class="card-title"><?php echo $review["comment"] ?></p>
+          </div>
+        </div><br>
+        <?php
+          if($i == 5){
+            break;
+          }
+          }
+        ?>
+        <div class="submit-button">
+          <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#reviewModal" >View all <?php echo $countReviews; ?> reviews</button>
+        </div>
       </div>
-      <!-- end Accommodation details -->
+      
+      
 
     </div>
 
@@ -193,12 +230,104 @@ include ('db_conn.php');
 	</div>
 	<!-- End Booking Modal -->
 
+   <!-- review Modal -->
+<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="reviewModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<!-- booking form -->
+					<button type="button" class="close float-right btn" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h1>All reviews</h1>
+            <!-- Get user information -->
+            <?php
+        foreach($resultAccommdationReview as $review){
+        ?>
+        <div class="card border-info mb-12">
+          <div class="card-header">User: <?php echo $review["client_id"] ?> </div>
+          <div class="card-body text-info">
+            <p class="card-text"><i class="bi bi-star-fill" style="color: red;"></i> <?php echo $review["rate"] ?></p>
+            <p class="card-title"><?php echo $review["comment"] ?></p>
+          </div>
+        </div><br>
+        <?php
+          }
+        ?>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End review Modal -->
+
+  <!-- Leave review Modal -->
+  <div class="modal fade" id="leaveReviewModal" tabindex="-1" role="dialog" aria-labelledby="leaveReviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<!-- payment form -->
+					<button type="button" class="close float-right btn" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h3>Edit review</h3>
+                    <!-- Get review details -->
+                       <div class="form-group">
+                            <label for="rate">Rate:</label>
+							<select class="form-control" id="rate" name="rate">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5" selected>5</option>
+							</select>
+						</div>
+                        <div class="form-group">
+                            <label for="comment">Enter comment: </label>
+                            <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary btn-lg btn-block" name="btn_leave_review" id="btn_leave_review" onclick = "leave_review('<?php echo $accommodation_id; ?>', '<?php echo $username; ?>')">Submit</button>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- End leave review Modal -->
+
+
+  <!-- Contact Host Modal -->
+  <div class="modal fade" id="contactHostModal" tabindex="-1" role="dialog" aria-labelledby="contactHostModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<!-- payment form -->
+					<button type="button" class="close float-right btn" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h3>Contact Host</h3>
+
+                        <div class="form-group">
+                            <label for="comment">Leave a message for host: </label>
+                            <textarea class="form-control" id="mes_content" name="mes_content" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary btn-lg btn-block" name="btn_leave_review" id="btn_leave_review" onclick = "leave_message('<?php echo $username; ?>', '<?php echo $host_id; ?>')">Send Message</button>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- End Contact Host Modal -->
+
+
 <!-- include login and register modal   -->
   <?php
 	  include ('login-register-modal.php');
 	?>
   <script>
-  //Booking process
 
    //logout process
    $(document).ready(function() {
@@ -211,13 +340,14 @@ include ('db_conn.php');
 							logout: logout
 						},
 						success: function() {
-							location.reload();
+							location.href="index.php";
 						}
 					});
 				});
 
 			});
 
+  //Booking process
 
   // Get value
   // var 
@@ -252,9 +382,54 @@ include ('db_conn.php');
 							}
 						});
     });
-
-
     });
+
+
+// leave a review
+function leave_review(accommodation_id, client_id){
+    var rate = $('#rate').val();
+    var comment = $('#comment').val();
+      $.ajax({
+
+    url: "leave_review_process.php",
+    method: "POST",
+    data: {
+      accommodation_id: accommodation_id,
+      client_id: client_id,
+      rate: rate,
+      comment: comment
+    },
+    success: function(data) {
+
+                    if (data == "success"){
+                        alert("Review success!");
+                        location.reload();
+                    }
+    }
+    });
+}
+
+//leave a message for host
+function leave_message(client_id, host_id){
+  var mes_content = $('#mes_content').val();
+                if(mes_content != ""){
+                    $.ajax({
+                        url: "client_inbox_process.php",
+                        method: "POST",
+                        data: {
+                            client_id: client_id,
+                            host_id: host_id,
+                            mes_content: mes_content ,
+                            action: "leave_message"
+                        },
+                        success: function(data) {
+                            if(data == "success"){
+                                alert("Send message success!");
+                                location.reload();                            }
+                        }
+                    });
+                }
+}
     
     //slider
     var slideIndex = 1;
@@ -278,6 +453,8 @@ include ('db_conn.php');
           }
           slides[slideIndex-1].style.display = "block";
         }
+
+
   </script>
 
 </body>

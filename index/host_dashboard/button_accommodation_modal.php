@@ -62,7 +62,7 @@
                 <div class="form-group row">
                     <label class="col-md-3 text-left control-label col-form-label">Price</label>
                     <div class="col-md-9">
-                        <span name="price" class="input-group-text col-md-9">$<input type="text" class="form-control col-md-9" 
+                        <span class="input-group-text col-md-9">$<input type="text" name="price" class="form-control col-md-9" 
                         id="price_u" placeholder="Price" value="<?php echo $erow['price']; ?>"></span>
                     </div>
                 </div>
@@ -97,25 +97,25 @@
                     <!--Weather smoke allowed?-->
                     <div class="col-md-3">
                         <input type="checkbox" name="smoke_allowed" id="smoke_u" class="material-inputs chk-col-light-blue"
-                        value="<?php echo $erow['smoke_allowed']; ?>">
+                        value="<?php echo $erow['smoke_allowed']==1?'Yes':'No'; ?>">
                         <label for="smoke_allowed">Smoke Allowed</label>
                     </div>
                     <!--Any garage?-->
                     <div class="col-md-3">
                         <input type="checkbox" name="garage" id="garage_u" class="material-inputs chk-col-light-blue" 
-                        value="<?php echo $erow['garage']; ?>">
+                        value="<?php echo $erow['garage']==1?'Yes':'No'; ?>">
                         <label for="garage">Garage</label>
                     </div>
                     <!--Pet friendly?-->
                     <div class="col-md-3">
                         <input type="checkbox" name="pet_friendly" id="pet_u" class="material-inputs chk-col-light-blue"
-                        value="<?php echo $erow['pet_friendly']; ?>">
+                        value="<?php echo $erow['pet_friendly']==1?'Yes':'No'; ?>">
                         <label for="pet_friendly">Pet Friendly</label>
                     </div>
                     <!--Internet provided?-->
                     <div class="col-md-3">
-                        <input type="checkbox" name="smoke_allowed" id="internet_U" class="material-inputs chk-col-light-blue"
-                        value="<?php echo $erow['smoke_allowed']; ?>">
+                        <input type="checkbox" name="internet_provided" id="internet_u" class="material-inputs chk-col-light-blue"
+                        value="<?php echo $erow['internet_provided']==1?'Yes':'No'; ?>">
                         <label for="internet_provided">Internet Provided</label>
                     </div>
                 </div>

@@ -97,6 +97,13 @@
                     <label>Number of guests: </label>
                     <input required="required" type="text" class="form-control" id="max_guests_allowed" name="max_guests_allowed">
                 </div>
+                <!--host id-->
+                <div class="form-group">
+                        <label>Host_ID</label>
+                        <select required="required" id="host_id" class="form-control" name="host_id">
+                            <option selected>host</option>
+                        </select>
+                </div>
                 <!--Here to upload image-->
                 <div class="form-group row">
                     <label class="col-md-6 text-left control-label col-form-label">&nbsp Image upload</label>

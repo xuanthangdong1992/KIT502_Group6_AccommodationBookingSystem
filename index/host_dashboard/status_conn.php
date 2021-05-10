@@ -1,9 +1,9 @@
 <?php
 include('../db_conn.php');
-//include('../session.php');
+include('../session.php');
 $eid = $_GET['eid'];
-$approval ="confirm";
-$napproval="reject";
+$approval ="replied";
+$napproval="pending";
 
 $view="select * from message where message_id = '$eid' ";
 $re = mysqli_query($conn,$view);
@@ -13,24 +13,20 @@ while ($row=mysqli_fetch_array($re))
 
 }
 
-if($id=="confirm")
+if($id=="replied")
 {
-	$sql ="UPDATE `message` SET `message_staus`= '$approval' WHERE message_id = '$eid' ";
+	$sql ="UPDATE `message` SET `message_status`= '$approval' WHERE message_id = '$eid' ";
 	if(mysqli_query($con,$sql))
 	{
-		echo '<script>alert("confirm") </script>' ;
-		header("Location: messages.php");
+		header("Location: host-inbox.php");
 	}
 }
 else {
-$sql ="UPDATE `message` SET `message_staus`= '$napproval' WHERE message_id = '$eid' ";
+$sql ="UPDATE `message` SET `message_status`= '$napproval' WHERE message_id = '$eid' ";
 	if(mysqli_query($conn,$sql))
 	{
-		echo '<script>alert("reject") </script>' ;
-		header("Location: messages.php");
+		header("Location: host-inbox.php");
 	}
-
-
-
 }
+
 ?>

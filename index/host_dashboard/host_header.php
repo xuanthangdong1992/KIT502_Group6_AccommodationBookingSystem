@@ -7,7 +7,7 @@
 				<nav class="navbar navbar-expand-lg navbar-dark static-top">
 					<div class="container">
 						<a href="index.php">
-							<img class="logo" src="../img/logo.png" alt="">
+							<img class="logo" src="../../img/logo.png" alt="">
 						</a>
 						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 							<span class="navbar-toggler-icon"></span>
@@ -23,31 +23,31 @@
 								<?php
 								if (isset($_SESSION['loginUsername'])) {
 									// check permission if login account is client
-									if ($_SESSION["permission"] == "client") {
+									if ($_SESSION["permission"] == "host") {
 
 								?>
 										<li class="nav-item">
-											<a class="nav-link disabled" href="">Welcome <?php echo $_SESSION['loginUsername']; ?></a>
+											<b><a class="nav-link disabled" href="" style="color: green;">Welcome <?php echo $_SESSION['loginUsername']; ?></a></b>
 										</li>
 										<li class="nav-item">
-											<a class="nav-link" href="client_dashboard.php">Booking manager</a>
+											<a class="nav-link" href="host-dashboard-booking.php">Booking management</a>
 										</li>
 										<li class="nav-item">
-											<a class="nav-link" href="client_review_management.php">Reviews manager</a>
+											<a class="nav-link" href="host-client-review.php">Reviews management</a>
 										</li>
 										<li class="nav-item">
-											<a class="nav-link" href="client_inbox.php">Inbox</a>
+											<a class="nav-link" href="host-inbox.php">Inbox</a>
 										</li>
 										<li class="nav-item">
 											<a class="nav-link" href="" id="logout">Logout</a>
 										</li>
 									<?php
 									} else 
-									if ($_SESSION["permission"] == "host") {
+									if ($_SESSION["permission"] == "client") {
 										// redirect to host page
 										echo "<script>
 										alert('Sorry! Your account is not allowed to access this website!');
-										window.location.href='host-dashboard/host-dashboard.php';
+										window.location.href='../index.php';
 										</script>";
 									} else 
 									if ($_SESSION["permission"] == "system_manager") {
