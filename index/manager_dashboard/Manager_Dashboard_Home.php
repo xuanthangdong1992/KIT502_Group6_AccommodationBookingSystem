@@ -15,7 +15,12 @@ include('../db_conn.php');
     <!-- Main CSS file -->
     <link rel="stylesheet" href="../../css/clientstyle.css">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <!-- Bootstrap JQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <!--This page plugins -->
+    <script src="../../js/manageAccommodation.js"></script>
 </head>
 <body>
     <!-- jQuery and Bootstrap Bundle (includes Popper) -->
@@ -25,6 +30,9 @@ include('../db_conn.php');
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <!-- validation plugin -->
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    
+    
+    
     <!-- This is a card for welcome -->
     <div class="card-welcome">
         <div class="card-body bg-success">
@@ -120,24 +128,35 @@ include('../db_conn.php');
     <!--This is one container with two cards-->
     <div class="row">
         <!-- This is a card to link to User Management Dashboard -->
-        <div class="col-lg-6">
+        <div class="col-lg-4">
             <div class="card">
-                <img class="card-img-top" src="../img/M1.png" alt="Card image cap" height="300">
+                <img class="card-img-top" src="../../img/M1.png" alt="Card image cap" height="300">
                 <div class="card-body align-items-center mb-3">
-                    <h3 class="font-normal">User Management Dashboard</h3>
+                    <h4 class="font-normal">User Management Dashboard</h4>
                     <!--When click on the button, the page will jump to User Management Dashboard-->
                     <a href="Manager_Dashboard_User.php" button class="btn btn-success btn-rounded waves-effect waves-light mt-3">User Management</a>
                 </div>
             </div>
         </div>
-        <!-- This is a card to link to User Management Dashboard -->
-        <div class="col-lg-6">
+        <!-- This is a card to link to Accomdation Management Dashboard -->
+        <div class="col-lg-4">
             <div class="card">
-                <img class="card-img-top" src="../img/M2.jpg" alt="Card image cap" height="300">
+                <img class="card-img-top" src="../../img/M2.jpg" alt="Card image cap" height="300">
                 <div class="card-body align-items-center mb-3">
-                    <h3 class="font-normal">Accomdation Management Dashboard</h3>
-                    <!--When click on the button, the page will jump to User Management Dashboard-->
+                    <h4 class="font-normal">Accomdation Management Dashboard</h4>
+                    <!--When click on the button, the page will jump to Accomdation Management Dashboard-->
                     <a href="Manager_Dashboard_Accommodation.php" button class="btn btn-success btn-rounded waves-effect waves-light mt-3">Manage Accommodations Here</a>
+                </div>
+            </div>
+        </div>
+        <!-- This is a card to link to Booking Management Dashboard -->
+        <div class="col-lg-4">
+            <div class="card">
+                <img class="card-img-top" src="../../img/M3.jpg" alt="Card image cap" height="300">
+                <div class="card-body align-items-center mb-3">
+                    <h4 class="font-normal">Booking Management Dashboard</h4>
+                    <!--When click on the button, the page will jump to Booking Management Dashboard-->
+                    <a href="Manager_Dashboard_Booking.php" button class="btn btn-success btn-rounded waves-effect waves-light mt-3">Manage Bookings Here</a>
                 </div>
             </div>
         </div>
