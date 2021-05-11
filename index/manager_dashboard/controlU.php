@@ -6,126 +6,65 @@ include('../db_conn.php');
 if($_POST['action'] == "delete_user"){
     $user_id = addslashes($_POST['user_id']);
     $query = "UPDATE `account` SET `account_status`='inactive' WHERE user_id='$user_id'";
-    // echo $query;
     if ($conn->query($query)){
       echo "success";
     }else{
       echo "fail";
       echo "Error: " . $sql . "<br>" . $conn->error;
     }
-  } else {
+  } else
+  if($_POST['action'] == "add_user"){
+      //get data from request
+    $accountType = addslashes($_POST['accountType']);
+    $username = addslashes($_POST['username']);
+    $password = addslashes($_POST['password']);
+    $firstName = addslashes($_POST['firstName']);
+    $lastName = addslashes($_POST['lastName']);
+    $email = addslashes($_POST['email']);
+    $phoneNumber = addslashes($_POST['phoneNumber']);
+    $postalAddress = addslashes($_POST['postalAddress']);
+    $abnNumber = "";
+    $query = "";
+    //Processing the query when the user chooses a client or a host when register account.
+    if ($accountType == "host") {
+        //query for host
+        $abnNumber = addslashes($_POST['abnNumber']);
+        $query = "INSERT INTO account (user_id, password, account_type, first_name, last_name, email, phone_number, postal_address, abn_number, account_status) VALUES ('$username', '$password', '$accountType', '$firstName', '$lastName', '$email', '$phoneNumber', '$postalAddress', '$abnNumber', 'active')";
+    } else {
+        //query for client or admin
+        $query = "INSERT INTO account (user_id, password, account_type, first_name, last_name, email, phone_number, postal_address, account_status) VALUES ('$username', '$password', '$accountType', '$firstName', '$lastName', '$email', '$phoneNumber', '$postalAddress', 'active')";
+    }
+    // check duplicate user id query
+    $check_user_id = "SELECT user_id FROM account WHERE user_id = '$username'";
+    // check duplicate email
+    $check_email = "SELECT email FROM account WHERE email = '$email'";
+    //check duplicate phone number
+    $check_phone_number = "SELECT phone_number FROM account WHERE phone_number = '$phoneNumber'";
+    //check if user id already exist
+    if (mysqli_num_rows(mysqli_query($conn, $check_user_id)) > 0) {
+        echo 'duplicate_user_id';
+    } else  
+    //check if email already exist
+    if (mysqli_num_rows(mysqli_query($conn, $check_email)) > 0) {
+        echo 'duplicate_email';
+    } else  
+    //check if phone number already exist
+    if (mysqli_num_rows(mysqli_query($conn, $check_phone_number)) > 0) {
+        echo 'duplicate_phone_number';
+    } else  
+    
+    // When all the conditions have been met - insert database
+    if ($conn->query($query)) {
+        echo 'success';
+    } else {
+        echo 'fail';
+    }
+  }else 
+  if($_POST['action'] == "edit_user"){
+    //get data from request
+  
+} else {
     echo "action not found!";
   }
-
-
-// var_dump($_POST);
-
-// $id = $_GET['id'];
-// $action = $_GET['action'];
-// $abnNumber = "";
-
-// if ($action == "delete") {
-//     $conn->query("delete from account where user_id='$id'");
-
-
-//     $_SESSION['msg'] = "User Deleted Succesfully";
-//     header('location:Manager_Dashboard_User.php');
-
-// } else if ($action == "add") {
-//     // prepare and bind
-//     $id = "user".rand(0, 999);
-
-//     $stmt = $conn->prepare("INSERT INTO account (user_id, password, account_type, first_name, 
-//     last_name, email, phone_number, postal_address, abn_number, account_rate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-
-//     $stmt->bind_param(
-//         "ssssssssss",
-//         $id,
-//         $password,
-//         $account_type,
-//         $firstName,
-//         $lastName,
-//         $email,
-//         $phoneNumber,
-//         $postalAddress,
-//         $abnNumber,
-//         $accountRate,
-//     );
-
-//     // set parameters and execute
-//     $account_type = $_POST['account_type'];
-//     $password = $_POST['password'];
-//     $firstName = $_POST['first_name'];
-//     $lastName = $_POST['last_name'];
-//     $email = $_POST['email'];
-//     $phoneNumber = $_POST['phone_number'];
-//     $postalAddress = $_POST['postal_address'];
-//     $abnNumber = $_POST['abn_number'];
-//     $accountRate = $_POST['account_rate'];
-
-//     $stmt->execute();
-
-//     echo "New user created successfully";
-
-//     $stmt->close();
-//     $conn->close();
-
-//     $_SESSION['msg'] = "Accommodation Added Succesfully";
-//     header('location:Manager_Dashboard_User.php');
-// } else if ($action == "edit") {
-
-//     // prepare and bind
-//     $stmt = $conn->prepare("UPDATE account SET password=?, account_type=?, 
-//     first_name=?, last_name=?, email=?, 
-//     phone_number=?, postal_address=?,abn_number=?, 
-//     account_rate=? WHERE user_id=?");
-
-//     if ($stmt === false) {
-//         trigger_error($conn->error, E_USER_ERROR);
-//         return;
-//     }
-
-
-//     $stmt->bind_param(
-//         "ssssssssds",
-//         $password,
-//         $account_type,
-//         $firstName,
-//         $lastName,
-//         $email,
-//         $phoneNumber,
-//         $postalAddress,
-//         $abnNumber,
-//         $accountRate,
-//         $id
-//     );
-
-//     // set parameters and execute
-
-//     $password = $_POST['password'];
-//     $account_type = "client";  // change   
-
-//     $firstName = $_POST['first_name'];
-//     $lastName = $_POST['last_name'];
-//     $email = $_POST['email'];
-//     $phoneNumber = $_POST['phone_number'];
-//     $postalAddress = $_POST['postal_address'];
-//     $abnNumber = $_POST['abn_number'];
-//     $accountRate = $_POST['account_rate'];
-//     $id = $_GET['id'];
-
-//     $status = $stmt->execute();
-//     if ($status === false) {
-//         trigger_error($stmt->error, E_USER_ERROR);
-//     }
-//     printf("%d Row inserted.\n", $stmt->affected_rows);
-
-//     $stmt->close();
-
-//     //$conn->close();
-
-//     $_SESSION['msg'] = "User Updated Succesfully";
-//     header('location:Manager_Dashboard_User.php');
-// }
 
 ?>

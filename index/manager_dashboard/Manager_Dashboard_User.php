@@ -17,15 +17,18 @@ include('../session.php');
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <!-- Data table CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css"> 
-        <!-- Icon font  -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+    <!-- Icon font  -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
 </head>
 
 <body>
-    <!-- Data table paging -->
+	<!-- Data table paging -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+	<!-- validation plugin -->
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+	<!-- Bootstrap   -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 
     <div class="management-nav">
     <?php
@@ -36,21 +39,23 @@ include('../session.php');
     <div class="main_container">
     <div>
             <h3>User management </h3>
-            <button type="button" class="btn btn-info" name="btn_add_user" id="btn_add_user"><i class="bi bi-person-plus-fill"></i> Add User</button>
+            <button type="button" class="btn btn-info" name="btn_add_user" id="btn_add_user" data-toggle="modal" data-target="#addUserModal"><i class="bi bi-person-plus-fill"></i> Add User</button>
     </div>
 
     <div class="table-responsive">
     <table id="user_table" class="table table-info table-bordered nowrap" style="width: 100%">
         <thead class="thead-dark">
-                    <th class="font-weight-bold">User ID</th>
-                    <th class="font-weight-bold">First Name</th>
-                    <th class="font-weight-bold">Last Name</th>
-                    <th class="font-weight-bold">Email</th>
-                    <th class="font-weight-bold">Phone Number</th>
-                    <th class="font-weight-bold">Account Type</th>
-                    <th class="font-weight-bold">ABN Number</th>
-                    <th class="font-weight-bold">Postal Address</th>
-                    <th class="font-weight-bold">Action</th>
+        <tr>
+                    <th>User ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Account Type</th>
+                    <th>ABN Number</th>
+                    <th>Postal Address</th>
+                    <th>Action</th>
+                    </tr>
                 </thead>
                 <tbody>
                 <?php
@@ -71,8 +76,8 @@ include('../session.php');
                 <td><?php echo $account['abn_number']; ?></td>
                 <td><?php echo $account['postal_address']; ?></td>
                 <td>
-                    <button type="button" class="btn btn-primary" name="btn_edit_user" id="btn_edit_user"><i class="bi bi-pencil-fill"></i> Edit</button>
-                    <button type="button" class="btn btn-danger" name="btn_delete_user" id="btn_delete_user" onclick="deleteUser('<?php echo $account['user_id']; ?>')"><i class="bi bi-person-x-fill"></i> Delete</button>
+                    <button type="button" class="btn btn-primary" name="btn_edit_user" id="btn_edit_user" onclick="changeAccessLevel('<?php echo $account['user_id'] ?>')"><i class="bi bi-pencil-fill"></i> Change Access Level</button>
+                    <button type="button" class="btn btn-danger" name="btn_delete_user" id="btn_delete_user" onclick="deleteUser('<?php echo $account['user_id'] ?>')"><i class="bi bi-person-x-fill"></i> Delete</button>
                 </td>
                 
             </tr>
@@ -87,7 +92,7 @@ include('../session.php');
 
 
 <!-- Add New User Modal -->
-<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-body">
@@ -95,18 +100,16 @@ include('../session.php');
 					<button type="button" class="close float-right btn" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h1>Register</h1>
-
-					<form id="registrationForm" action="registrationProcess.php" method="post">
-						<div class="form-group required">
-							<div>
-								<label class="label-control">Account Type:</label>
-								<input type="radio" class="accountType" name="accountType" value="host" />
-								<label for="host">Host</label>
-								<input type="radio" class="accountType" name="accountType" value="client" checked="checked" />
-								<label for="client">Client</label>
-							</div>
-						</div>
+					<h3>Add New User</h3>
+					<form id="addNewUserForm" action="controlU.php" method="post">
+                        <div class="form-group">
+                            <label>Account Type</label>
+                            <select required="required" id="account_type" class="form-control" name="account_type">
+                                <option value="client" selected>Client</option>
+                                <option value="host">Host</option>
+                                <option value="system manager">System Manager</option>
+                            </select>
+                        </div>
 
 						<div class="form-group required">
 							<label class="label-control">Username:</label>
@@ -147,7 +150,7 @@ include('../session.php');
 							<input class="form-control" type="text" id="abnNumber" name="abnNumber" />
 						</div>
 						<div class="submit-button">
-							<button type="submit" class="btn btn-primary" name="register_button">Register</button>
+							<button type="submit" class="btn btn-primary btn-lg btn-block" name="register_button">Submit</button>
 						</div>
 					</form>
 				</div>
@@ -156,7 +159,38 @@ include('../session.php');
 		</div>
 		<!-- Add New User Modal -->
 
-
+<!-- change access level of user   -->
+<div class="modal fade" id="changeAccessLevelModal" tabindex="-1" role="dialog" aria-labelledby="changeAccessLevelModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<!-- payment form -->
+					<button type="button" class="close float-right btn" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h3>Edit review</h3>
+                    <!-- Get review details -->
+                       <div class="form-group">
+                            <label for="rate">Rate:</label>
+							<select class="form-control" id="rate" name="rate">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5" selected>5</option>
+							</select>
+						</div>
+                        <div class="form-group">
+                            <label for="comment">Enter comment: </label>
+                            <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary btn-lg btn-block" name="btn_leave_review" id="btn_leave_review" onclick = "leave_review('<?php echo $accommodation_id; ?>', '<?php echo $username; ?>')">Submit</button>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
     <script type="text/javascript">
@@ -227,7 +261,134 @@ include('../session.php');
                 } 
         }
 
+        function changeAccessLevel(user_id){
+            $("#changeAccessLevelModal").modal();
+        }
         
+        // add new user
+			$(document).ready(function() {
+				// validate add new user form
+				$('form[id="addNewUserForm"]').validate({
+					rules: {
+						username: 'required',
+						password: {
+							required: true,
+							minlength: 6,
+							maxlength: 12,
+							passwordcheck: true
+						},
+						confirmPass: {
+							required: true,
+							equalTo: "#password"
+						},
+						firstName: 'required',
+						lastName: 'required',
+						email: {
+							required: true,
+							email: true
+						},
+						phoneNumber: {
+							required: true,
+							phonecheck: true
+						},
+						postalAddress: 'required',
+						abnNumber: 'required',
+					},
+					messages: {
+						username: '<span class="error">This field is required</span>',
+						password: '<span class="error">Password is 6 to 12 characters in length and contains at least 1 lower case letter, 1 upper case letter, 1 number and 1 of following characters ! @ # $ %</span>',
+						confirmPass: '<span class="error">The confirm password not matching</span>',
+						firstName: '<span class="error">This field is required</span>',
+						lastName: '<span class="error">This field is required</span>',
+						email: '<span class="error">The email not valid</span>',
+						phoneNumber: '<span class="error">This field is required and phone number contains only number</span>',
+						postalAddress: '<span class="error">This field is required</span>',
+						abnNumber: '<span class="error">This field is required</span>',
+					},
+					submitHandler: function(form) {
+						var accountType = $('#account_type').val();
+						var username = $('#username').val();
+						var password = $('#password').val();
+						var firstName = $('#firstName').val();
+						var lastName = $('#lastName').val();
+						var email = $('#email').val();
+						var phoneNumber = $('#phoneNumber').val();
+						var postalAddress = $('#postalAddress').val();
+						var abnNumber = $('#abnNumber').val();
+						$.ajax({
+							url: 'controlU.php',
+							method: 'POST',
+							data: {
+								accountType: accountType,
+								username: username,
+								password: password,
+								firstName: firstName,
+								lastName: lastName,
+								email: email,
+								phoneNumber: phoneNumber,
+								postalAddress: postalAddress,
+								abnNumber: abnNumber,
+                                action: "add_user"
+							},
+							// get success message from server
+							success: function(data) {
+								// if respond from server is "duplicate_user_id"
+								if (data == 'duplicate_user_id') {
+									alert("User id already exists, please enter another user id.");
+
+								} else
+									// if respond from server is "duplicate_email"
+									if (data == 'duplicate_email') {
+										alert("The email is already in use by another account. Please enter another email or contact us for help.");
+
+									} else
+									// if respond from server is "duplicate_phone_number"
+									if (data == 'duplicate_phone_number') {
+										alert("The phone number is already in use by another account. Please enter another phone number or contact us for help.");
+
+									} else
+								if (data == 'fail') {
+									alert("Something wrong! Please register again.");
+								} else {
+									alert("Register successful!");
+									location.reload();
+								}
+							}
+						});
+
+					}
+				});
+            });
+
+				//password check
+				$.validator.addMethod("passwordcheck", function(value) {
+					return /[a-z]/.test(value) // has at least 1 lowercase letter
+						&&
+						/[A-Z]/.test(value) // has at least 1 uppercase letter
+						&&
+						/\d/.test(value) // has at least 1 digit
+						&&
+						/[!@#\$%]/.test(value) // has at least 1 following special characters ! @ # $ %
+				});
+				//phone number check
+				$.validator.addMethod("phonecheck", function(value) {
+					return /^[0-9]*$/.test(value) // has at least 1 lowercase letter
+				});
+			
+
+            //show and hide ABN Number - add new user
+			$(document).ready(function() {
+				// hide and show abn number follow the choice host or client
+				$("#hostOrClient").hide();
+                var acc_type = document.getElementById("account_type");
+				acc_type.onchange = function() {
+					if (acc_type.value == 'host') {
+						$("#hostOrClient").show();
+					} else if (acc_type.value == 'client' || acc_type.value == 'system manager') {
+						$("#hostOrClient").hide();
+					}
+				};
+			});
     </script>
 
 </body>
