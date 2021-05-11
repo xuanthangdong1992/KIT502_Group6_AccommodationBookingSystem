@@ -51,11 +51,11 @@ include('../session.php');
                 ?>
                 <p class="card-text"> <?php echo $message['message_content']; ?></p>
                 <p class="card-text" style="font-size: 10px;"> <?php echo date_format(date_create($message['sending_time']), "d/m/Y"); ?></p>
-                <button type="button" class="btn btn-primary" onclick="showChatBox('<?php echo $host_id; ?>', '<?php echo $receiver; ?>')">Chat</button>
                 <?php
                         }
                     }
                 ?>
+                <button type="button" class="btn btn-primary" onclick="showChatBox('<?php echo $host_id; ?>', '<?php echo $receiver; ?>')">Chat</button>
             </div>
             </div><br>
             <?php
