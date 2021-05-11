@@ -15,7 +15,7 @@
 						<div class="collapse navbar-collapse" id="navbarResponsive">
 							<ul class="navbar-nav ml-auto">
 								<li class="nav-item active">
-									<a class="nav-link" href="index.php">Home
+									<a class="nav-link" href="host-dashboard.php">Home
 										<span class="sr-only">(current)</span>
 									</a>
 								</li>
@@ -33,7 +33,7 @@
 											<a class="nav-link" href="host-dashboard-booking.php">Booking management</a>
 										</li>
 										<li class="nav-item">
-											<a class="nav-link" href="host-client-review.php">Reviews management</a>
+											<a class="nav-link" href="host-dashboard-accommodation.php">Accommodation management</a>
 										</li>
 										<li class="nav-item">
 											<a class="nav-link" href="host-inbox.php">Inbox</a>

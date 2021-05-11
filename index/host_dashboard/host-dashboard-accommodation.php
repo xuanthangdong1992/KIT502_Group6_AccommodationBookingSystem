@@ -1,15 +1,7 @@
 <?php
-// $path = $_SERVER['DOCUMENT_ROOT'];
-// $path .= "/../db_conn.php";
 include('../db_conn.php');
 include('../session.php');
-
-//session_start();  
-//if(!isset($_SESSION["user"]))
-//{
-// header("location:host-dashboard.php");
-//}
-?>          
+?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -17,213 +9,323 @@ include('../session.php');
     <meta charset="utf-8">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Title -->
-    <title>Host Management Dashboard</title>
-    <!-- This page plugin CSS -->
+	<title>Host Dashboard</title>
+    <!-- Local CSS file -->
+	<link href="../../css/clientstyle.css" rel="stylesheet">
     <link href="../../css/style.css" rel="stylesheet">
-    <link href="../../css/clientstyle.css" rel="stylesheet">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <!-- Data table CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">  
+  <!-- Icon font  -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
 </head>
 
 <body>
+    <!-- Data table paging -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 
-    <!-- Bootstrap JQuery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <!-- This page plugin JQuery -->
-    <script src="../../js/manageuser.js"></script>
-    <script src="../../js/manageAccommodation.js"></script>
-
-    <!-- validation plugin -->
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 
     <div class="management-nav">
-    <header>
-                <!-- bootstrap navigation bar -->
-                <nav class="navbar navbar-expand-lg navbar-dark static-top">
-                    <div class="container">
-                        <a href="host-dashboard.php">
-                            <img class="logo" src="../../img/logo.png" alt="">
-                        </a>
-                        <h2 style="color: white">Welcome to Host accommodation management</h2>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarResponsive">
-                            <ul class="navbar-nav ml-auto">
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="host-dashboard.php">Home
-                                        <span class="sr-only">(current)</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="host-dashboard-booking.php">Host Booking management</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="host-client-review.php">Review</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="host-inbox.php">Inbox</a>
-                                </li>
-                                
-                                <li class="nav-item">
-                                    <a class="nav-link" href="">Logout</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-                <!-- end bootstrap navigation bar -->
-    </header>            
+    <?php
+				include ('host_header.php');
+			?>          
+    </div>
+    <div class="main_container">
+        <div class="card card-body">
+                <h3>Accmmodation Management </h3>
+        </div>
+        <!-- Accommodation management data table   -->
+        <div class="table-responsive">
+        <button type="button" class="btn btn-success" name="btn_add" id="btn_add" data-toggle="modal" data-target="#createAccModal">Add new House</button>
+            <table id="booking_table" class="table table-info table-bordered nowrap" style="width: 100%">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>House Name</th>
+                        <th>Price</th>
+                        <th>City</th>
+                        <th>Postal Code</th>
+                        <th>Accommodation Rating</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+                        //Get booking data from database
+                        $host_id = $_SESSION["loginUsername"];
+                        $query = "SELECT * FROM accommodation WHERE host_id='$host_id'";
+                        $result = mysqli_query($conn, $query);
+                        if (is_array($result) || is_object($result)){
+                        foreach($result as $house){
+                    ?>
+                    <tr>
+                        <td><?php echo $house['accommodation_id']; ?></td>
+                        <td><?php echo $house['house_name']; ?></td>
+                        <td><?php echo $house['price']; ?></td>
+                        <td><?php echo $house['city']; ?></td>
+                        <td><?php echo $house['postal_code']; ?></td>
+                        <td><i class="bi bi-star-fill" style="color: red;"></i> <?php echo $house['accommodation_rate']; ?></td>
+                        <td>
+                            <button type="button" class="btn btn-info" name="btn_details" id="btn_details" onclick="detailsHouse('<?php echo $house['accommodation_id'] ?>')">Details</button>
+                            <button type="button" class="btn btn-warning" name="btn_edit" id="btn_edit">Edit</button>
+                            <button type="button" class="btn btn-danger" name="btn_delete" id="btn_delete" onclick="deleteHouse('<?php echo $house['accommodation_id'] ?>')">Delete</button>
+                        </td>       
+                    </tr>
+                    <?php
+                    }
+                }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+
     </div>
 
-<!-- Topbar for search accomodation -->
-<div class="Topbar">
-    <div class="card card-body">
-        <div class="col-md-4">
-        <!-- for searching accomodations -->
-            <form>
-                <input type="text" class="form-control product-search" id="input-search" placeholder="Search Accomodation">
-            </form>                    
+
+<!-- add new accommodation Modal -->
+<!-- Modal -->
+<div class="modal fade" id="createAccModal" tabindex="-1" role="dialog" aria-labelledby="createAccModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="close float-right btn" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h3>Create new Accommodation</h3>
+            <!--accommodation details-->
+                <div class="form-group">
+                    <label>House name: </label>
+                    <input required="required" type="text" class="form-control" id="house_name" name="house_name">
+                </div>
+                <div class="form-group">
+                    <label>Description: </label>
+                    <textarea required="required" type="text" rows="4" class="form-control" id="description" name="description"></textarea>
+                </div>
+                <div class="row">
+                    <div class="form-group col-3">
+                        <label>Price (AUD):</label>
+                        <input required="required" type="text" class="form-control" id="price" name="price">
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Number of room: </label>
+                        <input required="required" type="text" class="form-control col-3" id="number_of_room" name="number_of_room">
+                    </div>
+                    <div class="form-group col-5">
+                        <label>Number of bathroom: </label>
+                        <input required="required" type="text" class="form-control col-3" id="number_of_bathroom" name="number_of_bathroom">
+                    </div>
+                </div>
+                <div class="form-inline row">
+                    <div class="form-group col-6">
+                        <label>Smoke allowed: </label>
+                        <input class="form-control" type="checkbox" name="smoke_allowed" id="smoke_allowed"> 
+                    </div>
+                    <div class="form-group col-6">
+                        <label>Garage: </label>
+                        <input class="form-control" type="checkbox" name="garage" id="garage"> 
+                    </div>
+                </div>
+                <div class="form-inline row">
+                    <div class="form-group col-6">
+                        <label>Pet friendly: </label>
+                        <input class="form-control" type="checkbox" name="pet_friendly" id="pet_friendly"> 
+                    </div>
+                    <div class="form-group col-6">
+                        <label>Internet: </label>
+                        <input class="form-control" type="checkbox" name="internet_provided" id="internet_provided"> 
+                    </div>
+                    
+                </div>
+                <div class="form-inline row">
+                    <div class="form-group col-6">
+                        <label for="checkin">Check in time: </label>
+                        <input required="required" type="time" id="check_in_time" name="check_in_time">
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="checkout">Check out time: </label>
+                        <input required="required" type="time" id="check_out_time" name="check_out_time">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Address: </label>
+                    <input required="required" type="text" class="form-control" id="address" name="address">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>City</label>
+                        <input required="required" type="text" class="form-control" id="city" name="city">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>State</label>
+                        <select required="required" id="state" class="form-control" name="state">
+                            <option>ACT</option>
+                            <option>NSW</option>
+                            <option>NT</option>
+                            <option>QLD</option>
+                            <option>SA</option>
+                            <option selected>TAS</option>
+                            <option>VIC</option>
+                            <option>WA</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Postal</label>
+                        <input required="required" type="text" class="form-control" id="postal_code" name="postal_code">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Max guests allow: </label>
+                    <input required="required" type="text" class="form-control" id="max_guests_allowed" name="max_guests_allowed">
+                </div>
+                <!--Here to upload image-->
+                <div class="form-group">
+                    <label>Image upload</label>
+                    <input name="file[]" id="fileUpload" type="file" multiple="multiple"/>
+                    <div id="imgList">
+                </div>
+                <!--save and cancel button-->
+                <div>
+                    <button type="button" class="btn btn-primary btn-lg btn-block" onclick="addHouse('<?php echo $host_id; ?>')">Add</button>
+                </div>
         </div>
     </div>
-</div>
-
-<!--Add new acommodation button-->
-<div class="card card-body">
-    <div class="btn-create">
-        <span class="pull-left">
-        <a href="#createAccModal" data-toggle="modal" class="btn btn-info btn-lg">
-        <span class="glyphicon glyphicon-plus"></span> Create new accommodation</a></span>
+      
     </div>
-</div>
-<!--message alert bar-->
-<?php
-			if(isset($_SESSION['msg'])){
-				?>
-					<div class="alert alert-success">
-						<center><?php echo $_SESSION['msg']; ?></center>
-					</div>
-				<?php
-				unset($_SESSION['msg']);
-			}
-?> 
+  </div>
+ <!-- add new accommodation Modal end--> 
 
-<div class="table-responsive">
-        <!--This is the table of all the accomodations-->
-        <table class="table table-striped search-table v-middle" id="accTable">
-            <thead class="header-item">
-                <th>
-                    <!--This is the checkbox for selecting all-->
-                    <div class="n-chk align-self-center text-center">
-                        <div class="checkbox checkbox-info">
-                            <input type="checkbox" class="material-inputs" id="user-check-all">
-                            <label class="" for="user-check-all"></label>
-                            <span class="new-control-indicator"></span>
-                        </div>
-                    </div>
-                </th>
-                <!--This shows the attributes of accomodations-->
-                <th class="text-dark font-weight-bold">Image</th>
-                <th class="text-dark font-weight-bold">Acccommodation ID</th>
-                <th class="text-dark font-weight-bold">House Name</th>
-                <th class="text-dark font-weight-bold">Description</th>
-                <th class="text-dark font-weight-bold">Address</th>
-                <th class="text-dark font-weight-bold">City</th>
-                <th class="text-dark font-weight-bold">Accomodation Rate</th>
-                <!--delete row button-->
-                <th class="text-center">
-                    <div class="action-btn">
-                        <a href="javascript:void(0)" class="delete-multiple text-danger"><i class="fas fa-trash font-20 font-medium"></i> Delete Row</a>
-                    </div>
-                </th>
-            </thead>
 
-            <tbody>
-            <?php
-				$query=$conn->query("SELECT * FROM `accommodation` WHERE host_id='host'");
-				while($row=$query->fetch_array()){
-                $image = "http://localhost:8080/KIT502_tutorials/crud_prac/img/".$row['accommodation_id']. ".jpg";
-			?>
+    <script type="text/javascript">
+            //data table process
+            $(document).ready(function() {
+                $('#booking_table').DataTable(
+                    {
+                        "scrollY":        "550px",
+                        "scrollCollapse": true,
+                        "paging":         false
+                    }
+                );
+            } );
+                 //logout process
+		$(document).ready(function() {
+				$('#logout').click(function() {
+					var logout = "logout";
+					$.ajax({
+						url: "../login_process.php",
+						method: "POST",
+						data: {
+							logout: logout
+						},
+						success: function() {
+							location.href = "../index.php";						
+                        }
+					});
+				});
 
-                <!-- This is the information of Accomdation-->
-                <tr class="search-items">
-                    <td>
-                         <!-- This is the checkbox for each accommodation-->
-                         <div class="n-chk align-self-center text-center">
-                                        <div class="checkbox checkbox-info">
-                                            <input type="checkbox" class="material-inputs user-chkbox" id="checkbox<?php echo $check_n; ?>">
-                                            <label class="" for="checkbox<?php echo $check_n; ?>"></label>
-                                        </div>
-                                    </div>
-                    </td> 
-                    <!-- This is the accommodation image of Accomdation-->
-                    <td> <img src='<?php echo $row["image"] ?>' height="100px" width="140px" /></td>               
-                    <!-- This is the accommodation id of Accomdation-->
-                    <td><?php echo $row["accommodation_id"]; ?></td>
-                    <!-- This is the House Name of Accommodation-->
-                    <td><?php echo $row["house_name"]; ?></td>
-                    <!-- This is the Description of Accommodation-->
-                    <td><?php echo $row["description"]; ?></td>
-                    <!-- This is the address of Accommodation-->
-                    <td><?php echo $row["address"]; ?></td>
-                    <!-- This is the city of Accommodation-->
-                    <td><?php echo $row["city"]; ?></td>
-                    <!-- This is the rate of Accommodation-->
-                    <td>
-                    <div class="acc_accomodation_rate" data_accommodation_rate="<?php echo $row["accommodation_rate"]; ?>">
-                                        <?php
-                                        $accommodation_rate=$row["accommodation_rate"];
-                                        $accommodation_rate_nums = explode(".",$accommodation_rate);
-                                        
-                                        for ($i = 0; $i < $accommodation_rate_nums[0]; $i++) {
-                                        ?>
-                                            <span class="text-warning fa fa-star"></span>
-                                        <?php
-                                        }
-                                        
-
-                                        if (count($accommodation_rate_nums)==2) {
-                                        ?>
-                                            <span class="text-warning fa fa-star-half"></span>
-                                        <?php
-
-                                        };
-
-                                        ?>
-                            <!--When click the button, the page of review will show-->
-                           <span class="action-btn">
-                               <a href="host-client-review.php" class="text-info edit-rate"><i class="fa fa-edit font-18"></i></a>
-                           </span>
-                    </div>
-                    </td>
+			});
+            // delete house
+            function deleteHouse(house_id){
+                var r = confirm("Do you really want to delete this house?");
+                if (r == true) {
+                    $.ajax({
+                            url: "host_dashboard_accommodation_process.php",
+                            method: "POST",
+                            data: {
+                                house_id: house_id,
+                                action: "delete_house"
+                            },
+                            success: function(data) {
+                                if (data == "success"){
+                                    location.reload();
+                                }
+                            }
+                        });
+                } else {
                     
-                    <td class="text-center">
-                        <div class="action-btn">
-                        <!--This is the function for edit Accommodation-->
-                        <a href="#edit<?php echo $row['accommodation_id']; ?>" 
-                        data-toggle="modal" class="text-info edit">
-                       <i class="mdi mdi-account-edit font-20" title="Edit"></i></a>
+                } 
+            }
+            //details house
+            function detailsHouse(house_id){
+                location.href = "host_accommodation_details.php?id="+house_id;		
+            }
+            // add house 
+            function addHouse(host_id){
+            //get information from form.
+            var house_name = $('#house_name').val();
+            var description = $('#description').val();
+            var price = $('#price').val();
+            var number_of_room = $('#number_of_room').val();
+            var number_of_bathroom = $('#number_of_bathroom').val();
+            var smoke_allowed = document.getElementById("smoke_allowed").checked==true?'1':'0';
+            var garage = document.getElementById("garage").checked==true?'1':'0';
+            var pet_friendly = document.getElementById("pet_friendly").checked==true?'1':'0';
+            var internet_provided = document.getElementById("internet_provided").checked==true?'1':'0';
+            var check_in_time = $('#check_in_time').val();
+            var check_out_time = $('#check_out_time').val();
+            var address = $('#address').val();
+            var city = $('#city').val();
+            var state = $('#state').val();
+            var postal_code = $('#postal_code').val();
+            var max_guests_allowed = $('#max_guests_allowed').val();
+            //get image source
+            var img_source = "";
+            var imgUp = document.getElementById('fileUpload');
+            for (var i = 0; i < imgUp.files.length; ++i) {
+            img_source += "../img/";
+            img_source += imgUp.files.item(i).name;
+            if(i < imgUp.files.length - 1){
+                img_source += "; ";
+            }
+            }
+            // alert(host_id);
+            //Ajax
+            var file_data = $('#fileUpload').prop('files')[0];   
+            var form_data = new FormData();                  
+            form_data.append('file', file_data);
+            alert(form_data);  
 
-                       <!--This is the function for delete Accommodation-->
-                       <a href="#deleteAccModal<?php echo $row['accommodation_id']; ?>" 
-                       data-toggle="modal" class="text-info edit" name="delete">
-                       <i class="mdi mdi-delete font-20" title="Delete"></i></a>     
-                       </div>
+            // $.ajax({
+            //                 url: "host_dashboard_accommodation_process.php",
+            //                 method: "POST",
+            //                 data: {
+            //                     house_name: house_name,
+            //                     description: description,
+            //                     price: price,
+            //                     number_of_room: number_of_room,
+            //                     number_of_bathroom: number_of_bathroom,
+            //                     smoke_allowed: smoke_allowed,
+            //                     garage: garage,
+            //                     pet_friendly: pet_friendly,
+            //                     internet_provided: internet_provided,
+            //                     check_in_time: check_in_time,
+            //                     check_out_time: check_out_time,
+            //                     address: address,
+            //                     city: city,
+            //                     state: state,
+            //                     postal_code: postal_code,
+            //                     max_guests_allowed: max_guests_allowed,
+            //                     img_source: img_source,
+            //                     host_id: host_id,
+            //                     action: "add_house"
+            //                 },
+            //                 success: function(data) {
+            //                     // alert(data);
+            //                     if (data == "success"){
+            //                         alert("Add new accommodation successful!");
+            //                         location.reload();
+            //                     }
+            //                 }
+            //             });
 
-                       <!-- include edit and delete modal -->
-						<?php include ('button_accommodation_modal.php'); ?>
-                    </td>
-                </tr>
-            <?php } ?>
-            </tbody>
-        </table>
-   
-</div>
+            }
 
-    <!-- include insert modal -->
-    <?php include ('add_accommodation_modal.php'); ?>
-    <!-- End -->
-    
+
+
+    </script>
 </body>
 </html>
