@@ -47,8 +47,12 @@ include('../db_conn.php');
                     </button>
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="../index.php">Home</a>
+                            </li>
+                        
                             <li class="nav-item active">
-                                <a class="nav-link" href="Manager_Dashboard_Home.php">Home
+                                <a class="nav-link" href="Manager_Dashboard_Home.php">Manager Dashboard
                                     <span class="sr-only">(current)</span>
                                 </a>
                             </li>
