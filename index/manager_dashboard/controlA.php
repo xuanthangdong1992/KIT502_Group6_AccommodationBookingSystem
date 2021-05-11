@@ -1,81 +1,44 @@
-<!-- This is the controler of function-delete/edit accommodation -->
 <?php
+include('../session.php');
 include('../db_conn.php');
-session_start();
-
-$id = $_GET['id'];
-$action = $_GET['action'];
-
-if ($action == "delete") {
-    $conn->query("delete from accommodation where accommodation_id='$id'");
-
-
-    $_SESSION['msg'] = "Accommodation Deleted Succesfully";
-    header('location:Manager_Dashboard_Accommodation.php');
-} else if ($action == "edit") {
-
-    // prepare and bind
-    $stmt = $conn->prepare("UPDATE accommodation SET house_name=?, description=?, 
-price=?, number_of_room=?, number_of_bathroom=?, smoke_allowed=?, pet_friendly=?,
-check_in_time=?, check_out_time=?, address=?, city=?, postal_code=?, state=?, max_guests_allowed=? WHERE accommodation_id=?");
-
-    if ($stmt === false) {
-        trigger_error($conn->error, E_USER_ERROR);
-        return;
+// delete house
+if($_POST['action'] == "delete_house"){
+    $house_id = addslashes($_POST['house_id']);
+    $query = "DELETE FROM accommodation WHERE accommodation_id='$house_id'";
+    if ($conn->query($query) === TRUE){
+      echo "success";
+    }else{
+      echo "fail";
+      echo "Error: " . $sql . "<br>" . $conn->error;
     }
-
-
-    $stmt->bind_param(
-        "ssdiiiissssssii",
-        $house,
-        $description,
-        $price,
-        $room,
-        $bathroom,
-        $smoke,
-        $pet,
-        $checkin,
-        $checkout,
-        $address,
-        $city,
-        $postal,
-        $state,
-        $maxguests,
-        $id
-    );
-
-    // set parameters and execute
-    $id = $_GET['id'];
-
-    $house = $_POST['house_name'];
-    $description = $_POST['description'];
-    $price = $_POST['price'];
-    $room = $_POST['number_of_room'];
-    $bathroom = $_POST['number_of_bathroom'];
-    $smoke = $_POST['smoke_allowed'];
-    //$garage= $_POST['garage'];
-    $pet = $_POST['pet_friendly'];
-    //$internet= $_POST['internet_provided'];
-    $checkin = $_POST['check_in_time'];
-    $checkout = $_POST['check_out_time'];
-    $address = $_POST['address'];
-    $city = $_POST['city'];
-    $postal = $_POST['postal_code'];
-    $state = $_POST['state'];
-    $maxguests = $_POST['max_guests_allowed'];
-    //$image= $_POST['image'];
-    //$rate= $_POST['accommodation_rate'];
-
-    $status = $stmt->execute();
-    if ($status === false) {
-        trigger_error($stmt->error, E_USER_ERROR);
-    }
-    printf("%d Row inserted.\n", $stmt->affected_rows);
-
-    $stmt->close();
-
-    //$conn->close();
-
-    $_SESSION['msg'] = "Accommodation Updated Succesfully";
-    header('location:Manager_Dashboard_Accommodation.php');
-}
+  } else
+  //edit house
+  if($_POST['action'] == "edit_house"){
+      $house_name = addslashes($_POST['house_name']);
+      $description = addslashes($_POST['description']);
+      $price = addslashes($_POST['price']);
+      $number_of_room = addslashes($_POST['number_of_room']);
+      $number_of_bathroom = addslashes($_POST['number_of_bathroom']);
+      $smoke_allowed = addslashes($_POST['smoke_allowed']);
+      $garage = addslashes($_POST['garage']);
+      $pet_friendly = addslashes($_POST['pet_friendly']);
+      $internet_provided = addslashes($_POST['internet_provided']);
+      $check_in_time = addslashes($_POST['check_in_time']);
+      $check_out_time = addslashes($_POST['check_out_time']);
+      $address = addslashes($_POST['address']);
+      $city = addslashes($_POST['city']);
+      $postal_code = addslashes($_POST['postal_code']);
+      $state = addslashes($_POST['state']);
+      $max_guests_allowed = addslashes($_POST['max_guests_allowed']);
+      $house_id = addslashes($_POST['house_id']);
+      $query = "UPDATE `accommodation` SET `house_name`='$house_name',`description`='$description',`price`='$price',`number_of_room`='$number_of_room',`number_of_bathroom`='$number_of_bathroom',`smoke_allowed`='$smoke_allowed',`garage`='$garage',`pet_friendly`='$pet_friendly',`internet_provided`='$internet_provided',`check_in_time`='$check_in_time',`check_out_time`='$check_out_time',`address`='$address',`city`='$city',`postal_code`='$postal_code',`state`='$state',`max_guests_allowed`='$max_guests_allowed' WHERE `accommodation_id`='$house_id'";
+      if ($conn->query($query)) {          
+          echo 'success';
+      } else {
+          echo 'fail';
+          echo "Error: " . $sql . "<br>" . $conn->error;
+      }
+  } else{
+    echo "action not found!";
+  }
+?>

@@ -35,7 +35,7 @@ include('../session.php');
     </div>
     <div class="main_container">
         <div class="card card-body">
-                <h3>Accmmodation Management </h3>
+                <h3>Accommodation Management </h3>
         </div>
         <!-- Accommodation management data table   -->
         <div class="table-responsive">
