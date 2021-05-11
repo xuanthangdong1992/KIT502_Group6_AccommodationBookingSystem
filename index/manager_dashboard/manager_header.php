@@ -39,6 +39,9 @@
 											<a class="nav-link" href="Manager_Dashboard_Accommodation.php">Accommodation management</a>
 										</li>
 										<li class="nav-item">
+											<a class="nav-link" href="Manager_Dashboard_Review.php">Reviews management</a>
+										</li>
+										<li class="nav-item">
 											<a class="nav-link" href="Manager_Dashboard_Inbox.php">Inbox</a>
 										</li>
 										<li class="nav-item">

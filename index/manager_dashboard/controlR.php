@@ -1,18 +1,17 @@
-<!-- This is the controler of function-delete review -->
 <?php
+include('../session.php');
 include('../db_conn.php');
-session_start();
-
-$id = $_GET['id'];
-$action = $_GET['action'];
-
-
-if ($action == "delete") {
-    $conn->query("delete from accommodation_review where accommodation_review_id='$id'");
-
-
-    $_SESSION['msg'] = "Accommodation Review Deleted Succesfully";
-    header('location:Manager_Dashboard_Review.php');
-
-
+// This is controller for booking management action
+if($_POST['action'] == "delete_review"){
+    $review_id = addslashes($_POST['review_id']);
+    $query = "DELETE FROM accommodation_review WHERE accommodation_review_id='$review_id'";
+    if ($conn->query($query) === TRUE){
+      echo "success";
+    }else{
+      echo "fail";
+      echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}else{
+    echo "action not found!";
 }
+?>
