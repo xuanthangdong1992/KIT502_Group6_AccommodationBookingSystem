@@ -70,7 +70,7 @@ include('../session.php');
                         <td><i class="bi bi-star-fill" style="color: red;"></i> <?php echo $house['accommodation_rate']; ?></td>
                         <td>
                             <button type="button" class="btn btn-info" name="btn_details" id="btn_details" onclick="detailsHouse('<?php echo $house['accommodation_id'] ?>')">Details</button>
-                            <button type="button" class="btn btn-warning" name="btn_edit" id="btn_edit">Edit</button>
+                            <button type="button" class="btn btn-warning" name="btn_edit" id="btn_edit" onclick="editHouse('<?php echo $house['accommodation_id'] ?>')">Edit</button>
                             <button type="button" class="btn btn-danger" name="btn_delete" id="btn_delete" onclick="deleteHouse('<?php echo $house['accommodation_id'] ?>')">Delete</button>
                         </td>       
                     </tr>
@@ -193,8 +193,7 @@ include('../session.php');
  <!-- add new accommodation Modal end--> 
 
 
-<!-- add new accommodation Modal -->
-<!-- Modal -->
+<!-- Edit accommodation Modal -->
 <div class="modal fade" id="editAccModal" tabindex="-1" role="dialog" aria-labelledby="editAccModal" aria-hidden="true">
 		<div class="modal-dialog" role="document">
     
@@ -204,73 +203,73 @@ include('../session.php');
             <button type="button" class="close float-right btn" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-            <h3>Create new Accommodation</h3>
+            <h3>Edit Accommodation</h3>
             <!--accommodation details-->
                 <div class="form-group">
                     <label>House name: </label>
-                    <input required="required" type="text" class="form-control" id="house_name" name="house_name">
+                    <input required="required" type="text" class="form-control" id="edit_house_name" name="edit_house_name">
                 </div>
                 <div class="form-group">
                     <label>Description: </label>
-                    <textarea required="required" type="text" rows="4" class="form-control" id="description" name="description"></textarea>
+                    <textarea required="required" type="text" rows="4" class="form-control" id="edit_description" name="edit_description"></textarea>
                 </div>
                 <div class="row">
                     <div class="form-group col-3">
                         <label>Price (AUD):</label>
-                        <input required="required" type="text" class="form-control" id="price" name="price">
+                        <input required="required" type="text" class="form-control" id="edit_price" name="edit_price">
                     </div>
                     <div class="form-group col-4">
                         <label>Number of room: </label>
-                        <input required="required" type="text" class="form-control col-3" id="number_of_room" name="number_of_room">
+                        <input required="required" type="text" class="form-control col-3" id="edit_number_of_room" name="edit_number_of_room">
                     </div>
                     <div class="form-group col-5">
                         <label>Number of bathroom: </label>
-                        <input required="required" type="text" class="form-control col-3" id="number_of_bathroom" name="number_of_bathroom">
+                        <input required="required" type="text" class="form-control col-3" id="edit_number_of_bathroom" name="edit_number_of_bathroom">
                     </div>
                 </div>
                 <div class="form-inline row">
                     <div class="form-group col-6">
                         <label>Smoke allowed: </label>
-                        <input class="form-control" type="checkbox" name="smoke_allowed" id="smoke_allowed"> 
+                        <input class="form-control" type="checkbox" name="edit_smoke_allowed" id="edit_smoke_allowed"> 
                     </div>
                     <div class="form-group col-6">
                         <label>Garage: </label>
-                        <input class="form-control" type="checkbox" name="garage" id="garage"> 
+                        <input class="form-control" type="checkbox" name="edit_garage" id="edit_garage"> 
                     </div>
                 </div>
                 <div class="form-inline row">
                     <div class="form-group col-6">
                         <label>Pet friendly: </label>
-                        <input class="form-control" type="checkbox" name="pet_friendly" id="pet_friendly"> 
+                        <input class="form-control" type="checkbox" name="edit_pet_friendly" id="edit_pet_friendly"> 
                     </div>
                     <div class="form-group col-6">
                         <label>Internet: </label>
-                        <input class="form-control" type="checkbox" name="internet_provided" id="internet_provided"> 
+                        <input class="form-control" type="checkbox" name="edit_internet_provided" id="edit_internet_provided"> 
                     </div>
                     
                 </div>
                 <div class="form-inline row">
                     <div class="form-group col-6">
                         <label for="checkin">Check in time: </label>
-                        <input required="required" type="time" id="check_in_time" name="check_in_time">
+                        <input required="required" type="time" id="edit_check_in_time" name="edit_check_in_time">
                     </div>
                     <div class="form-group col-6">
                         <label for="checkout">Check out time: </label>
-                        <input required="required" type="time" id="check_out_time" name="check_out_time">
+                        <input required="required" type="time" id="edit_check_out_time" name="edit_check_out_time">
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Address: </label>
-                    <input required="required" type="text" class="form-control" id="address" name="address">
+                    <input required="required" type="text" class="form-control" id="edit_address" name="edit_address">
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label>City</label>
-                        <input required="required" type="text" class="form-control" id="city" name="city">
+                        <input required="required" type="text" class="form-control" id="edit_city" name="edit_city">
                     </div>
                     <div class="form-group col-md-4">
                         <label>State</label>
-                        <select required="required" id="state" class="form-control" name="state">
+                        <select required="required" id="edit_state" class="form-control" name="edit_state">
                             <option>ACT</option>
                             <option>NSW</option>
                             <option>NT</option>
@@ -283,22 +282,22 @@ include('../session.php');
                     </div>
                     <div class="form-group col-md-2">
                         <label>Postal</label>
-                        <input required="required" type="text" class="form-control" id="postal_code" name="postal_code">
+                        <input required="required" type="text" class="form-control" id="edit_postal_code" name="edit_postal_code">
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Max guests allow: </label>
-                    <input required="required" type="text" class="form-control" id="max_guests_allowed" name="max_guests_allowed">
+                    <input required="required" type="text" class="form-control" id="edit_max_guests_allowed" name="edit_max_guests_allowed">
                 </div>
                 <div>
-                    <button type="button" class="btn btn-primary btn-lg btn-block" onclick="editHouse('<?php echo $host_id; ?>')">Add</button>
+                    <button type="button" class="btn btn-primary btn-lg btn-block" name="btn_edit_acc" id="btn_edit_acc">Submit</button>
                 </div>
         </div>
     </div>
       
     </div>
   </div>
- <!-- add new accommodation Modal end--> 
+ <!-- End Edit accommodation Modal --> 
 
 
 
@@ -398,7 +397,6 @@ include('../session.php');
                                 action: "add_house"
                             },
                             success: function(data) {
-                                alert(data);
                                 if (data == "success"){
                                     alert("Add new accommodation successful!");
                                     location.reload();
@@ -409,25 +407,27 @@ include('../session.php');
             }
 
             // edit house  
-            function editHouse(host_id){
-            //get information from form.
-            var house_name = $('#house_name').val();
-            var description = $('#description').val();
-            var price = $('#price').val();
-            var number_of_room = $('#number_of_room').val();
-            var number_of_bathroom = $('#number_of_bathroom').val();
-            var smoke_allowed = document.getElementById("smoke_allowed").checked==true?'1':'0';
-            var garage = document.getElementById("garage").checked==true?'1':'0';
-            var pet_friendly = document.getElementById("pet_friendly").checked==true?'1':'0';
-            var internet_provided = document.getElementById("internet_provided").checked==true?'1':'0';
-            var check_in_time = $('#check_in_time').val();
-            var check_out_time = $('#check_out_time').val();
-            var address = $('#address').val();
-            var city = $('#city').val();
-            var state = $('#state').val();
-            var postal_code = $('#postal_code').val();
-            var max_guests_allowed = $('#max_guests_allowed').val();
-            $.ajax({
+            function editHouse(house_id){
+            $("#editAccModal").modal();
+            $("#btn_edit_acc").click(function() {
+                 //get information from form.
+            var house_name = $('#edit_house_name').val();
+            var description = $('#edit_description').val();
+            var price = $('#edit_price').val();
+            var number_of_room = $('#edit_number_of_room').val();
+            var number_of_bathroom = $('#edit_number_of_bathroom').val();
+            var smoke_allowed = document.getElementById("edit_smoke_allowed").checked==true?'1':'0';
+            var garage = document.getElementById("edit_garage").checked==true?'1':'0';
+            var pet_friendly = document.getElementById("edit_pet_friendly").checked==true?'1':'0';
+            var internet_provided = document.getElementById("edit_internet_provided").checked==true?'1':'0';
+            var check_in_time = $('#edit_check_in_time').val();
+            var check_out_time = $('#edit_check_out_time').val();
+            var address = $('#edit_address').val();
+            var city = $('#edit_city').val();
+            var state = $('#edit_state').val();
+            var postal_code = $('#edit_postal_code').val();
+            var max_guests_allowed = $('#edit_max_guests_allowed').val();
+                    $.ajax({
                             url: "host_dashboard_accommodation_process.php",
                             method: "POST",
                             data: {
@@ -447,17 +447,17 @@ include('../session.php');
                                 state: state,
                                 postal_code: postal_code,
                                 max_guests_allowed: max_guests_allowed,
-                                host_id: host_id,
+                                house_id: house_id,
                                 action: "edit_house"
                             },
                             success: function(data) {
-                                alert(data);
                                 if (data == "success"){
-                                    alert("Add new accommodation successful!");
+                                    alert("Edit accommodation successful!");
                                     location.reload();
                                 }
                             }
                         });
+                    });
 
             }
     </script>

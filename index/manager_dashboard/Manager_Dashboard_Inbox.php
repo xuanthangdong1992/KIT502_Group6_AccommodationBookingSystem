@@ -97,7 +97,6 @@ include('../session.php');
 							location.href = "../index.php";						}
 					});
 				});
-
 			});
             // show chatbox function  
           function showChatBox(sender, receiver){
