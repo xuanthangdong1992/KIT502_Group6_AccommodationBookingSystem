@@ -1,3 +1,4 @@
+<!-- This is the controler of function-delete/add/edit user-->
 <?php
 include('../db_conn.php');
 session_start();

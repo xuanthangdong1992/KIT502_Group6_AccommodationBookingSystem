@@ -132,7 +132,7 @@ include('../db_conn.php');
                                 <td>
                                     <div class="booking_status">
                                         <span class="b_booking_status text-info" data_booking_status="<?php echo $row["booking_status"]; ?>"><?php echo $row["booking_status"]; ?></span>
-                                        <!--This is the function for edit Accommodation-->
+                                        <!--This is the function for cancel booking-->
                                         <a href="#cancelBookingModal<?php echo $row['booking_id']; ?>" data-toggle="modal" class="text-info">
                                             <i class="fa fa-edit font-18"></i>
                                         </a>

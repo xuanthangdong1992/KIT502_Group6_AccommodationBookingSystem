@@ -1,10 +1,10 @@
+<!-- This is the controler of function-delete/edit accommodation -->
 <?php
 include('../db_conn.php');
 session_start();
 
 $id = $_GET['id'];
 $action = $_GET['action'];
-
 
 if ($action == "delete") {
     $conn->query("delete from accommodation where accommodation_id='$id'");
