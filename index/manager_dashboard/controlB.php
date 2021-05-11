@@ -11,6 +11,6 @@ if ($action == "cancel") {
     $stmt = $conn->prepare("UPDATE booking SET booking_status='canceled' WHERE booking_id='$id'");
 
 
-    $_SESSION['msg'] = "User Updated Succesfully";
-    header('location:Manager_Dashboard_User.php');
+    $_SESSION['msg'] = "Bokking Rejected Succesfully";
+    header('location:Manager_Dashboard_booking.php');
 }

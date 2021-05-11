@@ -450,50 +450,6 @@ include('../db_conn.php');
         </div>
     </div>
 
-    <!-- Create Modal -->
-    <!-- <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel"
-aria-hidden="true">
-<div class="modal-dialog" role="document">
-    <div class="modal-content">
-        <form>
-            <div class="modal-header">
-                <h5 class="modal-title" id="addUserModalLabel"><i class="ti-marker-alt mr-2"></i> Create New User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="input-group mb-3">
-                    <button type="button" class="btn btn-info"><i
-                        class="ti-user text-white"></i></button>
-                        <input required="required" type="text" class="form-control" placeholder="Enter Name Here"
-                        aria-label="name">
-                    </div>
-                    <div class="input-group mb-3">
-                        <button type="button" class="btn btn-info"><i class="ti-more text-white"></i></button>
-                        <input type="text" class="form-control" placeholder="Enter Password Here" aria-label="no">
-                    </div>
-                    <div class="input-group mb-3">
-                        <button type="button" class="btn btn-info"><i class="ti-import text-white"></i></button>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="inputGroupFile01">                                    
-                            <label class="custom-file-label" for="inputGroupFile01">Choose Image</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success"><i class="ti-save"></i> Save</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-</div> -->
-
-
-
-
 
 
 
