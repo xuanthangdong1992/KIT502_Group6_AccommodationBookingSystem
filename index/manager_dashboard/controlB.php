@@ -1,15 +1,18 @@
-<!-- This is the controler of function-cancel booking -->
 <?php
+include('../session.php');
 include('../db_conn.php');
-session_start();
+// This is controller for booking management action
+if($_POST['action'] == "cancel_booking"){
+    $booking_id = addslashes($_POST['booking_id']);
+    $query = "UPDATE `booking` SET `booking_status`='cancel' WHERE booking_id='$booking_id'";
+    if ($conn->query($query)){
+      echo "success";
+    }else{
+      echo "fail";
+      echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+  } else {
+    echo "action not found!";
+  }
 
-$id = $_GET['id'];
-$action = $_GET['action'];
-
-if ($action == "cancel") {
-       $conn->query("UPDATE booking SET booking_status='canceled' WHERE booking_id='$id'");
-
-
-    $_SESSION['msg'] = "Bokking Canceled Succesfully";
-    header('location:Manager_Dashboard_booking.php');
-}
+?>

@@ -1,186 +1,199 @@
-<!DOCTYPE html>
 <?php
-// connect database
 include('../db_conn.php');
+include('../session.php');
 ?>
-
+<!DOCTYPE html>
 <html dir="ltr" lang="en">
 
 <head>
     <meta charset="utf-8">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Title -->
-    <title>System Management Dashboard</title>
-    <!-- This page plugin CSS -->
+	<title>Host Dashboard</title>
+    <!-- Local CSS file -->
+	<link href="../../css/clientstyle.css" rel="stylesheet">
     <link href="../../css/style.css" rel="stylesheet">
-    <link href="../../css/clientstyle.css" rel="stylesheet">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <!-- Data table CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">  
+
 </head>
 
 <body>
-    <!-- Bootstrap JQuery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <!--This page plugins -->
-    <script src="../../js/manageAccommodation.js"></script>
+    <!-- Data table paging -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
 
     <div class="management-nav">
-
-        <header>
-            <!-- bootstrap navigation bar -->
-            <nav class="navbar navbar-expand-lg navbar-dark static-top">
-                <div class="container">
-                    <a href="Manager_Dashboard_Home.php">
-                        <img class="logo" src="../../img/logo.png" alt="">
-                    </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarResponsive">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="Manager_Dashboard_Home.php">Home
-                                    <span class="sr-only">(current)</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="Manager_Dashboard_User.php">User management</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="Manager_Dashboard_Accommodation.php">Accommodation management</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-
-            <!-- end bootstrap navigation bar -->
-        </header>
-
+    <?php
+				include ('manager_header.php');
+			?>          
     </div>
 
-    <!-- Topbar for search accomodation -->
-    <div class="Topbar">
-        <div class="card card-body">
-            <div class="col-md-4">
-                <!-- for searching accomodations -->
-                <form>
-                    <input type="text" class="form-control product-search" id="input-search" placeholder="Search Accomodation">
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!--This is the table of all the bookings-->
-    <div class="card card-body">
-        <div class="table-responsive">
-            <table class="table table-striped search-table v-middle">
-                <thead class="header-item">
-                    <!--This shows the attributes of booking list-->
-                    <th class="text-dark font-weight-bold">Booking ID</th>
-                    <th class="text-dark font-weight-bold">Client ID</th>
-                    <th class="text-dark font-weight-bold">Accommodation ID</th>
-                    <th class="text-dark font-weight-bold">Check In</th>
-                    <th class="text-dark font-weight-bold">Chech Out</th>
-                    <th class="text-dark font-weight-bold">Payment Status</th>
-                    <th class="text-dark font-weight-bold">Booking Status</th>
-                </thead>
-
-                <tbody>
-
-                    <!-- This is the information of Accomdation-->
-                    <?PHP
-                    $sql = "SELECT * FROM booking";
-                    $result = $conn->query($sql);
-                    $check_n = 0;
-                    if ($result->num_rows > 0) {
-                        // output data of each row
-                        while ($row = $result->fetch_assoc()) {
-                            
-                            $check_n++;
+    
+<div class="main_container">
+<div class="card card-body">
+        <h3>Booking Management </h3>
+</div>
+<!-- Data table paging -->
+<div class="table-responsive">
+    <table id="booking_table" class="table table-info table-bordered nowrap" style="width: 100%">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Accommodation ID</th>
+                <th>House</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Guests</th>
+                <th>Booking Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+                //Get booking data from database
+                $admin_id = $_SESSION["loginUsername"];
+                $booking_query = "SELECT booking.booking_id, booking.accommodation_id, accommodation.house_name, booking.start_date, booking.end_date, booking.number_of_guests, booking.booking_status, booking.rejected_reason FROM booking LEFT JOIN accommodation ON booking.accommodation_id=accommodation.accommodation_id";
+                $booking_list_result = mysqli_query($conn, $booking_query);
+                if (is_array($booking_list_result) || is_object($booking_list_result)){
+                foreach($booking_list_result as $booking){
+			?>
+            <tr>
+                <td><?php echo $booking['booking_id']; ?></td>
+                <td><a href="manager_accommodation_details.php?id=<?php echo $booking['accommodation_id']; ?>"><?php echo $booking['accommodation_id']; ?> (Click for more details)</a></td>
+                <td><?php echo $booking['house_name']; ?></td>
+                <td><?php echo date_format(date_create($booking['start_date']), "d/m/Y"); ?></td>
+                <td><?php echo date_format(date_create($booking['end_date']), "d/m/Y"); ?></td>
+                <td><?php echo $booking['number_of_guests']; ?></td>
+                <td><?php echo $booking['booking_status']; ?></td>
+                <?php
+                    if($booking['booking_status'] == "pending" || $booking['booking_status'] == "confirmed"){
+                ?>
+                <td>
+                    <button type="button" class="btn btn-danger" name="btn_cancel" id="btn_cancel" onclick="cancelBooking('<?php echo $booking['booking_id'] ?>')">Cancel</button>
+                </td>
+                <?php 
+                } else 
+                if($booking['booking_status'] == "rejected"){
                     ?>
+                <td><button type="button" class="btn btn-warning" name="reason_details" id="reason_details" onclick="rejectedReason('<?php echo $booking['rejected_reason'] ?>')">Reason details</button></td>
+                    <?php
+                }else{
+                    ?>
+                <td></td>
+                    <?php
+                }
+                ?>
+            </tr>
+            <?php
+            }
+        }
+            ?>
+        </tbody>
+    </table>
+</div>
+</div>
+    <!-- Display reason rejected modal -->
+    <div class="modal fade" id="rejectedReasonModal" tabindex="-1" role="dialog" aria-labelledby="rejectedReasonModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<!-- login form -->
+					<button type="button" class="close float-right btn" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h3>Reason why the host rejected</h3>
+						<div class="form-group required">
+							<br><label id="rejectedReasonContent">not found reason!</lable>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-                            <tr class="search-items">
-                                
-                                <!-- This is the Booking ID for each booking record-->
-                                <td>
-                                <span class="b_	booking_id mb-0" data_booking_id="<?php echo $row["booking_id"]; ?>"><?php echo $row["booking_id"]; ?></span>
-                                </td>
-                                <!-- This is the Client ID for the booking-->
-                                <td>
-                                    <span class="b_client_id mb-0" data_client_id="<?php echo $row["client_id"]; ?>"><?php echo $row["client_id"]; ?></span>
-                                </td>
-                                <!-- This is the Accommodation ID for the booking-->
-                                <td>
-                                    <span class="b_accommodation_id mb-0" data_accommodation_id="<?php echo $row["accommodation_id"]; ?>"><?php echo $row["accommodation_id"]; ?></span>
-                                </td>
-                                <!-- This is the Check in date-->
-                                <td>
-                                    <span class="b_start_date" data_start_date="<?php echo $row["start_date"]; ?>"><?php echo $row["start_date"]; ?></span>
-                                </td>
-                                <!-- This is the Check out date-->
-                                <td>
-                                    <span class="b_end_date" data_end_date="<?php echo $row["end_date"]; ?>"><?php echo $row["end_date"]; ?></span>
-                                </td>
-                                <!-- This is the Payment Status-->
-                                <td>
-                                    <span class="b_total_price" data_total_price="<?php echo $row["total_price"]; ?>"><?php echo $row["total_price"]; ?></span>
-                                    <!-- <span class="b_payment_status" data_payment_status="<?php echo $row["payment_status"]; ?>"><?php echo $row["payment_status"]; ?></span> -->
-                                </td>
-                                <!-- This is the Booking Status-->
-                                <td>
-                                    <div class="booking_status">
-                                        <span class="b_booking_status text-info" data_booking_status="<?php echo $row["booking_status"]; ?>"><?php echo $row["booking_status"]; ?></span>
-                                        <!--This is the function for cancel booking-->
-                                        <a href="#cancelBookingModal<?php echo $row['booking_id']; ?>" data-toggle="modal" class="text-info">
-                                            <i class="fa fa-edit font-18"></i>
-                                        </a>
-                                    </div>      
-                                </td>
-                            </tr>
+<!-- Reject booking Modal -->
+<div class="modal fade" id="rejectBookingModal" tabindex="-1" role="dialog" aria-labelledby="rejectBookingModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<!-- payment form -->
+					<button type="button" class="close float-right btn" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h3>Reject Booking</h3>
 
-                            <!--Cancel modal start -->
-                            <div id="cancelBookingModal<?php echo $row['booking_id']; ?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                 <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="myModalLabel">Cancel Booking</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        </div>
-                                                <div class="modal-body">
-                                                    <div class="container-fluid">
-                                                        <p><?php echo "Booking Status: ".$row["booking_status"]; ?></p>
-                                                        <p><?php echo "Rejected Reason: ".$row["rejected_reason"]; ?></p>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                                    <a href="controlB.php?id=<?php echo $row['booking_id']; ?>&action=cancel" class="btn btn-danger">Cancel Booking</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                            <!-- Delete Modal End-->
-
-                        <?php
-                        }
-                        ?>
-
-                    <?PHP
-
-                    } else {
-                        echo "0 results";
+                        <div class="form-group">
+                            <label for="comment">Leave a reason for client to explain why you reject this booking: </label>
+                            <textarea class="form-control" id="reason_content" name="reason_content" rows="5"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary btn-lg btn-block" name="btn_reject_booking" id="btn_reject_booking">Submit</button>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript">
+            //data table process
+            $(document).ready(function() {
+                $('#booking_table').DataTable(
+                    {
+                        "scrollY":        "550px",
+                        "scrollCollapse": true,
+                        "paging":         false
                     }
-                    $conn->close();
-                    ?>
+                );
+            } );
 
+        //logout process
+		$(document).ready(function() {
+				$('#logout').click(function() {
+					var logout = "logout";
+					$.ajax({
+						url: "../login_process.php",
+						method: "POST",
+						data: {
+							logout: logout
+						},
+						success: function() {
+							location.href = "../index.php";						
+                        }
+					});
+				});
 
-                </tbody>
-            </table>
-        </div>
-    </div>
+			});
+       
+        //cancel booking with 2 case: when booking status are pending and confirmed
+        function cancelBooking(booking_id){
+            var r = confirm("Do you really want to cancel this booking? This action can not redo.");
+                if (r == true) {
+                    $.ajax({
+                            url: "controlB.php",
+                            method: "POST",
+                            data: {
+                                booking_id: booking_id,
+                                action: "cancel_booking"
+                            },
+                            success: function(data) {
+                                if (data == "success"){
+                                    location.reload();
+                                }
+                            }
+                        });
+                } else {
+                    
+                } 
 
+        }
+        //reason rejected details
+        function rejectedReason(reason){
+            $("#rejectedReasonContent").html(reason);
+            $("#rejectedReasonModal").modal();
+        }
+    </script>
 </body>
-
 </html>
