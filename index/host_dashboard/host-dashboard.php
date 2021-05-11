@@ -72,7 +72,8 @@ include('../session.php');
 							logout: logout
 						},
 						success: function() {
-							location.href = "../index.php";						}
+							location.href = "../index.php";						
+                        }
 					});
 				});
 
