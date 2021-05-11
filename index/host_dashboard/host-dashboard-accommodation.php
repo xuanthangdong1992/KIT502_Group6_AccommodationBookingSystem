@@ -98,6 +98,7 @@ include('../session.php');
             </button>
             <h3>Create new Accommodation</h3>
             <!--accommodation details-->
+            <form method='post' action='host_dashboard_accommodation_process.php' enctype='multipart/form-data'>
                 <div class="form-group">
                     <label>House name: </label>
                     <input required="required" type="text" class="form-control" id="house_name" name="house_name">
@@ -185,13 +186,14 @@ include('../session.php');
                 <!--Here to upload image-->
                 <div class="form-group">
                     <label>Image upload</label>
-                    <input name="file[]" id="fileUpload" type="file" multiple="multiple"/>
-                    <div id="imgList">
+                    <input id='file' name="file[]" type="file" multiple="multiple"/>
                 </div>
                 <!--save and cancel button-->
                 <div>
-                    <button type="button" class="btn btn-primary btn-lg btn-block" onclick="addHouse('<?php echo $host_id; ?>')">Add</button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Add</button>
                 </div>
+                <!-- onclick="addHouse('<?php echo $host_id; ?>')" -->
+            </form>
         </div>
     </div>
       
@@ -274,7 +276,7 @@ include('../session.php');
             var max_guests_allowed = $('#max_guests_allowed').val();
             //get image source
             var img_source = "";
-            var imgUp = document.getElementById('fileUpload');
+            var imgUp = document.getElementById('files');
             for (var i = 0; i < imgUp.files.length; ++i) {
             img_source += "../img/";
             img_source += imgUp.files.item(i).name;
@@ -284,43 +286,48 @@ include('../session.php');
             }
             // alert(host_id);
             //Ajax
-            var file_data = $('#fileUpload').prop('files')[0];   
-            var form_data = new FormData();                  
-            form_data.append('file', file_data);
-            alert(form_data);  
-
-            // $.ajax({
-            //                 url: "host_dashboard_accommodation_process.php",
-            //                 method: "POST",
-            //                 data: {
-            //                     house_name: house_name,
-            //                     description: description,
-            //                     price: price,
-            //                     number_of_room: number_of_room,
-            //                     number_of_bathroom: number_of_bathroom,
-            //                     smoke_allowed: smoke_allowed,
-            //                     garage: garage,
-            //                     pet_friendly: pet_friendly,
-            //                     internet_provided: internet_provided,
-            //                     check_in_time: check_in_time,
-            //                     check_out_time: check_out_time,
-            //                     address: address,
-            //                     city: city,
-            //                     state: state,
-            //                     postal_code: postal_code,
-            //                     max_guests_allowed: max_guests_allowed,
-            //                     img_source: img_source,
-            //                     host_id: host_id,
-            //                     action: "add_house"
-            //                 },
-            //                 success: function(data) {
-            //                     // alert(data);
-            //                     if (data == "success"){
-            //                         alert("Add new accommodation successful!");
-            //                         location.reload();
-            //                     }
-            //                 }
-            //             });
+            var form_data = new FormData();
+            // Read selected files
+            var totalfiles = document.getElementById('files').files.length;
+            for (var index = 0; index < totalfiles; index++) {
+                form_data.append("files[]", document.getElementById('files').files[index]);
+                alert(JSON.stringify(document.getElementById('files').files[index]));
+            }
+            imgUploaded = JSON.stringify(form_data); 
+            alert(imgUploaded);
+            $.ajax({
+                            url: "host_dashboard_accommodation_process.php",
+                            method: "POST",
+                            data: {
+                                house_name: house_name,
+                                description: description,
+                                price: price,
+                                number_of_room: number_of_room,
+                                number_of_bathroom: number_of_bathroom,
+                                smoke_allowed: smoke_allowed,
+                                garage: garage,
+                                pet_friendly: pet_friendly,
+                                internet_provided: internet_provided,
+                                check_in_time: check_in_time,
+                                check_out_time: check_out_time,
+                                address: address,
+                                city: city,
+                                state: state,
+                                postal_code: postal_code,
+                                max_guests_allowed: max_guests_allowed,
+                                img_source: img_source,
+                                host_id: host_id,
+                                imgUploaded: imgUploaded,
+                                action: "add_house"
+                            },
+                            success: function(data) {
+                                alert(data);
+                                // if (data == "success"){
+                                //     alert("Add new accommodation successful!");
+                                //     location.reload();
+                                // }
+                            }
+                        });
 
             }
 
