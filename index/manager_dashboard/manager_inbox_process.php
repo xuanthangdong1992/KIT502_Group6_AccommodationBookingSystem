@@ -5,6 +5,7 @@ $output = '';
 if($_POST['action'] == "show_messages"){
     $sender = addslashes($_POST['sender']);
     $receiver = addslashes($_POST['receiver']);
+    $mid = addslashes($_POST['mid']);
     $output .= '
     <button type="button" class="close float-right btn" data-dismiss="modal" aria-label="Close">
     <span aria-hidden="true">&times;</span>
@@ -13,8 +14,14 @@ if($_POST['action'] == "show_messages"){
     <label><b>Conversation between '.$sender.' and '.$receiver.'</b></label>
     </div>
     ';
+    
+    $update_query = "UPDATE `message` SET `message_status` = 'read', `reading_time`=now() WHERE `message`.`message_id` = $mid";
+
+    mysqli_query($conn, $update_query);
+
+
     $message_host_query = "SELECT * FROM `message` WHERE (`sender`='$sender' OR `receiver` = '$sender') AND (`sender`='$receiver' OR `receiver` = '$receiver') ORDER BY sending_time";
-    echo $message_host_query;
+
     $message_host_result = mysqli_query($conn, $message_host_query);
     if (is_array($message_host_result) || is_object($message_host_result)){
         foreach($message_host_result as $message_host){
@@ -40,16 +47,7 @@ if($_POST['action'] == "show_messages"){
     }
     echo $output;
     
-//change the status to readed    
-}elseif($_POST['action'] == "change_status"){
-    $message_id = addslashes($_POST['message_id']);
-    $query = "UPDATE `message` SET `message_status`='read' WHERE message_id='$message_id'";
-    if ($conn->query($query)){
-      echo "success";
-    }else{
-      echo "fail";
-      echo "Error: " . $sql . "<br>" . $conn->error;
-    }
+
 
 }else {
     echo "action not found";

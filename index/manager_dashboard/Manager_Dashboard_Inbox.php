@@ -40,6 +40,7 @@ include('../session.php');
                         <th>Sender</th>
                         <th>Receiver</th>
                         <th>Action</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,19 +49,30 @@ include('../session.php');
                     $admin_id = $_SESSION["loginUsername"];
                     $query = "SELECT DISTINCT `sender`, `receiver` FROM `message`";
                     
-                    echo $query;
+                    
                     $result = mysqli_query($conn, $query);
                     if (is_array($result) || is_object($result)) {
                         foreach ($result as $row) {
+                            $nsql = "select *
+                            from message
+                            where sender='".$row['sender']."' and receiver='".$row['receiver']."'
+                            and sending_time = (select max(sending_time) from message where sender='".$row['sender']."' and receiver='".$row['receiver']."')";
+                            $nresult = mysqli_query($conn,$nsql);
+                            if (is_array($nresult) || is_object($nresult)) {
+                                foreach ($nresult as $nrow) {
                     ?>
                             <tr>
                                 <td><?php echo $row['sender']; ?></td>
                                 <td><?php echo $row['receiver']; ?></td>
                                 <td>
-                                    <button type="button" class="btn btn-warning" name="btn_inbox_details" id="btn_inbox_details" onclick="showChatBox('<?php echo $row['sender']; ?>', '<?php echo $row['receiver']; ?>')">Details</button>
+                                    <button type="button" class="btn btn-warning" name="btn_inbox_details" id="btn_inbox_details" onclick="showChatBox(this,'<?php echo $row['sender']; ?>', '<?php echo $row['receiver']; ?>','<?php echo $nrow['message_id']?>')">Details</button>
+                                </td>
+                                <td>
+                                <?php echo $nrow['message_status'];?>
                                 </td>
                             </tr>
                     <?php
+                                }}
                         }
                     }
                     ?>
@@ -76,7 +88,7 @@ include('../session.php');
                 <div class="modal-body" id="message_content_box">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" name="btn_message_close" id="btn_message_close" onclick="messageStatusChange('<?php echo $row['message_id']; ?>')">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" name="btn_message_close" id="btn_message_close" >Close</button>
                 </div>
             </div>
 
@@ -107,10 +119,13 @@ include('../session.php');
                 });
             });
         });
-        // show chatbox function  
-        function showChatBox(sender, receiver) {
-            console.log(sender);
-            console.log(receiver);
+
+        // show chatbox function, when the chartbox show, the message status change to "read"
+        function showChatBox(ele,sender, receiver,mid) {
+            //change message status function
+            if($(ele).parent().next().html().indexOf("unread")!=-1){
+                $(ele).parent().next().html("read")
+            }
             $("#chatModal").modal();
             $.ajax({
                 url: "manager_inbox_process.php",
@@ -118,7 +133,8 @@ include('../session.php');
                 data: {
                     sender: sender,
                     receiver: receiver,
-                    action: "show_messages"
+                    action: "show_messages",
+                    mid:mid
                 },
                 success: function(data) {
                     $('#message_content_box').html(data);
@@ -127,23 +143,7 @@ include('../session.php');
             });
         }
 
-        //change message status function
-
-        function messageStatusChange(message_status) {
-            $.ajax({
-                url: "manager_inbox_process.php",
-                method: "POST",
-                data: {
-                    message_id: message_id,
-                    action: "change_status"
-                },
-                success: function(data) {
-                    if (data == "success") {
-                        location.reload();
-                    }
-                }
-            });
-        }
+        
     </script>
 </body>
 
