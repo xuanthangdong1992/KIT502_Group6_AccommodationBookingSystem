@@ -22,10 +22,7 @@ include('session.php');
 	<!-- Bootstrap   -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 
-
-
-	<div class="form-bg">
-		<div class="main-page">
+	<div class="regis-bg">
 			<?php
 				include ('header.php');
 			?>
@@ -72,16 +69,11 @@ include('session.php');
 					</div>
 				</form>
 			</div>
-
 			<!-- Display data search  -->
 			<div id="accommodation_data_list">
 			</div>
 
-		</div>
 	</div>
-
-	
-
 	<!-- include login and register modal   -->
 	<?php
 	include ('login-register-modal.php');
