@@ -120,6 +120,10 @@ include('session.php');
 						var city = $('#city').val();
 						var startDate = $('#startDate').val();
 						var endDate = $('#endDate').val();
+						if(startDate==endDate){
+							alert("Start date and end date can not be same. Please choose other day.");
+							location.reload();
+						}
 						var numberOfGuest = $('#numberOfGuest').val();
 						$.ajax({
 							url: 'list-accommodation-process.php',
