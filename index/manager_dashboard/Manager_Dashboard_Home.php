@@ -8,7 +8,7 @@ include('../session.php');
 <meta charset="utf-8">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Host Dashboard</title> 
+	<title>Manager Dashboard</title> 
     <!-- Local CSS   -->
     <link href="../../css/style.css" rel="stylesheet">
 	<link href="../../css/clientstyle.css" rel="stylesheet">

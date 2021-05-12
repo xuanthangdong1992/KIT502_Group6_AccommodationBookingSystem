@@ -14,6 +14,7 @@ if($_POST['action'] == "show_messages"){
     </div>
     ';
     $message_host_query = "SELECT * FROM `message` WHERE (`sender`='$sender' OR `receiver` = '$sender') AND (`sender`='$receiver' OR `receiver` = '$receiver') ORDER BY sending_time";
+    echo $message_host_query;
     $message_host_result = mysqli_query($conn, $message_host_query);
     if (is_array($message_host_result) || is_object($message_host_result)){
         foreach($message_host_result as $message_host){
@@ -38,7 +39,19 @@ if($_POST['action'] == "show_messages"){
         }
     }
     echo $output;
-} else {
+    
+//change the status to readed    
+}elseif($_POST['action'] == "change_status"){
+    $message_id = addslashes($_POST['message_id']);
+    $query = "UPDATE `message` SET `message_status`='read' WHERE message_id='$message_id'";
+    if ($conn->query($query)){
+      echo "success";
+    }else{
+      echo "fail";
+      echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+}else {
     echo "action not found";
 }
 

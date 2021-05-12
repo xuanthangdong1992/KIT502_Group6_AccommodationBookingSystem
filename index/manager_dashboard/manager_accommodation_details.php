@@ -143,7 +143,10 @@ include ('../db_conn.php');
         foreach($resultAccommdationReview as $review){
         ?>
         <div class="card border-info mb-12">
-          <div class="card-header">User: <?php echo $review["client_id"] ?> </div>
+          <div class="card-header">
+            <a>User: <?php echo $review["client_id"] ?> </a>
+            <button type="button" class="btn btn-danger float-right" name="btn_delete" id="btn_delete" onclick="deleteReview('<?php echo $review['review_id'] ?>')">Delete Review</button>
+          </div>
           <div class="card-body text-info">
             <p class="card-text"><i class="bi bi-star-fill" style="color: red;"></i> <?php echo $review["rate"] ?></p>
             <p class="card-title"><?php echo $review["comment"] ?></p>
