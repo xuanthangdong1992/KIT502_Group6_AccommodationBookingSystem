@@ -33,6 +33,11 @@ include ('db_conn.php');
             
             <!-- Get list host contact -->
             <?php
+            // check user loged in or not.
+            if(!isset($_SESSION["loginUsername"])){
+                //redirect to index page
+                header('Location: index.php');
+            }
             $client_id = $_SESSION["loginUsername"];
             $list_host_query = "SELECT DISTINCT `receiver` FROM `message` WHERE sender='$client_id'";
             $list_host_result = mysqli_query($conn, $list_host_query);

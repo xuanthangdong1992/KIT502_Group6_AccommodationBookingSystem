@@ -45,6 +45,11 @@ include ('db_conn.php');
         </thead>
         <tbody>
         <?php
+                // check user loged in or not.
+                if(!isset($_SESSION["loginUsername"])){
+                    //redirect to index page
+                    header('Location: index.php');
+                }
                 //Get booking data from database
                 $client_id = $_SESSION["loginUsername"];
                 $reviews_query = "SELECT * FROM accommodation_review WHERE client_id = '$client_id'";

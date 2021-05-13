@@ -78,10 +78,10 @@ include ('db_conn.php');
         <p><b>State:</b> <?php echo $row["state"];?></p>
         <p><b>Max guests allowed:</b> <?php echo $row["max_guests_allowed"];?></p>
         <div class="submit-button">
-          <button class="btn btn-primary btn-lg btn-block" type="button" data-toggle="modal" data-target="#bookingModal" >Booking</button>
+          <button class="btn btn-primary btn-lg btn-block" type="button" id="btn_booking" name="btn_booking" onclick="bookingProcess()">Booking</button>
         </div>
         <div class="submit-button">
-          <button class="btn btn-warning btn-lg btn-block" type="button" data-toggle="modal" data-target="#contactHostModal" >Contact Host</button>
+          <button class="btn btn-warning btn-lg btn-block" type="button" id="btn_contact_host" name="btn_contact_host" onclick="contactHost()">Contact Host</button>
         </div>
         <hr class="solid">
         <!-- Accommodation review and rating -->
@@ -95,7 +95,7 @@ include ('db_conn.php');
         <p><b>Accommodation rate:</b> <i class="bi bi-star-fill" style="color: red;"></i> <?php echo $row["accommodation_rate"];?> (<?php echo $countReviews; ?> reviews)</p>
         <!-- Review list   -->
         <!-- end Accommodation details -->
-        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#leaveReviewModal" >Leave a review!</button><br><br>
+        <button class="btn btn-primary" type="button" id="btn_leave_review" name="btn_leave_review" onclick="checkLoginLeaveReview()">Leave a review!</button><br><br>
 
         <?php
         //just show 5 reviews. If client want to see more, they can click to view all reviews button. 
@@ -329,7 +329,7 @@ include ('db_conn.php');
   <?php
 	  include ('login-register-modal.php');
 	?>
-  <script>
+  <script type="text/javascript">
 
    //logout process
    $(document).ready(function() {
@@ -350,42 +350,77 @@ include ('db_conn.php');
 			});
 
   //Booking process
-
-  // Get value
-  // var 
-    $(document).ready(function(){  
-      var queryString = window.location.search;
-      var urlPar = new URLSearchParams(queryString);
-      var number_of_guests = urlPar.get('numberOfGuests');
-      var start_date = urlPar.get('startDate');
-      var end_date = urlPar.get('endDate');
-      var accommodation_id = urlPar.get('id');
-      var client_id = '<?php echo $username; ?>';
-      $("#btn_send_booking").click(function() {
-      var values = {
-        'client_id': client_id,
-        'accommodation_id': accommodation_id,
-        'start_date': start_date,
-        'end_date': end_date,
-        'number_of_guests': number_of_guests,
-        'booking_status': "pending"
-      };
-      $.ajax({
+function bookingProcess(){
+  //Check login before booking
+  $.ajax({
 							url: "booking-process.php",
 							method: "POST",
-							data: values,
+							data: {
+                action: "check_login"
+              },
 							// get success message from server
 							success: function(data) {
 								// if respond from server is "duplicate_user_id"
-                if(data=='success'){
-                  alert("Booking send success! Please waiting confirm from host! Thank you");
-                  location.href = "index.php";
+                if(data=='need_login'){
+                  alert("You have to login before access the booking function. Thank you!");
+                }else{
+                  $('#bookingModal').modal();
+                  // login already 
+                    var queryString = window.location.search;
+                    var urlPar = new URLSearchParams(queryString);
+                    var number_of_guests = urlPar.get('numberOfGuests');
+                    var start_date = urlPar.get('startDate');
+                    var end_date = urlPar.get('endDate');
+                    var accommodation_id = urlPar.get('id');
+                    var client_id = '<?php echo $username; ?>';
+                    $("#btn_send_booking").click(function() {
+                    var values = {
+                      'client_id': client_id,
+                      'accommodation_id': accommodation_id,
+                      'start_date': start_date,
+                      'end_date': end_date,
+                      'number_of_guests': number_of_guests,
+                      'booking_status': "pending",
+                      'action': 'booking_process'
+                    };
+                    $.ajax({
+                            url: "booking-process.php",
+                            method: "POST",
+                            data: values,
+                            // get success message from server
+                            success: function(data) {
+                              // if respond from server is "duplicate_user_id"
+                              if(data=='success'){
+                                alert("Booking send success! Please waiting confirm from host! Thank you");
+                                location.href = "index.php";
+                              }
+                            }
+                          });
+                  });
                 }
 							}
 						});
-    });
-    });
+          }
 
+//check login before leave review
+          function checkLoginLeaveReview(){
+            $.ajax({
+							url: "booking-process.php",
+							method: "POST",
+							data: {
+                action: "check_login"
+              },
+							// get success message from server
+							success: function(data) {
+								// if respond from server is "duplicate_user_id"
+                if(data=='need_login'){
+                  alert("You have to login to contact to host. Thank you!");
+                }else{
+                  $('#leaveReviewModal').modal();
+                }
+							}
+						});
+          }
 
 // leave a review
 function leave_review(accommodation_id, client_id){
@@ -411,7 +446,26 @@ function leave_review(accommodation_id, client_id){
     });
 }
 
-//leave a message for host
+
+function contactHost(){
+  $.ajax({
+							url: "booking-process.php",
+							method: "POST",
+							data: {
+                action: "check_login"
+              },
+							// get success message from server
+							success: function(data) {
+								// if respond from server is "duplicate_user_id"
+                if(data=='need_login'){
+                  alert("You have to login to contact to host. Thank you!");
+                }else{
+                  $('#contactHostModal').modal();
+                }
+							}
+						});
+}
+//leave a message for host - contact host
 function leave_message(client_id, host_id){
   var mes_content = $('#mes_content').val();
                 if(mes_content != ""){
@@ -427,7 +481,8 @@ function leave_message(client_id, host_id){
                         success: function(data) {
                             if(data == "success"){
                                 alert("Send message success!");
-                                location.reload();                            }
+                                location.reload();                            
+                              }
                         }
                     });
                 }
@@ -457,6 +512,190 @@ function leave_message(client_id, host_id){
         }
 
 
+        //show and hide ABN Number
+			$(document).ready(function() {
+				// hide and show abn number follow the choice host or client
+				$("#hostOrClient").hide();
+				$('input:radio[name=accountType]').change(function() {
+					if (this.value == 'host') {
+						$("#hostOrClient").show();
+					} else if (this.value == 'client') {
+						$("#hostOrClient").hide();
+					}
+				});
+			});
+
+
+			// process register form
+			$(document).ready(function() {
+				// validate register form
+				$('form[id="registrationForm"]').validate({
+					rules: {
+						username: 'required',
+						password: {
+							required: true,
+							minlength: 6,
+							maxlength: 12,
+							passwordcheck: true
+						},
+						confirmPass: {
+							required: true,
+							equalTo: "#password"
+						},
+						firstName: 'required',
+						lastName: 'required',
+						email: {
+							required: true,
+							email: true
+						},
+						phoneNumber: {
+							required: true,
+							phonecheck: true
+						},
+						postalAddress: 'required',
+						abnNumber: 'required',
+					},
+					messages: {
+						username: '<span class="error">This field is required</span>',
+						password: '<span class="error">Password is 6 to 12 characters in length and contains at least 1 lower case letter, 1 upper case letter, 1 number and 1 of following characters ! @ # $ %</span>',
+						confirmPass: '<span class="error">The confirm password not matching</span>',
+						firstName: '<span class="error">This field is required</span>',
+						lastName: '<span class="error">This field is required</span>',
+						email: '<span class="error">The email not valid</span>',
+						phoneNumber: '<span class="error">This field is required and phone number contains only number</span>',
+						postalAddress: '<span class="error">This field is required</span>',
+						abnNumber: '<span class="error">This field is required</span>',
+					},
+					submitHandler: function(form) {
+						//use ajax to send request to server.
+						// use ajax to send request to server
+						var accountType = $('.accountType:checked').val();
+						var username = $('#username').val();
+						var password = $('#password').val();
+						var firstName = $('#firstName').val();
+						var lastName = $('#lastName').val();
+						var email = $('#email').val();
+						var phoneNumber = $('#phoneNumber').val();
+						var postalAddress = $('#postalAddress').val();
+						var abnNumber = $('#abnNumber').val();
+
+
+						$.ajax({
+							url: 'registrationProcess.php',
+							method: 'POST',
+							data: {
+								accountType: accountType,
+								username: username,
+								password: password,
+								firstName: firstName,
+								lastName: lastName,
+								email: email,
+								phoneNumber: phoneNumber,
+								postalAddress: postalAddress,
+								abnNumber: abnNumber
+							},
+							// get success message from server
+							success: function(data) {
+								// if respond from server is "duplicate_user_id"
+								if (data == 'duplicate_user_id') {
+									alert("User id already exists, please enter another user id.");
+
+								} else
+									// if respond from server is "duplicate_email"
+									if (data == 'duplicate_email') {
+										alert("The email is already in use by another account. Please enter another email or contact us for help.");
+
+									} else
+									// if respond from server is "duplicate_phone_number"
+									if (data == 'duplicate_phone_number') {
+										alert("The phone number is already in use by another account. Please enter another phone number or contact us for help.");
+
+									} else
+									// if respond from server is "duplicate_abn_number"
+									if (data == 'duplicate_abn_number') {
+										alert("The ABN number is already in use by another account. Please enter another ABN number or contact us for help.");
+
+									} else
+								if (data == 'fail') {
+									alert("Something wrong! Please register again.");
+								} else {
+									alert("Register successful!");
+									$('#registerModal').hide();
+									location.reload();
+								}
+							}
+						});
+
+					}
+				});
+				//password check
+				$.validator.addMethod("passwordcheck", function(value) {
+					return /[a-z]/.test(value) // has at least 1 lowercase letter
+						&&
+						/[A-Z]/.test(value) // has at least 1 uppercase letter
+						&&
+						/\d/.test(value) // has at least 1 digit
+						&&
+						/[!@#\$%]/.test(value) // has at least 1 following special characters ! @ # $ %
+				});
+				//phone number check
+				$.validator.addMethod("phonecheck", function(value) {
+					return /^[0-9]*$/.test(value) // has at least 1 lowercase letter
+				});
+			});
+
+      // process form login
+			$(document).ready(function() {
+				// validate login form
+				$('form[id="loginForm"]').validate({
+					rules: {
+						loginUsername: 'required',
+						loginPass: 'required',
+					},
+					messages: {
+						loginUsername: '<span class="error">This field is required</span>',
+						loginPass: '<span class="error">This field is required</span>',
+					},
+					submitHandler: function(form) {
+						// use ajax to send request to server
+						var loginUsername = $('#loginUsername').val();
+						var loginPass = $('#loginPass').val();
+						$.ajax({
+							url: 'login_process.php',
+							method: 'POST',
+							data: {
+								loginUsername: loginUsername,
+								loginPass: loginPass
+							},
+							// get success message from server
+							success: function(data) {
+							// alert(data);
+							// if respond from server is "fail"
+								if (data == 'fail') {
+									alert("Wrong user id or password.");
+								} else
+								// if login account is client
+								if (data == 'client') {
+									$('#loginModal').hide();
+									location.reload();
+								} else
+									// if login account is host
+								if (data == 'host') {
+									$('#loginModal').hide();
+									location.href = "host_dashboard/host-dashboard.php";
+								} else
+								// if login account is system manager
+								if (data == 'system_manager') {
+									$('#loginModal').hide();
+									location.href = "manager_dashboard/Manager_Dashboard_Home.php";
+								}
+							}
+						});
+					}
+				});
+
+
+			});
   </script>
 
 </body>

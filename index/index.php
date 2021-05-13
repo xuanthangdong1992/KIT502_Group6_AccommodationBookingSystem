@@ -88,8 +88,6 @@ include('session.php');
 				});
 
 			<?php } ?>
-
-
 			//validation search form
 			$(document).ready(function() {
 				$('form[id="search-accommodation-form"]').validate({
@@ -162,59 +160,6 @@ include('session.php');
 					sd.max = ed.value;
 			}, false);
 
-
-			// process form login
-			$(document).ready(function() {
-				// validate login form
-				$('form[id="loginForm"]').validate({
-					rules: {
-						loginUsername: 'required',
-						loginPass: 'required',
-					},
-					messages: {
-						loginUsername: '<span class="error">This field is required</span>',
-						loginPass: '<span class="error">This field is required</span>',
-					},
-					submitHandler: function(form) {
-						// use ajax to send request to server
-						var loginUsername = $('#loginUsername').val();
-						var loginPass = $('#loginPass').val();
-						$.ajax({
-							url: 'login_process.php',
-							method: 'POST',
-							data: {
-								loginUsername: loginUsername,
-								loginPass: loginPass
-							},
-							// get success message from server
-							success: function(data) {
-							// alert(data);
-							// if respond from server is "fail"
-								if (data == 'fail') {
-									alert("Wrong user id or password.");
-								} else
-								// if login account is client
-								if (data == 'client') {
-									$('#loginModal').hide();
-									location.href = "index.php";
-								} else
-									// if login account is host
-								if (data == 'host') {
-									$('#loginModal').hide();
-									location.href = "host_dashboard/host-dashboard.php";
-								} else
-								// if login account is system manager
-								if (data == 'system_manager') {
-									$('#loginModal').hide();
-									location.href = "manager_dashboard/Manager_Dashboard_Home.php";
-								}
-							}
-						});
-					}
-				});
-
-
-			});
 
 			            
             //logout process
@@ -365,6 +310,60 @@ include('session.php');
 				$.validator.addMethod("phonecheck", function(value) {
 					return /^[0-9]*$/.test(value) // has at least 1 lowercase letter
 				});
+			});
+
+
+			// process form login
+			$(document).ready(function() {
+				// validate login form
+				$('form[id="loginForm"]').validate({
+					rules: {
+						loginUsername: 'required',
+						loginPass: 'required',
+					},
+					messages: {
+						loginUsername: '<span class="error">This field is required</span>',
+						loginPass: '<span class="error">This field is required</span>',
+					},
+					submitHandler: function(form) {
+						// use ajax to send request to server
+						var loginUsername = $('#loginUsername').val();
+						var loginPass = $('#loginPass').val();
+						$.ajax({
+							url: 'login_process.php',
+							method: 'POST',
+							data: {
+								loginUsername: loginUsername,
+								loginPass: loginPass
+							},
+							// get success message from server
+							success: function(data) {
+							// alert(data);
+							// if respond from server is "fail"
+								if (data == 'fail') {
+									alert("Wrong user id or password.");
+								} else
+								// if login account is client
+								if (data == 'client') {
+									$('#loginModal').hide();
+									location.reload();
+								} else
+									// if login account is host
+								if (data == 'host') {
+									$('#loginModal').hide();
+									location.href = "host_dashboard/host-dashboard.php";
+								} else
+								// if login account is system manager
+								if (data == 'system_manager') {
+									$('#loginModal').hide();
+									location.href = "manager_dashboard/Manager_Dashboard_Home.php";
+								}
+							}
+						});
+					}
+				});
+
+
 			});
 		</script>
 </body>
