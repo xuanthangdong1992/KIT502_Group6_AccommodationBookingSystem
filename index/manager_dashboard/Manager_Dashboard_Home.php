@@ -14,8 +14,7 @@ include('../session.php');
 	<link href="../../css/clientstyle.css" rel="stylesheet">
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <!--This page plugins -->
-    <script src="../../js/manageAccommodation.js"></script>
+  
 </head>
 <body>
 	<!-- Jquery -->

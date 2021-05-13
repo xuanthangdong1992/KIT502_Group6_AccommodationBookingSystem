@@ -144,16 +144,16 @@ include ('db_conn.php');
 						</div>
 						<div class="form-group required">
 							<label class="label-control">Card Number:</label>
-							<input class="form-control" type="text" id="cardnumber" name="cardnumber" />
+							<input class="form-control" type="text" id="cardnumber" name="cardnumber" required/>
 						</div>
                         <div class="form-row">
                             <div class="form-group required col-md-8">
                                 <label class="label-control">Expiry date (MM/YY):</label>
-                                <input class="form-control" type="text" id="expirydate" name="expirydate" />
+                                <input class="form-control" type="text" id="expirydate" name="expirydate" required/>
                             </div>
                             <div class="form-group required col-md-4">
                                 <label class="label-control">Security Code:</label>
-                                <input class="form-control" type="password" id="securitycode" name="securitycode" />
+                                <input class="form-control" type="password" id="securitycode" name="securitycode" required/>
                             </div>
                         </div>
                         <div class="form-group required">
@@ -230,14 +230,17 @@ include ('db_conn.php');
 
         //click button pay on datatable.
         function paymentProcess(booking_id, client_id, total_price){
-
             $("#paymentModal").modal();
+            //validate form
             $("#pay_button").click(function() {
                 var card_holder = $('#cardholder').val();
                 var card_number = $('#cardnumber').val();
                 var expiry_date = $('#expirydate').val();
                 var security_code = $('#securitycode').val(); 
-
+                //validate form
+                if((card_holder=="" || card_number=="") || (expiry_date=="" || security_code=="")){
+                    // alert("Please fill up card information");
+                }else {
                 $.ajax({
 
 						url: "client_dashboard_process.php",
@@ -262,6 +265,7 @@ include ('db_conn.php');
                             }
 						}
 					});
+                }
                 });
         }
     </script>

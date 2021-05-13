@@ -19,10 +19,10 @@ if (isset($_POST['username'])) {
     if ($accountType == "host") {
         //query for host
         $abnNumber = addslashes($_POST['abnNumber']);
-        $query = "INSERT INTO account (user_id, password, account_type, first_name, last_name, email, phone_number, postal_address, abn_number) VALUES ('$username', '$password', '$accountType', '$firstName', '$lastName', '$email', '$phoneNumber', '$postalAddress', '$abnNumber')";
+        $query = "INSERT INTO account (user_id, password, account_type, first_name, last_name, email, phone_number, postal_address, abn_number, account_status) VALUES ('$username', '$password', '$accountType', '$firstName', '$lastName', '$email', '$phoneNumber', '$postalAddress', '$abnNumber', 'active')";
     } else {
         //query for client
-        $query = "INSERT INTO account (user_id, password, account_type, first_name, last_name, email, phone_number, postal_address) VALUES ('$username', '$password', '$accountType', '$firstName', '$lastName', '$email', '$phoneNumber', '$postalAddress')";
+        $query = "INSERT INTO account (user_id, password, account_type, first_name, last_name, email, phone_number, postal_address, account_status) VALUES ('$username', '$password', '$accountType', '$firstName', '$lastName', '$email', '$phoneNumber', '$postalAddress', 'active')";
     }
 
     // check duplicate user id query
@@ -31,9 +31,7 @@ if (isset($_POST['username'])) {
     $check_email = "SELECT email FROM account WHERE email = '$email'";
     //check duplicate phone number
     $check_phone_number = "SELECT phone_number FROM account WHERE phone_number = '$phoneNumber'";
-    //check duplicate abn number
-    $check_abn_number = "SELECT abn_number FROM account WHERE abn_number = '$abnNumber'";
-    //check if user id already exist
+
     if (mysqli_num_rows(mysqli_query($conn, $check_user_id)) > 0) {
         echo 'duplicate_user_id';
     } else  
@@ -44,10 +42,6 @@ if (isset($_POST['username'])) {
     //check if phone number already exist
     if (mysqli_num_rows(mysqli_query($conn, $check_phone_number)) > 0) {
         echo 'duplicate_phone_number';
-    } else  
-    //check if abn number already exist
-    if (mysqli_num_rows(mysqli_query($conn, $check_abn_number)) > 0) {
-        echo 'duplicate_abn_number';
     } else  
     
     // When all the conditions have been met - insert database
