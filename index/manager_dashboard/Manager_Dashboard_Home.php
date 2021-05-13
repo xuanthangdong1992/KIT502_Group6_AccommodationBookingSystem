@@ -29,6 +29,115 @@ include('../session.php');
 				include ('manager_header.php');
 			?>          
     </div>
+
+    <div>
+            <h3>Statistics Information</h3>
+            <div class="form-group row">
+            <?php
+            $admin_id = $_SESSION["loginUsername"];
+            $query1 = "SELECT COUNT(accommodation_id) AS 'number' FROM accommodation";
+            $result1 = mysqli_query($conn, $query1);
+            if (is_array($result1) || is_object($result1)) {
+                foreach ($result1 as $row) {
+            ?>
+                <label class="col-sm-2 col-form-label"><b>Number of shared house:</b></label>
+                <label class="col-sm-1 col-form-label"><?php echo $row['number']; ?></label>
+            <?php
+                }
+            }
+            $query2="SELECT COUNT(accommodation_review.accommodation_review_id) as number FROM accommodation_review";
+            $result2 = mysqli_query($conn, $query2);
+            if (is_array($result2) || is_object($result2)) {
+                foreach ($result2 as $row) {
+
+            ?>
+                <label class="col-sm-2 col-form-label"><b>Number of reviews:</b></label>
+                <label class="col-sm-1 col-form-label"><?php echo $row['number']; ?></label>
+            <?php
+                }
+            }
+            $query3="SELECT COUNT(booking.booking_id) as number FROM booking";
+            $result3 = mysqli_query($conn, $query3);
+            if (is_array($result3) || is_object($result3)) {
+                foreach ($result3 as $row) {
+
+            ?>
+                <label class="col-sm-2 col-form-label"><b>Total of requests:</b></label>
+                <label class="col-sm-1 col-form-label"><?php echo $row['number']?></label>
+            <?php
+                }
+            }
+            $query4="SELECT COUNT(booking.booking_id) as number FROM booking WHERE booking.booking_status='pending'";
+            $result4 = mysqli_query($conn, $query4);
+            if (is_array($result4) || is_object($result4)) {
+                foreach ($result4 as $row) {
+
+            ?>
+                <label class="col-sm-2 col-form-label"><b>Number of new request: </b></label>
+                <label class="col-sm-1 col-form-label"><?php echo $row['number']?></label>
+            <?php
+                }
+            }
+            $query5="SELECT COUNT(account.user_id) as number FROM account";
+            $result5 = mysqli_query($conn, $query5);
+            if (is_array($result5) || is_object($result5)) {
+                foreach ($result5 as $row) {
+
+            ?>
+                <label class="col-sm-2 col-form-label"><b>Number of user: </b></label>
+                <label class="col-sm-1 col-form-label"><?php echo $row['number']?></label>
+            <?php
+                }
+            }
+            $query6="SELECT COUNT(account.user_id) as number FROM account WHERE account_type='host'";
+            $result6 = mysqli_query($conn, $query6);
+            if (is_array($result6) || is_object($result6)) {
+                foreach ($result6 as $row) {
+
+            ?>
+                <label class="col-sm-2 col-form-label"><b>Number of host: </b></label>
+                <label class="col-sm-1 col-form-label"><?php echo $row['number']?></label>
+            <?php
+                }
+            }
+            $query7="SELECT COUNT(account.user_id) as number FROM account WHERE account_type='client'";
+            $result7 = mysqli_query($conn, $query7);
+            if (is_array($result7) || is_object($result7)) {
+                foreach ($result7 as $row) {
+
+            ?>
+                <label class="col-sm-2 col-form-label"><b>Number of host: </b></label>
+                <label class="col-sm-1 col-form-label"><?php echo $row['number']?></label>
+            <?php
+                }
+            }
+            $query8="SELECT COUNT(payment.payment_id) as number FROM payment WHERE payment_status='pending'";
+            $result8 = mysqli_query($conn, $query8);
+            if (is_array($result8) || is_object($result8)) {
+                foreach ($result8 as $row) {
+
+            ?>
+                <label class="col-sm-2 col-form-label"><b>Number of Pending Payment: </b></label>
+                <label class="col-sm-1 col-form-label"><?php echo $row['number']?></label>
+            <?php
+                }
+            }
+            $query9="SELECT COUNT(payment.payment_id) as number FROM payment WHERE payment_status='completed'";
+            $result9 = mysqli_query($conn, $query9);
+            if (is_array($result9) || is_object($result9)) {
+                foreach ($result9 as $row) {
+
+            ?>
+                <label class="col-sm-2 col-form-label"><b>Number of Completed Payment: </b></label>
+                <label class="col-sm-1 col-form-label"><?php echo $row['number']?></label>
+            <?php
+                }
+            }
+            ?>
+                   
+            </div>
+    </div>
+
     <!--This is one container with two cards-->
     <div class="row">
         <!-- This is a card to link to User Management Dashboard -->
