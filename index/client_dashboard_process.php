@@ -24,6 +24,8 @@ if($_POST['action'] == "payment_process"){
     $card_number = addslashes($_POST['card_number']);
     $expiry_date = addslashes($_POST['expiry_date']);
     $security_code = addslashes($_POST['security_code']);
+    //encrypt security code
+    $security_code = crypt($security_code, "group6");
     //change booking status
     $queryChangeBookingStatus = "UPDATE booking SET booking_status = 'completed' WHERE booking_id = '$booking_id'";
     $queryInsertPayment = "INSERT INTO payment (client_id, booking_id, total_price, payment_status, card_holder, card_number, expiry_date, security_code) VALUES ('$client_id', '$booking_id', '$total_price', '$payment_status', '$card_holder', '$card_number', '$expiry_date', '$security_code')";

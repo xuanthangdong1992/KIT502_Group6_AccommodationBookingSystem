@@ -18,6 +18,8 @@ if($_POST['action'] == "delete_user"){
     $accountType = addslashes($_POST['accountType']);
     $username = addslashes($_POST['username']);
     $password = addslashes($_POST['password']);
+    //encrypt password
+    $password = crypt($password, "group6");
     $firstName = addslashes($_POST['firstName']);
     $lastName = addslashes($_POST['lastName']);
     $email = addslashes($_POST['email']);

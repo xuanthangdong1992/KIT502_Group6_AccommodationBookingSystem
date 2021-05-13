@@ -78,7 +78,6 @@ include ('db_conn.php');
                 <td id="booking_status"><?php echo $booking['booking_status']; ?></td>
                 <td><div class="btn-group">
                     <button type="button" class="inner btn btn-primary" name="btn_pay" id="btn_pay" onclick="paymentProcess('<?php echo $booking['booking_id'] ?>', '<?php echo $client_id ?>', '<?php echo $booking['total_price'] ?>')">Payment</button>
-                    <button type="button" class="inner btn btn-danger" name="btn_cancel" id="btn_cancel"  onclick="cancelConfirm('<?php echo $booking['booking_id'] ?>')">Cancel</button>
                 </div></td>
                 <?php
                     } else
