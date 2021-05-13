@@ -27,7 +27,7 @@
 
 								?>
 										<li class="nav-item">
-											<b><a class="nav-link disabled" href="" style="color: green;">Welcome <?php echo $_SESSION['loginUsername']; ?></a></b>
+											<b><a class="nav-link" href="manager_account_information.php">Welcome <?php echo $_SESSION['loginUsername']; ?></a></b>
 										</li>
 										<li class="nav-item">
 											<a class="nav-link" href="Manager_Dashboard_User.php">User management</a>
