@@ -279,11 +279,6 @@ include('session.php');
 										alert("The phone number is already in use by another account. Please enter another phone number or contact us for help.");
 
 									} else
-									// if respond from server is "duplicate_abn_number"
-									if (data == 'duplicate_abn_number') {
-										alert("The ABN number is already in use by another account. Please enter another ABN number or contact us for help.");
-
-									} else
 								if (data == 'fail') {
 									alert("Something wrong! Please register again.");
 								} else {

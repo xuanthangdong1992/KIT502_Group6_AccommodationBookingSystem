@@ -27,7 +27,7 @@
 
 								?>
 										<li class="nav-item">
-											<a class="nav-link disabled" href="">Welcome <?php echo $_SESSION['loginUsername']; ?></a>
+											<a class="nav-link" href="client_account_information.php">Welcome <?php echo $_SESSION['loginUsername']; ?></a>
 										</li>
 										<li class="nav-item">
 											<a class="nav-link" href="client_dashboard.php">Booking manager</a>
