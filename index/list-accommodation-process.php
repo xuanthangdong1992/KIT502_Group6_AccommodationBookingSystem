@@ -154,5 +154,8 @@ while ($row = mysqli_fetch_array($result)) {
   }
 }
 }
+if($output==""){
+  $output.='<div style="margin-top: 50px;"><h3>No accommodation matching with your need. </h3></div>';
+}
 echo $output;
 ?>

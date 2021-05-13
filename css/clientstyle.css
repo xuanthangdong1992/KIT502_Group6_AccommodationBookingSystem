@@ -33,6 +33,8 @@ body, html {
   background-size: 100%;
   color: white;
   background-repeat: repeat;
+  min-height: 100%; 
+
 }
 
 .form 
@@ -148,7 +150,9 @@ body, html {
 
 .index-banner
 {
-	padding-top: 20%
+	padding-top: 20%;
+	margin-left: 10%;
+	margin-right: 10%;
 }
 
 .index-banner-list-acc
