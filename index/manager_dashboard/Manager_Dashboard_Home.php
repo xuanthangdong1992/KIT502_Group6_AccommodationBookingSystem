@@ -78,7 +78,7 @@ include('../session.php');
             <?php
                 }
             }
-            $query5="SELECT COUNT(account.user_id) as number FROM account";
+            $query5="SELECT COUNT(account.user_id) as number FROM account WHERE account_status='active'";
             $result5 = mysqli_query($conn, $query5);
             if (is_array($result5) || is_object($result5)) {
                 foreach ($result5 as $row) {
@@ -89,7 +89,7 @@ include('../session.php');
             <?php
                 }
             }
-            $query6="SELECT COUNT(account.user_id) as number FROM account WHERE account_type='host'";
+            $query6="SELECT COUNT(account.user_id) as number FROM account WHERE account_type='host' AND account_status='active'";
             $result6 = mysqli_query($conn, $query6);
             if (is_array($result6) || is_object($result6)) {
                 foreach ($result6 as $row) {
@@ -100,13 +100,13 @@ include('../session.php');
             <?php
                 }
             }
-            $query7="SELECT COUNT(account.user_id) as number FROM account WHERE account_type='client'";
+            $query7="SELECT COUNT(account.user_id) as number FROM account WHERE account_type='client' AND account_status='active'";
             $result7 = mysqli_query($conn, $query7);
             if (is_array($result7) || is_object($result7)) {
                 foreach ($result7 as $row) {
 
             ?>
-                <label class="col-sm-2 col-form-label"><b>Number of host: </b></label>
+                <label class="col-sm-2 col-form-label"><b>Number of client: </b></label>
                 <label class="col-sm-1 col-form-label"><?php echo $row['number']?></label>
             <?php
                 }
