@@ -68,7 +68,7 @@ include('../session.php');
                         <td><?php echo $house['price']; ?></td>
                         <td><?php echo $house['city']; ?></td>
                         <td><?php echo $house['postal_code']; ?></td>
-                        <td><i class="bi bi-star-fill" style="color: red;"></i> <?php echo $house['accommodation_rate']; ?></td>
+                        <td><i class="bi bi-star-fill" style="color: red;"></i> <?php echo number_format($house['accommodation_rate'], 1); ?></td>
                         <td>
                             <button type="button" class="btn btn-info" name="btn_details" id="btn_details" onclick="detailsHouse('<?php echo $house['accommodation_id'] ?>')">Details</button>
                             <button type="button" class="btn btn-warning" name="btn_edit" id="btn_edit" onclick='editHouse(<?php echo $jsonhouse; ?>)'>Edit</button>

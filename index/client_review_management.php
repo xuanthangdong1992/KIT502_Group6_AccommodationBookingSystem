@@ -64,8 +64,8 @@ include ('db_conn.php');
                 <td><?php echo $review['comment']; ?></td>
                 <td>
                     <div class="btn-group">
-                        <button type="button" class="inner btn btn-warning" name="btn_edit" id="btn_edit" onclick="editReview('<?php echo $review['accommodation_review_id'] ?>', '<?php echo $review['rate'] ?>', '<?php echo $review['comment'] ?>')">Edit</button>
-                        <button type="button" class="inner btn btn-danger" name="btn_delete" id="btn_delete" onclick="deleteReview('<?php echo $review['accommodation_review_id'] ?>')">Delete</button>
+                        <button type="button" class="inner btn btn-warning" name="btn_edit" id="btn_edit" onclick="editReview('<?php echo $review['accommodation_review_id'] ?>', '<?php echo $review['rate'] ?>', '<?php echo $review['comment'] ?>',  '<?php echo $review['accommodation_id'] ?>')">Edit</button>
+                        <button type="button" class="inner btn btn-danger" name="btn_delete" id="btn_delete" onclick="deleteReview('<?php echo $review['accommodation_review_id'] ?>', '<?php echo $review['accommodation_id'] ?>')">Delete</button>
                     </div>
                 </td>
             </tr>
@@ -148,7 +148,7 @@ include ('db_conn.php');
 			});
 
         // delete review
-        function deleteReview(review_id){
+        function deleteReview(review_id, accommodation_id){
             // var table = $('#booking_table').DataTable();
             var r = confirm("Do you really want to delete this review?");
             if (r == true) {
@@ -157,10 +157,12 @@ include ('db_conn.php');
 						url: "client_dashboard_process.php",
 						method: "POST",
 						data: {
+                            accommodation_id: accommodation_id,
 							review_id: review_id,
                             action: "delete_review"
 						},
 						success: function(data) {
+                            alert(data);
                             if (data == "success"){
                                 location.reload();
                             }
@@ -172,7 +174,7 @@ include ('db_conn.php');
         }
 
         //edit review
-        function editReview(review_id, rate, comment){
+        function editReview(review_id, rate, comment, accommodation_id){
             $("#editReviewModal").modal();
             //set current value
             document.getElementById("rate").value = rate;
@@ -186,6 +188,7 @@ include ('db_conn.php');
                         url: "client_dashboard_process.php",
                         method: "POST",
                         data: {
+                            accommodation_id: accommodation_id,
                             rate: rate,
                             comment: comment,
                             review_id: review_id,

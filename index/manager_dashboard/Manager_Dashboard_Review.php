@@ -69,7 +69,7 @@ include('../session.php');
                 <td><i class="bi bi-star-fill" style="color: red;"></i> <?php echo $review['rate']; ?></td>
                 <td><?php echo $review['comment']; ?></td>
                 <td>
-                    <button type="button" class="btn btn-danger" name="btn_cancel" id="btn_cancel" onclick="deleteReview('<?php echo $review['accommodation_review_id'] ?>')"><i class="bi bi-trash-fill"></i>  Delete</button>
+                    <button type="button" class="btn btn-danger" name="btn_cancel" id="btn_cancel" onclick="deleteReview('<?php echo $review['accommodation_review_id'] ?>', '<?php echo $review['accommodation_id'] ?>')"><i class="bi bi-trash-fill"></i>  Delete</button>
                 </td>
                 
             </tr>
@@ -113,7 +113,7 @@ include('../session.php');
 			});
        
         //delete review
-        function deleteReview(review_id){
+        function deleteReview(review_id, accommodation_id){
             var r = confirm("Do you really want to delete this review? This action can not redo.");
                 if (r == true) {
                     $.ajax({
@@ -121,6 +121,7 @@ include('../session.php');
                             method: "POST",
                             data: {
                                 review_id: review_id,
+                                accommodation_id: accommodation_id,
                                 action: "delete_review"
                             },
                             success: function(data) {

@@ -90,7 +90,7 @@ include ('../db_conn.php');
           $countReviews = mysqli_num_rows($resultAccommdationReview);
 
         ?>
-        <p><b>Accommodation rate:</b> <i class="bi bi-star-fill" style="color: red;"></i> <?php echo $row["accommodation_rate"];?> (<?php echo $countReviews; ?> reviews)</p>
+        <p><b>Accommodation rate:</b> <i class="bi bi-star-fill" style="color: red;"></i> <?php echo number_format($row["accommodation_rate"], 1);?> (<?php echo $countReviews; ?> reviews)</p>
         <!-- Review list   -->
     
         <?php

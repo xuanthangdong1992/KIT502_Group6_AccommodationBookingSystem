@@ -9,9 +9,10 @@ if($_POST['action'] == "booking_process"){
     $start_date = $_POST['start_date'];
     $end_date = $_POST['end_date'];
     $number_of_guests = $_POST['number_of_guests'];
+    $total_price = $_POST['total_price'];
     $booking_status = $_POST['booking_status'];
     // query for insert booking record to database.
-    $query = "INSERT INTO booking(client_id, accommodation_id, start_date, end_date, number_of_guests, booking_status) VALUES ('$client_id', '$accommodation_id', '$start_date', '$end_date', '$number_of_guests', '$booking_status')";
+    $query = "INSERT INTO booking(client_id, accommodation_id, start_date, end_date, number_of_guests, booking_status, total_price) VALUES ('$client_id', '$accommodation_id', '$start_date', '$end_date', '$number_of_guests', '$booking_status', '$total_price')";
     // append start date and end date to accommodation table -> in order to make search function when client search accommodation to booking.
     $booking_date = $start_date .'~'. $end_date .';';
     $query_booking_date = "UPDATE accommodation SET booking_date=CONCAT(ifnull(booking_date,''),'$booking_date') WHERE accommodation_id='$accommodation_id'";

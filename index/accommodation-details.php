@@ -92,7 +92,7 @@ include ('db_conn.php');
           $countReviews = mysqli_num_rows($resultAccommdationReview);
 
         ?>
-        <p><b>Accommodation rate:</b> <i class="bi bi-star-fill" style="color: red;"></i> <?php echo $row["accommodation_rate"];?> (<?php echo $countReviews; ?> reviews)</p>
+        <p><b>Accommodation rate:</b> <i class="bi bi-star-fill" style="color: red;"></i> <?php echo number_format($row["accommodation_rate"], 1);?> (<?php echo $countReviews; ?> reviews)</p>
         <!-- Review list   -->
         <!-- end Accommodation details -->
         <button class="btn btn-primary" type="button" id="btn_leave_review" name="btn_leave_review" onclick="checkLoginLeaveReview()">Leave a review!</button><br><br>
@@ -373,6 +373,7 @@ function bookingProcess(){
                     var end_date = urlPar.get('endDate');
                     var accommodation_id = urlPar.get('id');
                     var client_id = '<?php echo $username; ?>';
+                    var total_price = '<?php echo $total_price; ?>';
                     $("#btn_send_booking").click(function() {
                     var values = {
                       'client_id': client_id,
@@ -380,6 +381,7 @@ function bookingProcess(){
                       'start_date': start_date,
                       'end_date': end_date,
                       'number_of_guests': number_of_guests,
+                      'total_price': total_price,
                       'booking_status': "pending",
                       'action': 'booking_process'
                     };
@@ -437,7 +439,6 @@ function leave_review(accommodation_id, client_id){
       comment: comment
     },
     success: function(data) {
-
                     if (data == "success"){
                         alert("Review success!");
                         location.reload();

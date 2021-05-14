@@ -41,6 +41,7 @@ include ('db_conn.php');
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Max Guests</th>
+                <th>Total Price</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>
@@ -61,10 +62,11 @@ include ('db_conn.php');
 			?>
             <tr>
                 <td><?php echo $booking['booking_id']; ?></td>
-                <td><?php echo $booking['accommodation_id']; ?></td>
+                <td><a href="accommodation-details.php?id=<?php echo $booking['accommodation_id']; ?>"><?php echo $booking['accommodation_id']; ?> - More details</a></td>
                 <td><?php echo date_format(date_create($booking['start_date']), "d/m/Y"); ?></td>
                 <td><?php echo date_format(date_create($booking['end_date']), "d/m/Y"); ?></td>
                 <td><?php echo $booking['number_of_guests']; ?></td>
+                <td><?php echo $booking['total_price']; ?></td>
                 <?php
                     if($booking['booking_status'] == "pending"){
                 ?>
@@ -257,7 +259,7 @@ include ('db_conn.php');
                             action: "payment_process"
 						},
 						success: function(data) {
-                            // alert(data);
+                            alert(data);
                             if (data == "success"){
                                 alert("Payment success!");
                                 location.reload();

@@ -51,6 +51,7 @@ include('../session.php');
                         <th>Start Date</th>
                         <th>End Date</th>
                         <th>Guests</th>
+                        <th>Total Price</th>
                         <th>Payment Status</th>
                         <th>Booking Status</th>
                         <th>Action</th>
@@ -60,7 +61,7 @@ include('../session.php');
                     <?php
                     //Get booking data from database
                     $admin_id = $_SESSION["loginUsername"];
-                    $booking_query = "SELECT booking.booking_id, booking.accommodation_id, booking.client_id, accommodation.host_id, accommodation.house_name, booking.start_date, booking.end_date, booking.number_of_guests, booking.booking_status, booking.rejected_reason, payment.payment_status FROM booking LEFT JOIN accommodation ON booking.accommodation_id=accommodation.accommodation_id LEFT JOIN payment ON booking.booking_id=payment.booking_id";
+                    $booking_query = "SELECT booking.booking_id, booking.total_price, booking.accommodation_id, booking.client_id, accommodation.host_id, accommodation.house_name, booking.start_date, booking.end_date, booking.number_of_guests, booking.booking_status, booking.rejected_reason, payment.payment_status FROM booking LEFT JOIN accommodation ON booking.accommodation_id=accommodation.accommodation_id LEFT JOIN payment ON booking.booking_id=payment.booking_id";
                     $booking_list_result = mysqli_query($conn, $booking_query);
                     if (is_array($booking_list_result) || is_object($booking_list_result)) {
                         foreach ($booking_list_result as $booking) {
@@ -80,7 +81,8 @@ include('../session.php');
                                 <td><?php echo date_format(date_create($booking['start_date']), "d/m/Y"); ?></td>
                                 <td><?php echo date_format(date_create($booking['end_date']), "d/m/Y"); ?></td>
                                 <td><?php echo $booking['number_of_guests']; ?></td>
-                                <td><?php echo $booking['payment_status']; ?></td>
+                                <td><?php echo $booking['total_price']; ?></td>
+                                <td><?php echo $booking['payment_status']==NULL?'waiting':$booking['payment_status']; ?></td>
                                 <td><?php echo $booking['booking_status']; ?></td>
                                 <?php
                                 if ($booking['booking_status'] == "pending" || $booking['booking_status'] == "confirmed") {

@@ -14,6 +14,7 @@ if($_POST['action'] == "cancel_confirm"){
           }
     }
 } else
+
 if($_POST['action'] == "payment_process"){
 
     $client_id = addslashes($_POST['client_id']);
@@ -37,27 +38,68 @@ if($_POST['action'] == "payment_process"){
           }
         // echo $queryInsertPayment;
 } else
+
 //Delete review
 if($_POST['action'] == "delete_review"){
   $review_id = addslashes($_POST['review_id']);
+  $accommodation_id = addslashes($_POST['accommodation_id']);
   $queryReview = "DELETE FROM accommodation_review WHERE accommodation_review_id='$review_id'";
   if ($conn->query($queryReview) === TRUE){
+    //update average review of accommodation
+    $quey_update_avg_review="";
+    $query_avg="SELECT AVG(rate) as avg_rate FROM accommodation_review WHERE accommodation_review.accommodation_id = '$accommodation_id'";
+    $result_avg = mysqli_query($conn, $query_avg);
+      if (is_array($result_avg) || is_object($result_avg)){
+              foreach($result_avg as $row){
+                $avg_rate = $row['avg_rate'];
+                if($avg_rate==NULL){
+                  $quey_update_avg_review = "UPDATE `accommodation` SET `accommodation_rate`='5' WHERE `accommodation_id`='$accommodation_id'";
+                }else{
+                $quey_update_avg_review = "UPDATE `accommodation` SET `accommodation_rate`='$avg_rate' WHERE `accommodation_id`='$accommodation_id'";
+                }
+              }
+            }
+
+  if($conn->query($quey_update_avg_review) === TRUE){
     echo "success";
-  }else{
+  } else {
+    echo "fail";
+    echo "Error: " . $sql . "<br>" . $conn->error;
+  }
+  } else {
     echo "fail";
     echo "Error: " . $sql . "<br>" . $conn->error;
   }
 } else
 
+
 //edit review
 if($_POST['action'] == "edit_review"){
   $review_id = addslashes($_POST['review_id']);
+  $accommodation_id = addslashes($_POST['accommodation_id']);
   $rate = addslashes($_POST['rate']);
   $comment = addslashes($_POST['comment']);
   $queryEditReview = "UPDATE accommodation_review SET rate = '$rate', comment = '$comment' WHERE accommodation_review_id ='$review_id'";
   // echo $queryEditReview;
   if ($conn->query($queryEditReview) === TRUE){
-    echo "success";
+    //update average review of accommodation
+    $quey_update_avg_review="";
+    $query_avg="SELECT AVG(rate) as avg_rate FROM accommodation_review WHERE accommodation_review.accommodation_id = '$accommodation_id'";
+    $result_avg = mysqli_query($conn, $query_avg);
+      if (is_array($result_avg) || is_object($result_avg)){
+              foreach($result_avg as $row){
+                $avg_rate = $row['avg_rate'];
+                $quey_update_avg_review = "UPDATE `accommodation` SET `accommodation_rate`='$avg_rate' WHERE `accommodation_id`='$accommodation_id'";
+              }
+            }
+
+      if($conn->query($quey_update_avg_review) === TRUE){
+        echo "success";
+      } else {
+        echo "fail";
+        echo "Error: " . $sql . "<br>" . $conn->error;
+      }
+  
   }else{
     echo "fail";
     echo "Error: " . $sql . "<br>" . $conn->error;
