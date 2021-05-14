@@ -32,7 +32,7 @@ include ('db_conn.php');
             ?>
     <!-- Data table paging -->
     <!-- <div class="table-responsive"> -->
-    <div class="container">
+    <!-- <div class="container"> -->
     <table id="reviews_table" class="table table-dark table-bordered nowrap dt-responsive v-middle" width="100%">
         <thead class="thead-dark">
             <tr>
@@ -64,7 +64,7 @@ include ('db_conn.php');
                 <td><?php echo $review['comment']; ?></td>
                 <td>
                     <div class="btn-group">
-                        <button type="button" class="inner btn btn-warning" name="btn_edit" id="btn_edit" onclick="editReview('<?php echo $review['accommodation_review_id'] ?>')">Edit</button>
+                        <button type="button" class="inner btn btn-warning" name="btn_edit" id="btn_edit" onclick="editReview('<?php echo $review['accommodation_review_id'] ?>', '<?php echo $review['rate'] ?>', '<?php echo $review['comment'] ?>')">Edit</button>
                         <button type="button" class="inner btn btn-danger" name="btn_delete" id="btn_delete" onclick="deleteReview('<?php echo $review['accommodation_review_id'] ?>')">Delete</button>
                     </div>
                 </td>
@@ -76,7 +76,7 @@ include ('db_conn.php');
         </tbody>
     </table>
 
-</div>
+<!-- </div> -->
 
         </div>
     </div>
@@ -172,8 +172,11 @@ include ('db_conn.php');
         }
 
         //edit review
-        function editReview(review_id){
+        function editReview(review_id, rate, comment){
             $("#editReviewModal").modal();
+            //set current value
+            document.getElementById("rate").value = rate;
+            document.getElementById("comment").value = comment;
             $("#edit_review_button").click(function() {
                 var rate = $('#rate').val();
                 var comment = $('#comment').val(); 
