@@ -76,7 +76,7 @@ include('../session.php');
 								<td><?php echo $account['abn_number']; ?></td>
 								<td><?php echo $account['postal_address']; ?></td>
 								<td>
-									<button type="button" class="btn btn-primary" name="btn_edit_user" id="btn_edit_user" onclick="changeAccessLevel('<?php echo $account['user_id'] ?>')"><i class="bi bi-pencil-fill"></i> Change User Type</button>
+									<button type="button" class="btn btn-primary" name="btn_edit_user" id="btn_edit_user" onclick="changeAccessLevel('<?php echo $account['user_id'] ?>', '<?php echo $account['account_type'] ?>')"><i class="bi bi-pencil-fill"></i> Change User Type</button>
 									<button type="button" class="btn btn-danger" name="btn_delete_user" id="btn_delete_user" onclick="deleteUser('<?php echo $account['user_id'] ?>')"><i class="bi bi-person-x-fill"></i> Delete</button>
 								</td>
 
@@ -172,7 +172,7 @@ include('../session.php');
 					<form action="change_access.php" method="post">
 						<div class="form-group">
 							<label for="rate">Rate:</label>
-							<select class="form-control" id="account_type" name="account_type">
+							<select class="form-control" id="edit_account_type" name="edit_account_type">
 								<option value="client">Client</option>
 								<option value="host">Host</option>
 								<option value="system manager">System Manager</option>
@@ -258,9 +258,10 @@ include('../session.php');
 			}
 		}
 
-		function changeAccessLevel(user_id) {
-			$("#user_id").val(user_id);
+		function changeAccessLevel(user_id, account_type) {
 			$("#changeAccessLevelModal").modal();
+			$("#user_id").val(user_id);
+			document.getElementById("edit_account_type").value = account_type;
 		}
 
 		// add new user
