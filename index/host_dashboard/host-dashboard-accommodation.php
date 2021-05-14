@@ -60,6 +60,7 @@ include('../session.php');
                         $result = mysqli_query($conn, $query);
                         if (is_array($result) || is_object($result)){
                         foreach($result as $house){
+                            $jsonhouse = json_encode($house);
                     ?>
                     <tr>
                         <td><?php echo $house['accommodation_id']; ?></td>
@@ -70,7 +71,7 @@ include('../session.php');
                         <td><i class="bi bi-star-fill" style="color: red;"></i> <?php echo $house['accommodation_rate']; ?></td>
                         <td>
                             <button type="button" class="btn btn-info" name="btn_details" id="btn_details" onclick="detailsHouse('<?php echo $house['accommodation_id'] ?>')">Details</button>
-                            <button type="button" class="btn btn-warning" name="btn_edit" id="btn_edit" onclick="editHouse('<?php echo $house['accommodation_id'] ?>')">Edit</button>
+                            <button type="button" class="btn btn-warning" name="btn_edit" id="btn_edit" onclick='editHouse(<?php echo $jsonhouse; ?>)'>Edit</button>
                             <button type="button" class="btn btn-danger" name="btn_delete" id="btn_delete" onclick="deleteHouse('<?php echo $house['accommodation_id'] ?>')">Delete</button>
                         </td>       
                     </tr>
@@ -407,8 +408,48 @@ include('../session.php');
             }
 
             // edit house  
-            function editHouse(house_id){
+            function editHouse(house){
+            var house_id = house.accommodation_id;
+            //pass current value to form.
             $("#editAccModal").modal();
+            document.getElementById("edit_house_name").value = house.house_name;
+            document.getElementById("edit_description").value = house.description;
+            document.getElementById("edit_price").value = house.price;
+            document.getElementById("edit_number_of_room").value = house.number_of_room;
+            document.getElementById("edit_number_of_bathroom").value = house.number_of_bathroom;
+            //smoke allowed
+            if(house.smoke_allowed == 1){
+                document.getElementById("edit_smoke_allowed").checked = true;
+            }else{
+                document.getElementById("edit_smoke_allowed").checked = false;
+            }
+            //garage
+            if(house.garage == 1){
+                document.getElementById("edit_garage").checked = true;
+            }else{
+                document.getElementById("edit_garage").checked = false;
+            }
+            //pet friendly
+            if(house.pet_friendly == 1){
+                document.getElementById("edit_pet_friendly").checked = true;
+            }else{
+                document.getElementById("edit_pet_friendly").checked = false;
+            }
+            //internet provided
+            if(house.internet_provided == 1){
+                document.getElementById("edit_internet_provided").checked = true;
+            }else{
+                document.getElementById("edit_internet_provided").checked = false;
+            }
+            //time
+            document.getElementById("edit_check_in_time").value = house.check_in_time;
+            document.getElementById("edit_check_out_time").value = house.check_out_time;
+            document.getElementById("edit_address").value = house.address;
+            document.getElementById("edit_city").value = house.city;
+            document.getElementById("edit_state").value = house.state;
+            document.getElementById("edit_postal_code").value = house.postal_code;
+            document.getElementById("edit_max_guests_allowed").value = house.max_guests_allowed;
+
             $("#btn_edit_acc").click(function() {
                  //get information from form.
             var house_name = $('#edit_house_name').val();

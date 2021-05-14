@@ -31,8 +31,10 @@ if($_POST['action'] == "delete_house"){
       $state = addslashes($_POST['state']);
       $max_guests_allowed = addslashes($_POST['max_guests_allowed']);
       $host_id = addslashes($_POST['host_id']);
-      $query = "INSERT INTO `accommodation`(`house_name`, `description`, `price`, `number_of_room`, `number_of_bathroom`, `smoke_allowed`, `garage`, `pet_friendly`, `internet_provided`, `check_in_time`, `check_out_time`, `address`, `city`, `postal_code`, `state`, `max_guests_allowed`, `host_id`) 
-      VALUES ('$house_name','$description','$price','$number_of_room','$number_of_bathroom','$smoke_allowed','$garage','$pet_friendly','$internet_provided','$check_in_time','$check_out_time','$address','$city','$postal_code','$state','$max_guests_allowed','$host_id')";
+      // fix image when insert accommodation - because this function is not required.
+      $image = "../img/img-slide1.jpg; ../img/img-slide2.jpg; ../img/img-slide3.jpg; ../img/img-slide4.jpg; ../img/img-slide5.jpg; ../img/img-slide6.jpg";
+      $query = "INSERT INTO `accommodation`(`house_name`, `description`, `price`, `number_of_room`, `number_of_bathroom`, `smoke_allowed`, `garage`, `pet_friendly`, `internet_provided`, `check_in_time`, `check_out_time`, `address`, `city`, `postal_code`, `state`, `max_guests_allowed`, `host_id`, `accommodation_rate`, `image`) 
+      VALUES ('$house_name','$description','$price','$number_of_room','$number_of_bathroom','$smoke_allowed','$garage','$pet_friendly','$internet_provided','$check_in_time','$check_out_time','$address','$city','$postal_code','$state','$max_guests_allowed','$host_id', '5', '$image')";
       if ($conn->query($query)) {          
           echo 'success';
       } else {
